@@ -23,6 +23,7 @@ RUN apt-get update && \
         jq \
         neovim \
         sudo \
+        ssh-client \
         gnupg-agent
 
 # update / install sources

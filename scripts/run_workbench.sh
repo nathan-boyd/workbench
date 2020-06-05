@@ -31,6 +31,8 @@ docker run \
     -v ${TMUX_RESURRECT}:$CONTAINER_HOME/.tmux/resurrect \
     -v ${ZSH_HISTORY}:$CONTAINER_HOME/.zsh_history \
     -v $HOME/.kube:$CONTAINER_HOME/.kube \
+    -v $(dirname $SSH_AUTH_SOCK):$(dirname $SSH_AUTH_SOCK) \
+    -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK \
     -e HOST_PATH=$PWD \
     -e HOST_USER_ID=$(id -u $USER) \
     -e HOST_GROUP_ID=$(id -g $USER) \
