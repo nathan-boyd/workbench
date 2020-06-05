@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "coc-dictionary": ">=1.2.2",
+    "coc-json": ">=1.2.6",
+    "coc-lists": ">=1.3.8",
+    "coc-snippets": ">=2.1.26",
+    "coc-spell-checker": ">=1.2.0",
+    "coc-tag": ">=1.2.4",
+    "coc-word": ">=1.2.2",
+    "coc-yaml": ">=1.0.4"
+  }
+}
