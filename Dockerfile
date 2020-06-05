@@ -72,10 +72,9 @@ COPY config/tmux/.tmux.conf ${HOME}/.tmux.conf
 RUN git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm && \
     ${HOME}/.tmux/plugins/tpm/bin/install_plugins
 
-RUN useradd ${USER_NAME} --shell /bin/zsh && \
+RUN groupadd workbench && \
+    useradd ${USER_NAME} --shell /bin/zsh -g workbench && \
         chown -R ${USER_NAME}: ${HOME} && \
-        groupadd workbench && \
-        usermod -aG workbench ${USER_NAME} && \
         echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" | tee /etc/sudoers.d/${USER_NAME}
 
 COPY scripts/entrypoint.sh /bin/entrypoint.sh
