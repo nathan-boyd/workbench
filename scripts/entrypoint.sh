@@ -12,15 +12,10 @@ if [ ! -z "$GIT_USER_NAME" ] && [ ! -z "$GIT_USER_EMAIL" ]; then
     git config --global user.email "$GIT_USER_EMAIL"
 fi
 
-export HOST_USER_ID=${HOST_USER_ID:-`stat -c %u /workspace`}
-export HOST_GROUP_ID=${HOST_GROUP_ID:-`stat -c %g /workspace`}
-
-useradd --shell /bin/zsh -u $HOST_USER_ID -g $HOST_GROUP_ID $USER_NAME
-echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" | sudo tee /etc/sudoers.d/$USER_NAME
-
-chown -R me: /home/$USER_NAME
+#echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" | tee /etc/sudoers.d/$USER_NAME > /dev/null
 
 if [ -S "/var/run/docker.sock" ]; then
+    USER_GROUP=docker
     HOST_DOCKER_SOCKET_GROUP_ID=`stat -c %g /var/run/docker.sock`
     groupadd --non-unique -g $HOST_DOCKER_SOCKET_GROUP_ID $USER_GROUP
     usermod -aG $USER_GROUP $USER_NAME

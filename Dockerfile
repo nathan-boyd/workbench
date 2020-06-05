@@ -1,6 +1,8 @@
 FROM ubuntu:20.04
 
-ENV HOME /home/me
+ENV USER_NAME me
+ENV HOME /home/${USER_NAME}
+
 WORKDIR ${HOME}
 
 ENV DEBIAN_FRONTEND noninteractive
@@ -20,8 +22,6 @@ RUN apt-get update && \
         sudo \
         gnupg-agent \
         software-properties-common
-
-ENV SHELL /bin/zsh
 
 # add docker cli
 ENV DOCKERVERSION=18.03.1-ce
@@ -50,8 +50,7 @@ RUN ${HOME}/.yarn/bin/yarn --ignore-scripts --no-lockfile
 WORKDIR ${HOME}
 
 # install vim-plug
-RUN curl -fLo ${HOME}/.config/nvim/autoload/plug.vim \
-    --create-dirs \
+RUN curl -fLo ${HOME}/.config/nvim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 COPY config/nvim/init.vim ${HOME}/.config/nvim/init.vim
@@ -60,7 +59,6 @@ RUN nvim --headless +PlugInstall +qall
 # install and configure oh-my-zsh
 RUN curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | zsh || true
 RUN git clone https://github.com/zsh-users/zsh-autosuggestions ${HOME}/.oh-my-zsh/plugins/zsh-autosuggestions
-RUN rm $HOME/.zshrc.pre-oh-my-zsh
 COPY config/zsh/.zshrc ${HOME}/.zshrc
 
 # install and configure powerlevel10k
@@ -74,7 +72,12 @@ COPY config/tmux/.tmux.conf ${HOME}/.tmux.conf
 RUN git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm && \
     ${HOME}/.tmux/plugins/tpm/bin/install_plugins
 
-# entrypoint script creates a user called `me` and `chown`s everything
+RUN useradd ${USER_NAME} --shell /bin/zsh && \
+        chown -R ${USER_NAME}: ${HOME} && \
+        groupadd workbench && \
+        usermod -aG workbench ${USER_NAME} && \
+        echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" | tee /etc/sudoers.d/${USER_NAME}
+
 COPY scripts/entrypoint.sh /bin/entrypoint.sh
 
 CMD ["/bin/entrypoint.sh"]
