@@ -7,10 +7,13 @@ PROJECT_DIR=${PWD##*/}
 PROJECT_NAME=${PWD#"${PWD%/*/*}/"}
 CONTAINER_NAME=${PROJECT_NAME//\//_}
 
-PROJECT_ZSH=${HOME}/.workbench/${PROJECT_NAME}/zsh/
-ZSH_HISTORY=${ZSH}/.zsh_history
-if [[ ! -e $ZSH_HISTORY ]]; then
+PROJECT_ZSH=${HOME}/.workbench/${PROJECT_NAME}/zsh
+if [[ ! -d $PROJECT_ZSH ]]; then
     mkdir -p ${PROJECT_ZSH}
+fi
+
+ZSH_HISTORY=${PROJECT_ZSH}/.zsh_history
+if [[ ! -e $ZSH_HISTORY ]]; then
     touch $ZSH_HISTORY
 fi
 
