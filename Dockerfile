@@ -20,7 +20,6 @@ RUN apt-get update && \
 ENV SHELL /bin/zsh
 
 WORKDIR ${HOME}
-COPY config config
 
 # add docker cli
 ENV DOCKERVERSION=18.03.1-ce
@@ -32,7 +31,7 @@ RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add 
     touch /etc/apt/sources.list.d/kubernetes.list && \
     echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list && \
     apt-get update && \
-    apt-get install -y kubectl 
+    apt-get install -y kubectl
 
 # install nodejs and yarn
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash && \
