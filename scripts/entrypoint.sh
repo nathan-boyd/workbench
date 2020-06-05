@@ -1,11 +1,9 @@
 #!/usr/bin/env bash
 
+export TERM=xterm-256color
+
 USER_NAME=me
 USER_GROUP=workbench
-
-export TERM=xterm-256color
-export LANGUAGE=en_US.UTF-8
-export LANG=en_US.UTF-8
 
 if [ ! -z "$GIT_USER_NAME" ] && [ ! -z "$GIT_USER_EMAIL" ]; then
     git config --global user.name "$GIT_USER_NAME"
@@ -22,4 +20,7 @@ if [ -S "/var/run/docker.sock" ]; then
 fi
 
 export PROJECT_NAME=${PROJECT_NAME:-"scratch"}
+
+# su -s /bin/zsh -g $USER_GROUP $USER_NAME
+
 su -s /bin/tmux -g $USER_GROUP $USER_NAME -- -u -2 new -s ${PROJECT_NAME}

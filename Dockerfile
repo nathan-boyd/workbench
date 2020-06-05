@@ -5,15 +5,15 @@ ENV HOME /home/${USER_NAME}
 
 WORKDIR ${HOME}
 
-ENV DEBIAN_FRONTEND noninteractive
 
 RUN echo "Set disable_coredump false" >> /etc/sudo.conf
 
 RUN apt-get update && \
-    apt-get install -y \
-    --no-install-recommends \
+    DEBIAN_FRONTEND=noninteractive \
+    apt-get install -y --no-install-recommends \
         software-properties-common \
         apt-transport-https \
+        locales \
         ca-certificates \
         git \
         curl \
@@ -26,6 +26,11 @@ RUN apt-get update && \
         ssh-client \
         gnupg-agent
 
+# set locale
+RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
+    dpkg-reconfigure --frontend=noninteractive locales && \
+    update-locale LANG=en_US.UTF-8
+
 # update / install sources
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
     touch /etc/apt/sources.list.d/kubernetes.list && \
@@ -37,6 +42,8 @@ RUN apt-get update && \
     --no-install-recommends \
         kubectl \
         nodejs
+
+ENV PATH="$PATH:$(which node)"
 
 # add binaries for docker cli and yarn
 ENV DOCKERVERSION=18.03.1-ce
@@ -72,9 +79,10 @@ COPY config/powerlevel10k/.p10k.zsh ${HOME}/.p10k.zsh
 
 # install and configure tmux
 ENV TMUX_PLUGIN_MANAGER_PATH="${HOME}/.tmux/plugins/tpm"
-COPY config/tmux/.tmux.conf ${HOME}/.tmux.conf
 RUN git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm && \
     ${HOME}/.tmux/plugins/tpm/bin/install_plugins
+COPY config/tmux/.tmux/.tmux.conf $HOME
+#COPY config/tmux/.tmux/.tmux.conf.local $HOME
 
 RUN groupadd workbench && \
     useradd ${USER_NAME} --shell /bin/zsh -g workbench && \

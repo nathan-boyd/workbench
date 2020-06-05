@@ -1,6 +1,6 @@
 #source ~/.auth.sh
 
-export TERM="screen-256color"
+export TERM="xterm-256color"
 
 export ZSH="${HOME}/.oh-my-zsh"
 

@@ -1,5 +1,6 @@
-let g:python_host_prog="/usr/bin/python2"
-let g:python3_host_prog="/usr/bin/python3"
+let g:python_host_prog = '/usr/bin/python2'
+let g:python3_host_prog = '/usr/bin/python3'
+let g:coc_node_path = '/usr/bin/node'
 
 set shortmess+=c                                             " don't give |ins-completion-menu| messages.
 set signcolumn=yes                                           " always show signcolumns
