@@ -10,26 +10,22 @@ ENV DEBIAN_FRONTEND noninteractive
 RUN echo "Set disable_coredump false" >> /etc/sudo.conf
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
-    apt-transport-https \
+    apt-get install -y \
+    --no-install-recommends \
+        software-properties-common \
+        apt-transport-https \
         ca-certificates \
         git \
         curl \
         tmux \
         zsh \
         fzf \
+        jq \
         neovim \
         sudo \
-        gnupg-agent \
-        software-properties-common
+        gnupg-agent
 
-# add docker cli
-ENV DOCKERVERSION=18.03.1-ce
-RUN curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKERVERSION}.tgz \
-  && tar xzvf docker-${DOCKERVERSION}.tgz --strip 1 -C /usr/local/bin docker/docker \
-  && rm docker-${DOCKERVERSION}.tgz
-
-# update / install kubectl and node sources
+# update / install sources
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
     touch /etc/apt/sources.list.d/kubernetes.list && \
     echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list && \
@@ -37,11 +33,16 @@ RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add 
 
 RUN apt-get update && \
     apt-get install -y \
-        --no-install-recommends \
+    --no-install-recommends \
         kubectl \
         nodejs
 
-RUN curl -o- -L https://yarnpkg.com/install.sh | bash
+# add binaries for docker cli and yarn
+ENV DOCKERVERSION=18.03.1-ce
+RUN curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKERVERSION}.tgz \
+  && tar xzvf docker-${DOCKERVERSION}.tgz --strip 1 -C /usr/local/bin docker/docker \
+  && rm docker-${DOCKERVERSION}.tgz \
+  && curl -o- -L https://yarnpkg.com/install.sh | bash
 
 # install coc extensions
 WORKDIR ${HOME}/.config/coc/extensions
