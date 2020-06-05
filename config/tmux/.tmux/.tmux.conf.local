@@ -308,6 +308,8 @@ tmux_conf_copy_to_os_clipboard=true
 # -- user customizations -------------------------------------------------------
 # this is the place to override or undo settings
 
+set -g default-terminal "xterm-256color"
+set-option -ga terminal-overrides ",xterm-256color:Tc"
 
 bind-key r source-file ~/.tmux.conf ~/.tmux.conf.local \; display-message "~/.tmux.conf.local reloaded"
 
