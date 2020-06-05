@@ -74,8 +74,8 @@ RUN git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm && \
 
 RUN groupadd workbench && \
     useradd ${USER_NAME} --shell /bin/zsh -g workbench && \
-        chown -R ${USER_NAME}: ${HOME} && \
-        echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" | tee /etc/sudoers.d/${USER_NAME}
+    chown -R ${USER_NAME}: ${HOME} && \
+    echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" | tee /etc/sudoers.d/${USER_NAME}
 
 COPY scripts/entrypoint.sh /bin/entrypoint.sh
 
