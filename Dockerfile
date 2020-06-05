@@ -29,17 +29,19 @@ RUN curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-${
   && tar xzvf docker-${DOCKERVERSION}.tgz --strip 1 -C /usr/local/bin docker/docker \
   && rm docker-${DOCKERVERSION}.tgz
 
-# install kubectl
+# update / install kubectl and node sources
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
     touch /etc/apt/sources.list.d/kubernetes.list && \
     echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list && \
-    apt-get update && \
-    apt-get install -y --no-install-recommends kubectl
+    curl -sL https://deb.nodesource.com/setup_14.x | bash
 
-# install nodejs and yarn
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash && \
-    apt-get install -y --no-install-recommends nodejs && \
-    curl -o- -L https://yarnpkg.com/install.sh | bash
+RUN apt-get update && \
+    apt-get install -y \
+        --no-install-recommends \
+        kubectl \
+        nodejs
+
+RUN curl -o- -L https://yarnpkg.com/install.sh | bash
 
 # install coc extensions
 WORKDIR ${HOME}/.config/coc/extensions
