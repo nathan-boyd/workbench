@@ -1,10 +1,14 @@
 FROM ubuntu:20.04
 
 ENV HOME /home/me
+WORKDIR ${HOME}
+
 ENV DEBIAN_FRONTEND noninteractive
 
+RUN echo "Set disable_coredump false" >> /etc/sudo.conf
+
 RUN apt-get update && \
-    apt-get install -y \
+    apt-get install -y --no-install-recommends \
     apt-transport-https \
         ca-certificates \
         git \
@@ -19,23 +23,22 @@ RUN apt-get update && \
 
 ENV SHELL /bin/zsh
 
-WORKDIR ${HOME}
-
 # add docker cli
 ENV DOCKERVERSION=18.03.1-ce
 RUN curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKERVERSION}.tgz \
   && tar xzvf docker-${DOCKERVERSION}.tgz --strip 1 -C /usr/local/bin docker/docker \
   && rm docker-${DOCKERVERSION}.tgz
 
+# install kubectl
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
     touch /etc/apt/sources.list.d/kubernetes.list && \
     echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list && \
     apt-get update && \
-    apt-get install -y kubectl
+    apt-get install -y --no-install-recommends kubectl
 
 # install nodejs and yarn
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash && \
-    apt-get install -y nodejs && \
+    apt-get install -y --no-install-recommends nodejs && \
     curl -o- -L https://yarnpkg.com/install.sh | bash
 
 # install coc extensions
@@ -57,6 +60,7 @@ RUN nvim --headless +PlugInstall +qall
 # install and configure oh-my-zsh
 RUN curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | zsh || true
 RUN git clone https://github.com/zsh-users/zsh-autosuggestions ${HOME}/.oh-my-zsh/plugins/zsh-autosuggestions
+RUN rm $HOME/.zshrc.pre-oh-my-zsh
 COPY config/zsh/.zshrc ${HOME}/.zshrc
 
 # install and configure powerlevel10k
