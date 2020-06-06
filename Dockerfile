@@ -88,8 +88,7 @@ COPY config/powerlevel10k/.p10k.zsh ${HOME}/.p10k.zsh
 ENV TMUX_PLUGIN_MANAGER_PATH="${HOME}/.tmux/plugins/tpm"
 RUN git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm && \
     ${HOME}/.tmux/plugins/tpm/bin/install_plugins
-COPY config/tmux/.tmux/.tmux.conf $HOME
-COPY config/tmux/.tmux/.tmux.conf.local $HOME
+COPY config/tmux/.tmux.conf $HOME
 
 RUN groupadd workbench && \
     useradd ${USER_NAME} --shell /bin/zsh -g workbench && \
