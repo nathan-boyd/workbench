@@ -29,13 +29,14 @@ RUN apt-get update && \
         screenfetch \
         sudo \
         ssh-client \
-        gnupg-agent
+        gnupg-agent \
+        ncdu \
+    && apt-get clean
 
 # set locale
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     dpkg-reconfigure --frontend=noninteractive locales && \
     update-locale LANG=en_US.UTF-8
-
 
 # update / install sources
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
@@ -46,7 +47,9 @@ RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         kubectl \
-        nodejs
+        nodejs \
+    && apt-get clean
+
 
 ENV PATH="$PATH:$(which node)"
 
@@ -64,6 +67,9 @@ WORKDIR ${HOME}/.config/coc/extensions
 
 COPY config/coc/package.json .
 RUN ${HOME}/.yarn/bin/yarn --ignore-scripts --no-lockfile
+
+# remove all global node modules
+RUN npm ls -gp --depth=0 | awk -F/node_modules/ '{print $2}' | grep -vE '^(npm|)$' | xargs -r npm -g rm
 
 WORKDIR ${HOME}
 

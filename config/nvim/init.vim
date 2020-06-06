@@ -11,7 +11,7 @@ set autoread
 set ttyfast
 set shell=/usr/bin/zsh
 set laststatus=2
-set background=light
+set background=dark
 set autowrite
 set shortmess+=filmnrxoOtT
 set viewoptions=folds,options,cursor,unix,slash
