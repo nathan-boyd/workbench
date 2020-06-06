@@ -23,6 +23,7 @@ RUN apt-get update && \
         zsh \
         fzf \
         jq \
+        python3-pip \
         neovim \
         sudo \
         ssh-client \
@@ -40,8 +41,7 @@ RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add 
     curl -sL https://deb.nodesource.com/setup_14.x | bash
 
 RUN apt-get update && \
-    apt-get install -y \
-    --no-install-recommends \
+    apt-get install -y --no-install-recommends \
         kubectl \
         nodejs
 
@@ -52,7 +52,8 @@ ENV DOCKERVERSION=18.03.1-ce
 RUN curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKERVERSION}.tgz \
   && tar xzvf docker-${DOCKERVERSION}.tgz --strip 1 -C /usr/local/bin docker/docker \
   && rm docker-${DOCKERVERSION}.tgz \
-  && curl -o- -L https://yarnpkg.com/install.sh | bash
+  && curl -o- -L https://yarnpkg.com/install.sh | bash \
+  && pip3 install pynvim
 
 # install coc extensions
 WORKDIR ${HOME}/.config/coc/extensions
