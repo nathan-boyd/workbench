@@ -1,12 +1,13 @@
-let g:python_host_prog = '/usr/bin/python2'
+let g:python2_host_prog = '/usr/bin/python2'
 let g:python3_host_prog = '/usr/bin/python3'
+
 let g:coc_node_path = '/usr/bin/node'
 
 set shortmess+=c                                             " don't give |ins-completion-menu| messages.
 set signcolumn=yes                                           " always show signcolumns
 set autoread                                                 " Automatically read changed files
 set ttyfast                                                  " Indicate fast terminal conn for faster redraw
-set shell=/usr/local/bin/zsh                                 " explicitly use zsh shell
+set shell=/usr/bin/zsh                                 " explicitly use zsh shell
 set laststatus=2                                             " always display status line
 set background=dark                                          " assume a dark background
 set autowrite                                                " automatically write file when leaving a modified buffer
