@@ -84,11 +84,11 @@ RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /usr/local/
 RUN echo "source /usr/local/powerlevel10k/powerlevel10k.zsh-theme" >>~/.zshrc
 COPY config/powerlevel10k/.p10k.zsh ${HOME}/.p10k.zsh
 
-# install and configure tmux
-ENV TMUX_PLUGIN_MANAGER_PATH="${HOME}/.tmux/plugins/tpm"
-RUN git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm && \
-    ${HOME}/.tmux/plugins/tpm/bin/install_plugins
+# install and configure tmux plugin manager
 COPY config/tmux/.tmux.conf $HOME
+ENV TMUX_PLUGIN_MANAGER_PATH="${HOME}/.tmux/plugins/tpm"
+RUN git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm \
+    && ${HOME}/.tmux/plugins/tpm/bin/install_plugins
 
 RUN groupadd workbench && \
     useradd ${USER_NAME} --shell /bin/zsh -g workbench && \
