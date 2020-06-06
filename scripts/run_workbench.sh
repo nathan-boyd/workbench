@@ -6,6 +6,7 @@ GIT_USER_EMAIL=$(git config user.email)
 PROJECT_DIR=${PWD##*/}
 PROJECT_NAME=${PWD#"${PWD%/*/*}/"}
 CONTAINER_NAME=${PROJECT_NAME//\//_}
+CONTAINER_HOME="/home/me"
 
 PROJECT_ZSH=${HOME}/.workbench/${PROJECT_NAME}/zsh
 if [[ ! -d $PROJECT_ZSH ]]; then
@@ -20,12 +21,11 @@ fi
 TMUX_RESURRECT=${HOME}/.workbench/${PROJECT_NAME}/tmux/resurrect
 mkdir -p ${TMUX_RESURRECT}
 
-CONTAINER_HOME="/home/me"
 docker run \
     --rm \
     -it \
-    -w /${PROJECT_DIR} \
-    -v $PWD:/${PROJECT_DIR} \
+    -w ${CONTAINER_HOME}/${PROJECT_DIR} \
+    -v $PWD:${CONTAINER_HOME}/${PROJECT_DIR} \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v ~/.ssh:$CONTAINER_HOME/.ssh \
     -v ${TMUX_RESURRECT}:$CONTAINER_HOME/.tmux/resurrect \
@@ -37,6 +37,7 @@ docker run \
     -e HOST_USER_ID=$(id -u $USER) \
     -e HOST_GROUP_ID=$(id -g $USER) \
     -e PROJECT_NAME=$PROJECT_NAME \
+    -e PROJECT_DIR=$PROJECT_DIR \
     -e GIT_USER_NAME="$GIT_USER_NAME" \
     -e GIT_USER_EMAIL="$GIT_USER_EMAIL" \
     --name $CONTAINER_NAME \
