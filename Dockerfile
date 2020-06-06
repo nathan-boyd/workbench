@@ -86,9 +86,9 @@ RUN git clone https://github.com/zsh-users/zsh-autosuggestions ${HOME}/.oh-my-zs
 COPY config/zsh/.zshrc ${HOME}/.zshrc
 
 # install and configure powerlevel10k
-RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /usr/local/powerlevel10k
-RUN echo "source /usr/local/powerlevel10k/powerlevel10k.zsh-theme" >>~/.zshrc
 COPY config/powerlevel10k/.p10k.zsh ${HOME}/.p10k.zsh
+RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /usr/local/powerlevel10k \
+    && /usr/local/powerlevel10k/gitstatus/install
 
 # install and configure tmux plugin manager
 COPY config/tmux/.tmux.conf $HOME
