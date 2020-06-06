@@ -299,9 +299,6 @@ Plug 'easymotion/vim-easymotion'                                   " ace movemen
 Plug 'tpope/vim-fugitive'                                          " git tooling
 Plug 'airblade/vim-gitgutter'                                      " dirty indicators
 Plug 'w0rp/ale'                                                    " syntax highlighting
-Plug '/usr/local/opt/fzf'                                          " after installing fzf with homebrew
-Plug 'junegunn/fzf.vim'                                            " vim fuzzier
-"Plug 'editorconfig/editorconfig-vim'                               " editor config
 Plug 'Yggdroot/indentLine'                                         " vertical alignment markers
 Plug 'maxbrunsfeld/vim-yankstack'                                  " kill ring behavior
 Plug 'SirVer/ultisnips'                                            " snippets engine
@@ -314,14 +311,14 @@ Plug 'scrooloose/nerdcommenter'                                    " global comm
 Plug 'majutsushi/tagbar'                                           " tag visualization
 Plug 'ekalinin/Dockerfile.vim'                                     " dockerfile syntax highlighting
 Plug 'romainl/vim-qf'                                              " quick fix / location window config
-"Plug 'OmniSharp/omnisharp-vim'                                     " csharp support
-
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'hashivim/vim-terraform'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-cucumber'
 Plug 'tpope/vim-surround'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
 
 
 call plug#end()

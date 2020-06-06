@@ -1,6 +1,6 @@
 #source ~/.auth.sh
 
-export TERM="xterm-256color"
+#export TERM="xterm-256color"
 
 export ZSH="${HOME}/.oh-my-zsh"
 
@@ -28,3 +28,5 @@ POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
 export PAGER=less
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

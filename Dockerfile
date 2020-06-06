@@ -21,7 +21,6 @@ RUN apt-get update && \
         curl \
         tmux \
         zsh \
-        fzf \
         jq \
         python3-pip \
         neovim \
@@ -53,7 +52,8 @@ RUN curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-${
   && tar xzvf docker-${DOCKERVERSION}.tgz --strip 1 -C /usr/local/bin docker/docker \
   && rm docker-${DOCKERVERSION}.tgz \
   && curl -o- -L https://yarnpkg.com/install.sh | bash \
-  && pip3 install pynvim
+  && pip3 install pynvim \
+  && git clone --depth 1 https://github.com/junegunn/fzf.git /usr/local/.fzf && /usr/local/.fzf/install
 
 # install coc extensions
 WORKDIR ${HOME}/.config/coc/extensions
