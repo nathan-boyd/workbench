@@ -13,12 +13,13 @@
 # then uncomment the following line to make Meta + arrow keys mapping work
 #set -ga terminal-overrides "*:kUP3=\e[1;9A,*:kDN3=\e[1;9B,*:kRIT3=\e[1;9C,*:kLFT3=\e[1;9D"
 
+
 # -- windows & pane creation ---------------------------------------------------
 
 # new window retains current path, possible values are:
 #   - true
 #   - false (default)
-tmux_conf_new_window_retain_current_path=true
+tmux_conf_new_window_retain_current_path=false
 
 # new pane retains current path, possible values are:
 #   - true (default)
@@ -34,6 +35,7 @@ tmux_conf_new_pane_reconnect_ssh=false
 #   - true
 #   - false (default)
 tmux_conf_new_session_prompt=false
+
 
 # -- display -------------------------------------------------------------------
 
@@ -62,8 +64,7 @@ tmux_conf_theme_pane_border_style=thin
 
 # pane borders colours:
 tmux_conf_theme_pane_border='#444444'                   # gray
-#tmux_conf_theme_pane_active_border='#00afff'            # light blue
-tmux_conf_theme_pane_active_border='#928374'            # light blue
+tmux_conf_theme_pane_active_border='#00afff'            # light blue
 
 # pane indicator colours
 tmux_conf_theme_pane_indicator='#00afff'                # light blue
@@ -71,8 +72,7 @@ tmux_conf_theme_pane_active_indicator='#00afff'         # light blue
 
 # status line style
 tmux_conf_theme_message_fg='#000000'                    # black
-#tmux_conf_theme_message_bg='#ffff00'                    # yellow
-tmux_conf_theme_message_bg='#fe8019'                    # orange2
+tmux_conf_theme_message_bg='#ffff00'                    # yellow
 tmux_conf_theme_message_attr='bold'
 
 # status line command style (<prefix> : Escape)
@@ -82,14 +82,12 @@ tmux_conf_theme_message_command_attr='bold'
 
 # window modes style
 tmux_conf_theme_mode_fg='#000000'                       # black
-#tmux_conf_theme_mode_bg='#ffff00'                       # yellow
-tmux_conf_theme_mode_bg='#d79921'                       # yellow
+tmux_conf_theme_mode_bg='#ffff00'                       # yellow
 tmux_conf_theme_mode_attr='bold'
 
 # status line style
 tmux_conf_theme_status_fg='#8a8a8a'                     # light gray
-#tmux_conf_theme_status_bg='#080808'                     # dark gray
-tmux_conf_theme_status_bg='#3c3836'                     # dark gray
+tmux_conf_theme_status_bg='#080808'                     # dark gray
 tmux_conf_theme_status_attr='none'
 
 # terminal title
@@ -111,8 +109,7 @@ tmux_conf_theme_terminal_title='#h ❐ #S ● #I #W'
 #     - #{username}
 #     - #{username_ssh}
 tmux_conf_theme_window_status_fg='#8a8a8a'              # light gray
-#tmux_conf_theme_window_status_bg='#080808'              # dark gray
-tmux_conf_theme_window_status_bg='#3c3836'              # dark gray
+tmux_conf_theme_window_status_bg='#080808'              # dark gray
 tmux_conf_theme_window_status_attr='none'
 tmux_conf_theme_window_status_format='#I #W'
 #tmux_conf_theme_window_status_format='#{circled_window_index} #W'
@@ -127,8 +124,7 @@ tmux_conf_theme_window_status_format='#I #W'
 #     - #{username}
 #     - #{username_ssh}
 tmux_conf_theme_window_status_current_fg='#000000'      # black
-#tmux_conf_theme_window_status_current_bg='#00afff'      # light blue
-tmux_conf_theme_window_status_current_bg='#d79921'      # light yellow
+tmux_conf_theme_window_status_current_bg='#00afff'      # light blue
 tmux_conf_theme_window_status_current_attr='bold'
 tmux_conf_theme_window_status_current_format='#I #W'
 #tmux_conf_theme_window_status_current_format='#{circled_window_index} #W'
@@ -145,16 +141,15 @@ tmux_conf_theme_window_status_bell_bg='default'
 tmux_conf_theme_window_status_bell_attr='blink,bold'
 
 # window last status style
-#tmux_conf_theme_window_status_last_fg='#00afff'         # light blue
-tmux_conf_theme_window_status_last_fg='#a89984'         # light blue
+tmux_conf_theme_window_status_last_fg='#00afff'         # light blue
 tmux_conf_theme_window_status_last_bg='default'
-tmux_conf_theme_window_status_last_attr='bold'
+tmux_conf_theme_window_status_last_attr='none'
 
 # status left/right sections separators
-# tmux_conf_theme_left_separator_main=''
-# tmux_conf_theme_left_separator_sub='|'
-# tmux_conf_theme_right_separator_main=''
-# tmux_conf_theme_right_separator_sub='|'
+#tmux_conf_theme_left_separator_main=''
+#tmux_conf_theme_left_separator_sub='|'
+#tmux_conf_theme_right_separator_main=''
+#tmux_conf_theme_right_separator_sub='|'
 tmux_conf_theme_left_separator_main='\uE0B0'  # /!\ you don't need to install Powerline
 tmux_conf_theme_left_separator_sub='\uE0B1'   #   you only need fonts patched with
 tmux_conf_theme_right_separator_main='\uE0B2' #   Powerline symbols or the standalone
@@ -184,54 +179,18 @@ tmux_conf_theme_right_separator_sub='\uE0B3'  #   PowerlineSymbols.otf font, see
 #     - #{uptime_s}
 #     - #{username}
 #     - #{username_ssh}
-
-tmux_conf_theme_status_left=' ❐ #S '
-tmux_conf_theme_status_right=' %R %B%e |↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} - ⚙#{loadavg}% ||#{username}@#{hostname} '
-
-# From https://camo.githubusercontent.com/cdb2f2e986c564b515c0c698e6c45b4ab5d725a9/687474703a2f2f692e696d6775722e636f6d2f776136363678672e706e67
-# bg0       #282828
-# bg0_h     #1d2021
-# bg0_s     #32303f
-# bg1       #3c3836
-# bg2       #504945
-# bg3       #665c54
-# bg4       #7c6f64
-# red1      #cc241d
-# red2      #fb4934
-# green1    #96971a
-# green2    #b8bb26
-# yellow1   #d79921
-# yellow2   #fabd2f
-# blue1     #458588
-# blue2     #83a598
-# purple    #b16286
-# aqua1     #689d6a
-# aqua2     #8ec07c
-# gray1     #a89984
-# gray2     #928374
-# gray3     #928374
-# fg        #ebdbb2
-# fg0       #fbf1c7
-# fg1       #ebdbb2
-# fg2       #d5c4a1
-# fg3       #bdae93
-# fg4       #a89984
-# orange1   #d65d0e
-# orange2   #fe8019
+tmux_conf_theme_status_left=' ❐ #S | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} '
+tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{?battery_status, #{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} , %R , %d %b | #{username}#{root} | #{hostname} '
 
 # status left style
-#tmux_conf_theme_status_left_fg='#000000,#e4e4e4,#e4e4e4'  # black, white , white
-#tmux_conf_theme_status_left_bg='#ffff00,#ff00af,#00afff'  # yellow, pink, white blue
-tmux_conf_theme_status_left_fg='#000000,#000000,#000000'  # black, white , white
-tmux_conf_theme_status_left_bg='#d79921,#458588,#458588'  # aqua2, blue1, blue1
-tmux_conf_theme_status_left_attr='none,none,none'
+tmux_conf_theme_status_left_fg='#000000,#e4e4e4,#e4e4e4'  # black, white , white
+tmux_conf_theme_status_left_bg='#ffff00,#ff00af,#00afff'  # yellow, pink, white blue
+tmux_conf_theme_status_left_attr='bold,none,none'
 
 # status right style
-#tmux_conf_theme_status_right_fg='#8a8a8a,#e4e4e4,#000000' # light gray, white, black
-#tmux_conf_theme_status_right_bg='#080808,#d70000,#e4e4e4' # dark gray, red, white
-tmux_conf_theme_status_right_fg='#000000,#000000,#000000' # light gray, white, black
-tmux_conf_theme_status_right_bg='#d79921,#928374,#d79921' # light gray, yellow1, green1
-tmux_conf_theme_status_right_attr='none,none,none'
+tmux_conf_theme_status_right_fg='#8a8a8a,#e4e4e4,#000000' # light gray, white, black
+tmux_conf_theme_status_right_bg='#080808,#d70000,#e4e4e4' # dark gray, red, white
+tmux_conf_theme_status_right_attr='none,none,bold'
 
 # pairing indicator
 tmux_conf_theme_pairing='👓 '          # U+1F453
@@ -301,6 +260,7 @@ tmux_conf_battery_status_discharging='↓'    # U+2193
 tmux_conf_theme_clock_colour='#00afff'  # light blue
 tmux_conf_theme_clock_style='24'
 
+
 # -- clipboard -----------------------------------------------------------------
 
 # in copy mode, copying selection also copies to the OS clipboard
@@ -308,7 +268,8 @@ tmux_conf_theme_clock_style='24'
 #   - false (default)
 # on macOS, this requires installing reattach-to-user-namespace, see README.md
 # on Linux, this requires xsel or xclip
-tmux_conf_copy_to_os_clipboard=true
+tmux_conf_copy_to_os_clipboard=false
+
 
 # -- user customizations -------------------------------------------------------
 # this is the place to override or undo settings
@@ -316,10 +277,8 @@ tmux_conf_copy_to_os_clipboard=true
 set -g default-terminal "xterm-256color"
 set-option -ga terminal-overrides ",xterm-256color:Tc"
 
-bind-key r source-file ~/.tmux.conf ~/.tmux.conf.local \; display-message "~/.tmux.conf.local reloaded"
-
 # increase history size
-set -g history-limit 10000
+#set -g history-limit 10000
 
 # start with mouse mode enabled
 #set -g mouse on
