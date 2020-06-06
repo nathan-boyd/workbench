@@ -1,66 +1,72 @@
-let g:python2_host_prog = '/usr/bin/python2'
+let g:loaded_python_provider = 1
+let g:python_host_skip_check=1
+let g:python_host_prog = '/usr/bin/python'
+let g:python3_host_skip_check=1
 let g:python3_host_prog = '/usr/bin/python3'
-
 let g:coc_node_path = '/usr/bin/node'
 
-set shortmess+=c                                             " don't give |ins-completion-menu| messages.
-set signcolumn=yes                                           " always show signcolumns
-set autoread                                                 " Automatically read changed files
-set ttyfast                                                  " Indicate fast terminal conn for faster redraw
-set shell=/usr/bin/zsh                                 " explicitly use zsh shell
-set laststatus=2                                             " always display status line
-set background=dark                                          " assume a dark background
-set autowrite                                                " automatically write file when leaving a modified buffer
-set shortmess+=filmnrxoOtT                                   " abbrev. of messages (avoids 'hit enter')
-set viewoptions=folds,options,cursor,unix,slash              " better Unix / Windows compatibility
-set virtualedit=onemore                                      " allow for cursor beyond last character
-set history=1000                                             " store 1000 history items
-set hidden                                                   " allow buffer switching without saving
-set iskeyword-=.                                             " '.' is an end of word designator
-set iskeyword-=#                                             " '#' is an end of word designator
-set iskeyword-=-                                             " '-' is an end of word designator
-set showcmd                                                  " show command in bottom bar
-set lazyredraw                                               " fix slow scrolling
-set fillchars+=vert:┃                                        " use this char for line between buffers
-set cursorline                                               " highlight cursorline
-set backspace=indent,eol,start                               " normal backspace functionality
-set linespace=0                                              " no extra spaces between rows
-set number                                                   " line numbers on
-set showmatch                                                " show matching brackets/parenthesis
-set incsearch                                                " find as you type search
-set hlsearch                                                 " highlight search terms
-set winminheight=0                                           " windows can be 0 line high
-set ignorecase                                               " case insensitive search
-set smartcase                                                " case sensitive when uc present
-set wildmenu                                                 " show list instead of just completing
-set wildignorecase                                           " ignore case when matching
-set wildmode=list:full                                       " command <Tab> completion, list matches, then longest common part, then all.
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite " ignored when expanding wildcards
-set whichwrap=b,s,h,l,<,>,[,]                                " backspace and cursor keys wrap too
-set scrolljump=5                                             " lines to scroll when cursor leaves screen
-set scrolloff=3                                              " minimum lines to keep above and below cursor
-set foldenable                                               " auto fold code
-set list                                                     " show whitespace
-set listchars=tab:›\ ,trail:•,extends:#,nbsp:.               " highlight problematic whitespace
-set noerrorbells                                             " turn off error bell
-set novisualbell                                             " turn off visual bell
-set t_vb=                                                    " turn off visual bell
-set completeopt-=preview                                     " remove preview from complete options
-set completeopt+=noinsert,noselect,longest,menuone           " set complete options preference
-set diffopt+=vertical                                        " display diffs in vertical window
-set omnifunc=syntaxcomplete#Complete                         " set completion options
-set conceallevel=0                                           " dont obfuscate quotes etc in syntax highlighting
-set cmdheight=1                                              " Better display for messages
-set updatetime=300                                           " Smaller updatetime for CursorHold & CursorHoldI
-set termguicolors                                            " use 24bit color
+set shortmess+=c
+set signcolumn=yes
+set autoread
+set ttyfast
+set shell=/usr/bin/zsh
+set laststatus=2
+set background=dark
+set autowrite
+set shortmess+=filmnrxoOtT
+set viewoptions=folds,options,cursor,unix,slash
+set virtualedit=onemore
+set history=1000
+set hidden
+set iskeyword-=.
+set iskeyword-=#
+set iskeyword-=-
+set showcmd
+set lazyredraw
+set fillchars+=vert:┃
+set cursorline
+set backspace=indent,eol,start
+set linespace=0
+set number
+set showmatch
+set incsearch
+set hlsearch
+set winminheight=0
+set ignorecase
+set smartcase
+set wildmenu
+set wildignorecase
+set wildmode=list:full
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+set whichwrap=b,s,h,l,<,>,[,]
+set scrolljump=5
+set scrolloff=3
+set foldenable
+set list
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
+set noerrorbells
+set novisualbell
+set t_vb=
+set completeopt-=preview
+set completeopt+=noinsert,noselect,longest,menuone
+set diffopt+=vertical
+set omnifunc=syntaxcomplete#Complete
+set conceallevel=0
+set cmdheight=1
+set updatetime=100
+set termguicolors
 
-syntax on                                                    " syntax highlighting
-scriptencoding utf-8                                         " set file encoding
+set re=1
+syntax on
+set synmaxcol=128
+autocmd BufEnter * :syn sync maxlines=500
 
-filetype plugin indent on                                    " automatically detect file types.
+scriptencoding utf-8
 
-highlight clear SignColumn                                   " signColumn should match background
-highlight clear LineNr                                       " current line number row will have same background color in relative mode
+filetype plugin indent on
+
+highlight clear SignColumn
+highlight clear LineNr
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Spelling
@@ -711,7 +717,7 @@ let g:indentLine_setConceal = 0
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Enable integration with airline.
-let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#ale#enabled = 0
 let g:airline#extensions#tabline#show_tabs = 0
 
 " improves performace
@@ -860,3 +866,17 @@ hi QuickFixLine term=reverse ctermfg=224
 let g:airline_theme = 'gruvbox_material'
 
 silent! colorscheme gruvbox-material
+
+let g:matchparen_timeout = 1
+let g:matchparen_insert_timeout = 1
+
+function StartProfile()
+    profile start profile.log
+    profile func *
+    profile file *
+endfunction
+
+function StopProfile()
+    profile pause
+    noautocmd qall!
+endfunction
