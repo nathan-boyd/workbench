@@ -62,7 +62,8 @@ tmux_conf_theme_pane_border_style=thin
 
 # pane borders colours:
 tmux_conf_theme_pane_border='#444444'                   # gray
-tmux_conf_theme_pane_active_border='#00afff'            # light blue
+#tmux_conf_theme_pane_active_border='#00afff'            # light blue
+tmux_conf_theme_pane_active_border='#928374'            # light blue
 
 # pane indicator colours
 tmux_conf_theme_pane_indicator='#00afff'                # light blue
@@ -185,8 +186,7 @@ tmux_conf_theme_right_separator_sub='\uE0B3'  #   PowerlineSymbols.otf font, see
 #     - #{username_ssh}
 
 tmux_conf_theme_status_left=' ❐ #S '
-
-tmux_conf_theme_status_right=' %R | %B%e | ↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m,  #{uptime_m}m,} l #{loadavg}% || #{username}@#{hostname} '
+tmux_conf_theme_status_right=' %R %B%e |↑#{?uptime_y, #{uptime_y}y,}#{?uptime_d, #{uptime_d}d,}#{?uptime_h, #{uptime_h}h,}#{?uptime_m, #{uptime_m}m,} - ⚙#{loadavg}% ||#{username}@#{hostname} '
 
 # From https://camo.githubusercontent.com/cdb2f2e986c564b515c0c698e6c45b4ab5d725a9/687474703a2f2f692e696d6775722e636f6d2f776136363678672e706e67
 # bg0       #282828
@@ -230,7 +230,7 @@ tmux_conf_theme_status_left_attr='none,none,none'
 #tmux_conf_theme_status_right_fg='#8a8a8a,#e4e4e4,#000000' # light gray, white, black
 #tmux_conf_theme_status_right_bg='#080808,#d70000,#e4e4e4' # dark gray, red, white
 tmux_conf_theme_status_right_fg='#000000,#000000,#000000' # light gray, white, black
-tmux_conf_theme_status_right_bg='#d79921,#458588,#d79921' # light gray, yellow1, green1
+tmux_conf_theme_status_right_bg='#d79921,#928374,#d79921' # light gray, yellow1, green1
 tmux_conf_theme_status_right_attr='none,none,none'
 
 # pairing indicator
