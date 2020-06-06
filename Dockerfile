@@ -1,13 +1,14 @@
 FROM ubuntu:20.04
 
+ENV USER_NAME me
+ENV HOME /home/${USER_NAME}
+WORKDIR ${HOME}
+
+# set timezone
 ENV TZ=America/New_York
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-ENV USER_NAME me
-ENV HOME /home/${USER_NAME}
-
-WORKDIR ${HOME}
-
+# enable core dumps for sudo
 RUN echo "Set disable_coredump false" >> /etc/sudo.conf
 
 RUN apt-get update && \
@@ -19,11 +20,13 @@ RUN apt-get update && \
         ca-certificates \
         git \
         curl \
+        less \
         tmux \
         zsh \
         jq \
         python3-pip \
         neovim \
+        screenfetch \
         sudo \
         ssh-client \
         gnupg-agent
@@ -32,6 +35,7 @@ RUN apt-get update && \
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     dpkg-reconfigure --frontend=noninteractive locales && \
     update-locale LANG=en_US.UTF-8
+
 
 # update / install sources
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \

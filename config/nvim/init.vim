@@ -497,6 +497,7 @@ let g:tagbar_type_go = {
 
 " dont change gutter highlights
 let g:gitgutter_override_sign_column_highlight = 0
+let g:gitgutter_max_signs = 100
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure NERDTree
