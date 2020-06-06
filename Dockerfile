@@ -1,10 +1,12 @@
 FROM ubuntu:20.04
 
+ENV TZ=America/New_York
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 ENV USER_NAME me
 ENV HOME /home/${USER_NAME}
 
 WORKDIR ${HOME}
-
 
 RUN echo "Set disable_coredump false" >> /etc/sudo.conf
 
