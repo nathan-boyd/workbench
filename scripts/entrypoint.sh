@@ -26,5 +26,5 @@ export PROJECT_NAME=${PROJECT_NAME:-"scratch"}
 su -s /usr/bin/tmux -g $USER_GROUP $USER_NAME --  new-session -d -s ${PROJECT_NAME} -n shell > /dev/null
 su -s /usr/bin/tmux -g $USER_GROUP $USER_NAME --  new-window -n editor
 su -s /usr/bin/tmux -g $USER_GROUP $USER_NAME --  send-keys -t ${PROJECT_NAME}:shell screenfetch Enter
-su -s /usr/bin/tmux -g $USER_GROUP $USER_NAME --  send-keys -t ${PROJECT_NAME}:editor vim Enter
+su -s /usr/bin/tmux -g $USER_GROUP $USER_NAME --  send-keys -t ${PROJECT_NAME}:editor "vim $(pwd)" Enter
 su -s /usr/bin/tmux -g $USER_GROUP $USER_NAME --  attach -t ${PROJECT_NAME}:shell > /dev/null
