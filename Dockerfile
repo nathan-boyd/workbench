@@ -66,9 +66,9 @@ RUN curl -fsSLO "https://download.docker.com/linux/static/stable/x86_64/docker-$
   && gem instal tmuxinator \
   && curl https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh \
     -o /usr/local/share/zsh/site-functions/_tmuxinator \
-  && curl "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" -o - | tar -xz -C /usr/local
+  && curl "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" -o - | tar -xz -C /usr/local \
+  && curl https://github.com/derailed/k9s/releases/download/v0.20.5/k9s_Linux_x86_64.tar.gz  -o- -L | tar -xz -C /usr/local/bin/
 
-# install coc extensions
 WORKDIR ${HOME}/.config/coc/extensions
 
 COPY config/coc/package.json .
@@ -82,7 +82,6 @@ WORKDIR ${HOME}
 # install vim-plug
 RUN curl -fLo ${HOME}/.config/nvim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
 
 # install and configure oh-my-zsh
 RUN curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | zsh || true

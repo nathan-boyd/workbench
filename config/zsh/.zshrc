@@ -32,7 +32,8 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export GOENV_ROOT="/usr/local/.goenv"
 
 # setup golang
-alias go=/usr/local/go/bin/go
+export PATH=$PATH:/usr/local/go/bin
+#alias go=/usr/local/go/bin/go
 #export GOROOT=/usr/local/go
 #export GOPATH=$HOME/go
 #export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
