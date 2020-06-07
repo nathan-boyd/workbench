@@ -29,10 +29,13 @@ export EDITOR='nvim'
 export PAGER=less
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
+export GOENV_ROOT="/usr/local/.goenv"
+
 # setup golang
-export GOROOT=/usr/local/go
-export GOPATH=$HOME/go
-export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+alias go=/usr/local/go/bin/go
+#export GOROOT=/usr/local/go
+#export GOPATH=$HOME/go
+#export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 alias vi=nvim
 alias vim=vi
