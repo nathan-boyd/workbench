@@ -14,23 +14,24 @@ RUN echo "Set disable_coredump false" >> /etc/sudo.conf
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
     apt-get install -y --no-install-recommends \
-        software-properties-common \
         apt-transport-https \
-        locales \
         ca-certificates \
-        git \
         curl \
+        git \
+        gnupg-agent \
+        jq \
         less \
+        locales \
+        ncdu \
+        neovim \
+        python3-pip \
+        ruby \
+        screenfetch \
+        software-properties-common \
+        ssh-client \
+        sudo \
         tmux \
         zsh \
-        jq \
-        python3-pip \
-        neovim \
-        screenfetch \
-        sudo \
-        ssh-client \
-        gnupg-agent \
-        ncdu \
     && apt-get clean
 
 # set locale
@@ -50,7 +51,6 @@ RUN apt-get update && \
         nodejs \
     && apt-get clean
 
-
 ENV PATH="$PATH:$(which node)"
 
 # add binaries for docker cli and yarn
@@ -60,7 +60,10 @@ RUN curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-${
   && rm docker-${DOCKERVERSION}.tgz \
   && curl -o- -L https://yarnpkg.com/install.sh | bash \
   && pip3 install pynvim \
-  && git clone --depth 1 https://github.com/junegunn/fzf.git /usr/local/.fzf && /usr/local/.fzf/install
+  && git clone --depth 1 https://github.com/junegunn/fzf.git /usr/local/.fzf && /usr/local/.fzf/install \
+  && gem instal tmuxinator \
+  && curl https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh -o /usr/local/share/zsh/site-functions/_tmuxinator
+
 
 # install coc extensions
 WORKDIR ${HOME}/.config/coc/extensions
