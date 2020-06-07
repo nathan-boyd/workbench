@@ -4,8 +4,9 @@ export ZSH="${HOME}/.oh-my-zsh"
 
 FILE=$HOME/.init
 if [ ! -f $FILE ]; then
-    screenfetch
     touch $FILE
+    screenfetch
+    tmuxinator start workbench
 fi
 
 plugins=(
