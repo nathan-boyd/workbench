@@ -19,7 +19,6 @@ fi
 
 export PROJECT_NAME=${PROJECT_NAME:-"scratch"}
 
-
 # /bin/zsh
 # su -s /bin/zsh -g $USER_GROUP $USER_NAME
 # su -s /bin/tmux -g $USER_GROUP $USER_NAME -- -u -2 new -s ${PROJECT_NAME}
