@@ -18,8 +18,12 @@ if [[ ! -e $ZSH_HISTORY ]]; then
     touch $ZSH_HISTORY
 fi
 
-TMUX_RESURRECT=${HOME}/.workbench/${PROJECT_NAME}/tmux/resurrect
-mkdir -p ${TMUX_RESURRECT}
+
+PROJECT_TMUXINATOR=${HOME}/.workbench/${PROJECT_NAME}/tmuxinator
+if [[ ! -d $PROJECT_ZSH ]]; then
+    mkdir -p ${PROJECT_TMUXINATOR}
+fi
+
 
 docker run \
     --rm \
@@ -28,7 +32,7 @@ docker run \
     -v $PWD:${CONTAINER_HOME}/${PROJECT_DIR} \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v ~/.ssh:$CONTAINER_HOME/.ssh \
-    -v ${TMUX_RESURRECT}:$CONTAINER_HOME/.tmux/resurrect \
+    -v ${PROJECT_TMUXINATOR}:$CONTAINER_HOME/.config/tmuxinator \
     -v ${ZSH_HISTORY}:$CONTAINER_HOME/.zsh_history \
     -v $HOME/.kube:$CONTAINER_HOME/.kube \
     -v $(dirname $SSH_AUTH_SOCK):$(dirname $SSH_AUTH_SOCK) \
