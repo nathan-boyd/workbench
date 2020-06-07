@@ -2,6 +2,12 @@
 
 export ZSH="${HOME}/.oh-my-zsh"
 
+FILE=$HOME/.init
+if [ ! -f $FILE ]; then
+    screenfetch
+    touch $FILE
+fi
+
 plugins=(
     colorize
     git
@@ -29,5 +35,3 @@ export PAGER=less
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-screenfetch
