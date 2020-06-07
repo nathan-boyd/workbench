@@ -88,7 +88,6 @@ RUN nvim --headless +PlugInstall +qall
 # install and configure oh-my-zsh
 RUN curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | zsh || true
 RUN git clone https://github.com/zsh-users/zsh-autosuggestions ${HOME}/.oh-my-zsh/plugins/zsh-autosuggestions
-COPY config/zsh/.zshrc ${HOME}/.zshrc
 
 # install and configure powerlevel10k
 COPY config/powerlevel10k/.p10k.zsh ${HOME}/.p10k.zsh
@@ -106,6 +105,7 @@ RUN groupadd workbench && \
     chown -R ${USER_NAME}: ${HOME} && \
     echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" | tee /etc/sudoers.d/${USER_NAME}
 
+COPY config/zsh/.zshrc ${HOME}/.zshrc
 COPY scripts/entrypoint.sh /bin/entrypoint.sh
 
 CMD ["/bin/entrypoint.sh"]
