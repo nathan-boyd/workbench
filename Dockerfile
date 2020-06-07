@@ -20,6 +20,7 @@ RUN apt-get update && \
         git \
         gnupg-agent \
         jq \
+        golang-1.14-go \
         less \
         locales \
         ncdu \
