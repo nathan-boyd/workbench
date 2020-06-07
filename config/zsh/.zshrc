@@ -1,5 +1,9 @@
 #source ~/.auth.sh
 
+function editMuxConfig(){
+    vi "$HOME/.config/tmuxinator/$PROJECT_DIR.yml"
+}
+
 export ZSH="${HOME}/.oh-my-zsh"
 
 plugins=(
@@ -19,15 +23,22 @@ source "$HOME/.p10k.zsh"
 
 ################################################################################
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 export EDITOR='nvim'
 export PAGER=less
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
+# setup golang
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+
 alias vi=nvim
 alias vim=vi
 alias mux=tmuxinator
+alias muxe=editMuxConfig
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 ################################################################################
 
