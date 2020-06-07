@@ -19,10 +19,6 @@ fi
 
 export PROJECT_NAME=${PROJECT_NAME:-"scratch"}
 
-MUX_PROJECT=$HOME/.config/tmuxinator/$PROJECT_DIR
-if [[ ! -f "$MUX_PROJECT" ]]; then
-    su -s tmuxinator -g $USER_GROUP $USER_NAME -- new $PROJECT_DIR
-fi
 
 # /bin/zsh
 # su -s /bin/zsh -g $USER_GROUP $USER_NAME
