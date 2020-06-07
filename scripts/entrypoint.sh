@@ -10,6 +10,14 @@ if [ ! -z "$GIT_USER_NAME" ] && [ ! -z "$GIT_USER_EMAIL" ]; then
     git config --global user.email "$GIT_USER_EMAIL"
 fi
 
+# chown mounted volumes here until the following is resolved
+# until Add ability to mount volume as user other than root #2259
+# https://github.com/moby/moby/issues/2259
+#find $HOME/ -not -user $USER_NAME -execdir chown $USER_NAME {} \+
+#chown -R ${USER_NAME}: ${HOME}/.*
+find $HOME/ -print | xargs --max-args=1 --max-procs=100 chown ${USER_NAME}:
+
+
 if [ -S "/var/run/docker.sock" ]; then
     USER_GROUP=docker
     HOST_DOCKER_SOCKET_GROUP_ID=`stat -c %g /var/run/docker.sock`
