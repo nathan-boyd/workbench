@@ -20,7 +20,6 @@ RUN apt-get update && \
         git \
         gnupg-agent \
         jq \
-        golang-1.14-go \
         less \
         locales \
         ncdu \
@@ -40,7 +39,7 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     dpkg-reconfigure --frontend=noninteractive locales && \
     update-locale LANG=en_US.UTF-8
 
-# update / install sources
+# update / install apt sources
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
     touch /etc/apt/sources.list.d/kubernetes.list && \
     echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list && \
@@ -54,9 +53,11 @@ RUN apt-get update && \
 
 ENV PATH="$PATH:$(which node)"
 
-# add binaries for docker cli and yarn
+# add binaries
 ENV DOCKERVERSION=18.03.1-ce
-RUN curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKERVERSION}.tgz \
+ENV GO_VERSION=1.14.2
+
+RUN curl -fsSLO "https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKERVERSION}.tgz" \
   && tar xzvf docker-${DOCKERVERSION}.tgz --strip 1 -C /usr/local/bin docker/docker \
   && rm docker-${DOCKERVERSION}.tgz \
   && curl -o- -L https://yarnpkg.com/install.sh | bash \
@@ -64,8 +65,8 @@ RUN curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-${
   && git clone --depth 1 https://github.com/junegunn/fzf.git /usr/local/.fzf && /usr/local/.fzf/install \
   && gem instal tmuxinator \
   && curl https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh \
-    -o /usr/local/share/zsh/site-functions/_tmuxinator
-
+    -o /usr/local/share/zsh/site-functions/_tmuxinator \
+  && curl "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" -o - | tar -xz -C /usr/local
 
 # install coc extensions
 WORKDIR ${HOME}/.config/coc/extensions
@@ -82,8 +83,6 @@ WORKDIR ${HOME}
 RUN curl -fLo ${HOME}/.config/nvim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-COPY config/nvim/init.vim ${HOME}/.config/nvim/init.vim
-RUN nvim --headless +PlugInstall +qall
 
 # install and configure oh-my-zsh
 RUN curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | zsh || true
@@ -99,6 +98,9 @@ COPY config/tmux/.tmux.conf $HOME
 ENV TMUX_PLUGIN_MANAGER_PATH="${HOME}/.tmux/plugins/tpm"
 RUN git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm \
     && ${HOME}/.tmux/plugins/tpm/bin/install_plugins
+
+COPY config/nvim/init.vim ${HOME}/.config/nvim/init.vim
+RUN nvim --headless +PlugInstall +qall
 
 RUN groupadd workbench && \
     useradd ${USER_NAME} --shell /bin/zsh -g workbench && \
