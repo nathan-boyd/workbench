@@ -34,9 +34,10 @@ docker run \
     -v ~/.ssh:$CONTAINER_HOME/.ssh \
     -v ${PROJECT_TMUXINATOR}:$CONTAINER_HOME/.config/tmuxinator \
     -v ${ZSH_HISTORY}:$CONTAINER_HOME/.zsh_history \
-    -v $HOME/.kube:$CONTAINER_HOME/.kube \
+    -v $HOME/.kube/config:$CONTAINER_HOME/.kube/config \
     -v $(dirname $SSH_AUTH_SOCK):$(dirname $SSH_AUTH_SOCK) \
     -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK \
+    -e ITERM_PROFILE=$ITERM_PROFILE \
     -e HOST_PATH=$PWD \
     -e HOST_USER_ID=$(id -u $USER) \
     -e HOST_GROUP_ID=$(id -g $USER) \
