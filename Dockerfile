@@ -62,7 +62,8 @@ RUN curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-${
   && pip3 install pynvim \
   && git clone --depth 1 https://github.com/junegunn/fzf.git /usr/local/.fzf && /usr/local/.fzf/install \
   && gem instal tmuxinator \
-  && curl https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh -o /usr/local/share/zsh/site-functions/_tmuxinator
+  && curl https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh \
+    -o /usr/local/share/zsh/site-functions/_tmuxinator
 
 
 # install coc extensions

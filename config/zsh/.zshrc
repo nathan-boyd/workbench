@@ -5,8 +5,7 @@ export ZSH="${HOME}/.oh-my-zsh"
 FILE=$HOME/.init
 if [ ! -f $FILE ]; then
     touch $FILE
-    screenfetch
-    tmuxinator start workbench
+    tmuxinator start ${PROJECT_DIR}
 fi
 
 plugins=(
@@ -22,7 +21,7 @@ source $ZSH/oh-my-zsh.sh
 export EDITOR='nvim'
 alias vi=nvim
 
-alias tx=tmuxinator
+alias mux=tmuxinator
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true

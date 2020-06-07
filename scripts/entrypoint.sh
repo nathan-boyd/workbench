@@ -19,14 +19,14 @@ fi
 
 export PROJECT_NAME=${PROJECT_NAME:-"scratch"}
 
+MUX_PROJECT=$HOME/.config/tmuxinator/$PROJECT_DIR
+if [[ ! -f "$MUX_PROJECT" ]]; then
+    su -s tmuxinator -g $USER_GROUP $USER_NAME -- new $PROJECT_DIR
+fi
+
 # /bin/zsh
 # su -s /bin/zsh -g $USER_GROUP $USER_NAME
 # su -s /bin/tmux -g $USER_GROUP $USER_NAME -- -u -2 new -s ${PROJECT_NAME}
 
-su -s /usr/bin/tmux -g $USER_GROUP $USER_NAME -- new-session -d -s ${PROJECT_NAME}
-#su -s /usr/bin/tmux -g $USER_GROUP $USER_NAME -- split-window -h "vim $(pwd)"
-#su -s /usr/bin/tmux -g $USER_GROUP $USER_NAME -- select-pane -t 0
-#su -s /usr/bin/tmux -g $USER_GROUP $USER_NAME --  new-window -n editor
-#su -s /usr/bin/tmux -g $USER_GROUP $USER_NAME --  send-keys -t ${PROJECT_NAME}:editor "vim $(pwd)" Enter
-
-su -s /usr/bin/tmux -g $USER_GROUP $USER_NAME -- attach -t ${PROJECT_NAME}
+#su -s tmuxinator -g $USER_GROUP $USER_NAME -- start $PROJECT_DIR
+su -s /bin/zsh -g $USER_GROUP $USER_NAME
