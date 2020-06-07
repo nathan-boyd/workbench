@@ -108,6 +108,7 @@ RUN groupadd workbench && \
     echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" | tee /etc/sudoers.d/${USER_NAME}
 
 COPY config/zsh/.zshrc ${HOME}/.zshrc
+
 COPY scripts/entrypoint.sh /bin/entrypoint.sh
 
 CMD ["/bin/entrypoint.sh"]

@@ -24,7 +24,6 @@ if [[ ! -d $PROJECT_ZSH ]]; then
     mkdir -p ${PROJECT_TMUXINATOR}
 fi
 
-
 docker run \
     --rm \
     -it \

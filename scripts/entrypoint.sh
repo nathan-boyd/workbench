@@ -15,8 +15,8 @@ fi
 # https://github.com/moby/moby/issues/2259
 #find $HOME/ -not -user $USER_NAME -execdir chown $USER_NAME {} \+
 #chown -R ${USER_NAME}: ${HOME}/.*
-find $HOME/ -print | xargs --max-args=1 --max-procs=100 chown ${USER_NAME}:
-
+#find $HOME/ -print | xargs --max-args=1 --max-procs=100 chown ${USER_NAME}:${USER_GROUP} >> /dev/null
+find $HOME/ -print | xargs --max-args=5 --max-procs=100 chown ${USER_NAME}:${USER_GROUP} > /dev/null 2>&1
 
 if [ -S "/var/run/docker.sock" ]; then
     USER_GROUP=docker
@@ -27,9 +27,9 @@ fi
 
 export PROJECT_NAME=${PROJECT_NAME:-"scratch"}
 
-# /bin/zsh
-# su -s /bin/zsh -g $USER_GROUP $USER_NAME
-# su -s /bin/tmux -g $USER_GROUP $USER_NAME -- -u -2 new -s ${PROJECT_NAME}
-
+#/bin/zsh
+#su -s /bin/zsh -g $USER_GROUP $USER_NAME
+#su -s /bin/tmux -g $USER_GROUP $USER_NAME -- -u -2 new -s ${PROJECT_NAME}
 #su -s tmuxinator -g $USER_GROUP $USER_NAME -- start $PROJECT_DIR
+
 su -s /bin/zsh -g $USER_GROUP $USER_NAME
