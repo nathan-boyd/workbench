@@ -11,7 +11,6 @@ set autoread
 set ttyfast
 set shell=/usr/bin/zsh
 set laststatus=2
-set background=dark
 set autowrite
 set shortmess+=filmnrxoOtT
 set viewoptions=folds,options,cursor,unix,slash
@@ -881,3 +880,11 @@ function StopProfile()
     profile pause
     noautocmd qall!
 endfunction
+
+if $ITERM_PROFILE == 'dark'
+  set background=dark
+endif
+
+if $ITERM_PROFILE == 'light'
+  set background=light
+endif
