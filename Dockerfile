@@ -17,9 +17,13 @@ RUN apt-get update && \
         apt-transport-https \
         ca-certificates \
         curl \
+        cowsay \
+        ctop \
         git \
         gnupg-agent \
         jq \
+        htop \
+        mtr \
         less \
         ripgrep \
         locales \

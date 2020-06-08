@@ -2,37 +2,6 @@
 
 name: {{ .Env.PROJECT_DIR }}
 root: .
-
-# Runs on project start, always
-# on_project_start: command
-
-# Run on project start, the first time
-# on_project_first_start: command
-
-# Run on project start, after the first time
-# on_project_restart: command
-
-# Run on project exit ( detaching from tmux session )
-on_project_exit: docker stop workbench-ctop
-
-# Run on project stop
-# on_project_stop: command
-
-# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
-# pre_window: rbenv shell 2.0.0-p247
-
-# Pass command line options to tmux. Useful for specifying a different tmux.conf.
-# tmux_options: -f ~/.tmux.mac.conf
-
-# Change the command to call tmux.  This can be used by derivatives/wrappers like byobu.
-# tmux_command: byobu
-
-# Specifies (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
-# startup_pane: 1
-
-# Controls whether the tmux session should be attached to automatically. Defaults to true.
-# attach: false
-
 startup_window: home
 windows:
   - home:
@@ -41,11 +10,11 @@ windows:
         - vim .
         - /opt/splashScreen.sh
   - shell:
+      layout: 9a86,208x57,0,0{104x57,0,0,1,103x57,105,0[103x28,105,0,4,103x28,105,29,5]}
       panes:
-  - top:
-      layout: even-horizontal
-      panes:
-        top: top
-        ctop: docker run --rm -ti -v /var/run/docker.sock:/var/run/docker.sock --name workbench-ctop quay.io/vektorlab/ctop:latest
+        - /bin/zsh
+        - htop
+        - docker run --rm -ti -v /var/run/docker.sock:/var/run/docker.sock --name workbench-ctop quay.io/vektorlab/ctop:latest
   - k9s:
-      panes: k9s
+      panes:
+        - k9s

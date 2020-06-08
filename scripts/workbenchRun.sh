@@ -38,6 +38,7 @@ docker run \
     --rm \
     -it \
     -v /var/run/docker.sock:/var/run/docker.sock \
+    -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
     -v ~/.ssh:$CONTAINER_HOME/.ssh \
     -v $PWD:${CONTAINER_HOME}/${PROJECT_DIR} \
     -v ${ZSH_HISTORY}:$CONTAINER_HOME/.zsh_history \
