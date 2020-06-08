@@ -118,10 +118,10 @@ RUN groupadd workbench && \
     echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" | tee /etc/sudoers.d/${USER_NAME}
 
 COPY config/tmuxinator/template.tpl /opt/tmuxinator/template.tpl
-
 COPY config/zsh/.zshrc ${HOME}/.zshrc
 
-COPY scripts/entrypoint.sh /bin/entrypoint.sh
+COPY scripts/entrypoint.sh /opt/entrypoint.sh
 COPY scripts/splashScreen.sh /opt/splashScreen.sh
+COPY scripts/workbenchStop.sh /opt/workbenchStop.sh
 
-CMD ["/bin/entrypoint.sh"]
+CMD ["/opt/entrypoint.sh"]

@@ -41,7 +41,7 @@ alias vim=vi
 alias mux=tmuxinator
 alias muxe=editMuxConfig
 alias k=kubectl
-alias xxx="docker stop ${CONTAINER_NAME} -t 1"
+alias xxx="/opt/workbenchStop.sh"
 
 ################################################################################
 
