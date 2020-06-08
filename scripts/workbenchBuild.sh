@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
-REPODIR="$(dirname "$SCRIPTDIR")"
-cd "$REPODIR"
+#SCRIPTDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+#REPODIR="$(dirname "$SCRIPTDIR")"
+#cd "$REPODIR"
 
 # always fail script if a cmd fails
 set -eo pipefail
