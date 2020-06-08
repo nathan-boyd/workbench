@@ -28,16 +28,22 @@ if [[ ! -d $PROJECT_ZSH ]]; then
     mkdir -p ${PROJECT_TMUXINATOR}
 fi
 
+# the directory in which to store vim undo files
+PROJECT_UNDO=${HOME}/.workbench/${PROJECT_NAME}/vim/undodir
+if [[ ! -d $PROJECT_UNDO ]]; then
+    mkdir -p ${PROJECT_UNDO}
+fi
+
 docker run \
     --rm \
     -it \
-    -w ${CONTAINER_HOME}/${PROJECT_DIR} \
-    -v $PWD:${CONTAINER_HOME}/${PROJECT_DIR} \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v ~/.ssh:$CONTAINER_HOME/.ssh \
-    -v ${PROJECT_TMUXINATOR}:$CONTAINER_HOME/.config/tmuxinator \
+    -v $PWD:${CONTAINER_HOME}/${PROJECT_DIR} \
     -v ${ZSH_HISTORY}:$CONTAINER_HOME/.zsh_history \
     -v $HOME/.kube/config:$CONTAINER_HOME/.kube/config \
+    -v ${PROJECT_TMUXINATOR}:$CONTAINER_HOME/.config/tmuxinator \
+    -v ${PROJECT_UNDO}:$CONTAINER_HOME/.config/.vim/undodir \
     -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK \
     -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK \
     -e ITERM_PROFILE=$ITERM_PROFILE \
@@ -49,6 +55,7 @@ docker run \
     -e GIT_USER_NAME="$GIT_USER_NAME" \
     -e GIT_USER_EMAIL="$GIT_USER_EMAIL" \
     -e CONTAINER_NAME="$CONTAINER_NAME" \
+    -w ${CONTAINER_HOME}/${PROJECT_DIR} \
     --name $CONTAINER_NAME \
     --net host \
     nathan-boyd/workbench:latest

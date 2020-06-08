@@ -110,7 +110,7 @@ endif
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " maintain undo history between sessions
-set undodir=~/.vim/undodir
+set undodir=~/.config/.vim/undodir
 set undofile
 
 set nobackup
