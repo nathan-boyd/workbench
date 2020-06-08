@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 echo ""
 screenfetch -t
 echo ""

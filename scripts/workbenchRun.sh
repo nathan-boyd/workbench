@@ -49,6 +49,7 @@ docker run \
     -e PROJECT_DIR=$PROJECT_DIR \
     -e GIT_USER_NAME="$GIT_USER_NAME" \
     -e GIT_USER_EMAIL="$GIT_USER_EMAIL" \
+    -e CONTAINER_NAME="$CONTAINER_NAME" \
     --name $CONTAINER_NAME \
     --net host \
     nathan-boyd/workbench:latest
