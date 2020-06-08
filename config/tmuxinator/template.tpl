@@ -1,4 +1,4 @@
-# /home/me/.config/tmuxinator/workbench.yml
+# /home/me/.config/tmuxinator/{{ .Env.PROJECT_DIR }}.yml
 
 name: {{ .Env.PROJECT_DIR }}
 root: .
@@ -39,7 +39,7 @@ windows:
       layout: 257c,208x57,0,0{122x57,0,0,0,85x57,123,0,3}
       panes:
         - vim .
-        - screenfetch -t
+        - /opt/splashScreen.sh
   - shell:
       panes:
   - top:

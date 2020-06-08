@@ -32,8 +32,13 @@ RUN apt-get update && \
         ssh-client \
         sudo \
         tmux \
+        wget \
         zsh \
     && apt-get clean
+
+RUN export BAT_VERSION="0.15.4" && wget "https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/bat_${BAT_VERSION}_amd64.deb" \
+    && dpkg -i "bat_${BAT_VERSION}_amd64.deb" \
+    && rm "bat_${BAT_VERSION}_amd64.deb"
 
 # set locale
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
@@ -117,6 +122,6 @@ COPY config/tmuxinator/template.tpl /opt/tmuxinator/template.tpl
 COPY config/zsh/.zshrc ${HOME}/.zshrc
 
 COPY scripts/entrypoint.sh /bin/entrypoint.sh
-COPY scripts/screenfetch.sh /opt/screenfetch.sh
+COPY scripts/splashScreen.sh /opt/splashScreen.sh
 
 CMD ["/bin/entrypoint.sh"]

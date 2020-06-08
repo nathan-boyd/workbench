@@ -29,7 +29,7 @@ source "$HOME/.p10k.zsh"
 
 # todo remove if
 if [ /usr/local/bin/kubectl ]; then source <(kubectl completion zsh); fi
-if [ helm ]; then source <(helm completion zsh); fi
+# if [ helm ]; then source <(helm completion zsh); fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -37,14 +37,12 @@ export EDITOR='nvim'
 export PAGER=less
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
-# required for fzf file finding in vim
-#export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
-
-# include hidden files in search
-export FZF_DEFAULT_COMMAND='rg --hidden -l --ignore .git ""'
-
-
-export GOENV_ROOT="/usr/local/.goenv"
+# --files: List files that would be searched but do not search
+# --no-ignore: Do not respect .gitignore, etc...
+# --hidden: Search hidden files and folders
+# --follow: Follow symlinks
+# --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 
 # setup golang
 export PATH=$PATH:/usr/local/go/bin
