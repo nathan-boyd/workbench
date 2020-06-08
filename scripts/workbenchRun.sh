@@ -23,7 +23,6 @@ if [[ ! -e $ZSH_HISTORY ]]; then
     touch $ZSH_HISTORY
 fi
 
-
 PROJECT_TMUXINATOR=${HOME}/.workbench/${PROJECT_NAME}/tmuxinator
 if [[ ! -d $PROJECT_ZSH ]]; then
     mkdir -p ${PROJECT_TMUXINATOR}
@@ -39,7 +38,7 @@ docker run \
     -v ${PROJECT_TMUXINATOR}:$CONTAINER_HOME/.config/tmuxinator \
     -v ${ZSH_HISTORY}:$CONTAINER_HOME/.zsh_history \
     -v $HOME/.kube/config:$CONTAINER_HOME/.kube/config \
-    -v $(dirname $SSH_AUTH_SOCK):$(dirname $SSH_AUTH_SOCK) \
+    -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK \
     -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK \
     -e ITERM_PROFILE=$ITERM_PROFILE \
     -e HOST_PATH=$PWD \
