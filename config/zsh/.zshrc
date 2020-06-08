@@ -1,14 +1,9 @@
 #source ~/.auth.sh
 
-function editMuxConfig(){
-    vi "$HOME/.config/tmuxinator/$PROJECT_DIR.yml"
-}
-
 export ZSH="${HOME}/.oh-my-zsh"
 
 plugins=(
-docker
-    colorize
+    docker
     git
     history-substring-search
     kubectl
@@ -21,21 +16,17 @@ source $ZSH/oh-my-zsh.sh
 ################################################################################
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-POWERLEVEL9K_DISABLE_CONFIGURATION_WIZARD=true
-source /usr/local/powerlevel10k/powerlevel10k.zsh-theme
-source "$HOME/.p10k.zsh"
+source /usr/local/powerlevel10k/powerlevel10k.zsh-theme \
+    && "$HOME/.p10k.zsh"
 
 ################################################################################
 
-# todo remove if
-if [ /usr/local/bin/kubectl ]; then source <(kubectl completion zsh); fi
-# if [ helm ]; then source <(helm completion zsh); fi
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source <(kubectl completion zsh)
+source $HOME/.fzf.zsh
 
 export EDITOR='nvim'
 export PAGER=less
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH=$PATH:/usr/local/go/bin
 
 # --files: List files that would be searched but do not search
 # --no-ignore: Do not respect .gitignore, etc...
@@ -45,29 +36,23 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 alias fzp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 
-# setup golang
-export PATH=$PATH:/usr/local/go/bin
-
 alias vi=nvim
 alias vim=vi
 alias mux=tmuxinator
 alias muxe=editMuxConfig
 alias k=kubectl
-
-bindkey "^[[A" history-beginning-search-backward
-bindkey "^[[B" history-beginning-search-forward
-
-ls='ls --color=tty'
-grep='grep  --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
+alias xxx="docker stop ${CONTAINER_NAME} -t 1"
 
 ################################################################################
 
+# if no mux project then create one from template
 MUX_PROJECT_FILE=$HOME/.config/tmuxinator/$PROJECT_DIR.yml
 if [[ ! -f "$MUX_PROJECT_FILE" ]]; then
     touch $MUX_PROJECT_FILE
     cat /opt/tmuxinator/template.tpl | gomplate > $MUX_PROJECT_FILE
 fi
 
+# if starting the shell for the first time then start mux project
 FILE=$HOME/.init
 if [ ! -f $FILE ]; then
     touch $FILE
@@ -75,3 +60,7 @@ if [ ! -f $FILE ]; then
 fi
 
 ################################################################################
+
+function editMuxConfig(){
+    vi "$HOME/.config/tmuxinator/$PROJECT_DIR.yml"
+}
