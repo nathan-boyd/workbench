@@ -43,6 +43,7 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 # --follow: Follow symlinks
 # --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+alias fzp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 
 # setup golang
 export PATH=$PATH:/usr/local/go/bin
