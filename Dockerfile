@@ -21,6 +21,7 @@ RUN apt-get update && \
         gnupg-agent \
         jq \
         less \
+        ripgrep \
         locales \
         ncdu \
         neovim \
@@ -71,6 +72,7 @@ RUN curl -fsSLO "https://download.docker.com/linux/static/stable/x86_64/docker-$
 RUN curl -o /usr/local/bin/gomplate -sSL https://github.com/hairyhenderson/gomplate/releases/download/v3.7.0/gomplate_linux-amd64 \
     && chmod 755 /usr/local/bin/gomplate
 
+
 WORKDIR ${HOME}/.config/coc/extensions
 
 COPY config/coc/package.json .
@@ -88,6 +90,8 @@ RUN curl -fLo ${HOME}/.config/nvim/autoload/plug.vim --create-dirs \
 # install and configure oh-my-zsh
 RUN curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | zsh || true
 RUN git clone https://github.com/zsh-users/zsh-autosuggestions ${HOME}/.oh-my-zsh/plugins/zsh-autosuggestions
+ENV ZSH_CUSTOM=/home/me/.oh-my-zsh/custom
+RUN git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 # install and configure powerlevel10k
 COPY config/powerlevel10k/.p10k.zsh ${HOME}/.p10k.zsh
