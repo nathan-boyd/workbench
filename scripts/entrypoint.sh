@@ -14,7 +14,9 @@ fi
 # until Add ability to mount volume as user other than root #2259
 # https://github.com/moby/moby/issues/2259
 #find $HOME/ -not -user $USER_NAME -execdir chown $USER_NAME {} \+
+echo "performing chown on mounted volumes within container"
 find $HOME/ -print | xargs --max-args=5 --max-procs=100 chown ${USER_NAME}:${USER_GROUP} > /dev/null 2>&1
+echo "completed chown"
 
 if [ -S "/var/run/docker.sock" ]; then
     USER_GROUP=docker
