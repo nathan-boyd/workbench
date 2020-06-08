@@ -60,7 +60,6 @@ ENV GO_VERSION=1.14.2
 RUN curl -fsSLO "https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKERVERSION}.tgz" \
   && tar xzvf docker-${DOCKERVERSION}.tgz --strip 1 -C /usr/local/bin docker/docker \
   && rm docker-${DOCKERVERSION}.tgz \
-  && curl -o- -L https://yarnpkg.com/install.sh | bash \
   && pip3 install pynvim \
   && git clone --depth 1 https://github.com/junegunn/fzf.git /usr/local/.fzf && /usr/local/.fzf/install \
   && gem instal tmuxinator \
@@ -75,7 +74,7 @@ RUN curl -o /usr/local/bin/gomplate -sSL https://github.com/hairyhenderson/gompl
 WORKDIR ${HOME}/.config/coc/extensions
 
 COPY config/coc/package.json .
-RUN ${HOME}/.yarn/bin/yarn --ignore-scripts --no-lockfile
+RUN /usr/bin/npm install --ignore-scripts --no-lockfile
 
 # remove all global node modules
 RUN npm ls -gp --depth=0 | awk -F/node_modules/ '{print $2}' | grep -vE '^(npm|)$' | xargs -r npm -g rm

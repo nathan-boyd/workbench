@@ -39,6 +39,12 @@ alias vim=vi
 alias mux=tmuxinator
 alias muxe=editMuxConfig
 
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward
+
+ls='ls --color=tty'
+grep='grep  --color=auto --exclude-dir={.bzr,CVS,.git,.hg,.svn}'
+
 ################################################################################
 
 MUX_PROJECT_FILE=$HOME/.config/tmuxinator/$PROJECT_DIR.yml
