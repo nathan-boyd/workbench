@@ -114,5 +114,6 @@ COPY config/tmuxinator/template.tpl /opt/tmuxinator/template.tpl
 COPY config/zsh/.zshrc ${HOME}/.zshrc
 
 COPY scripts/entrypoint.sh /bin/entrypoint.sh
+COPY scripts/screenfetch.sh /opt/screenfetch.sh
 
 CMD ["/bin/entrypoint.sh"]
