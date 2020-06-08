@@ -69,6 +69,9 @@ RUN curl -fsSLO "https://download.docker.com/linux/static/stable/x86_64/docker-$
   && curl "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" -o - | tar -xz -C /usr/local \
   && curl https://github.com/derailed/k9s/releases/download/v0.20.5/k9s_Linux_x86_64.tar.gz  -o- -L | tar -xz -C /usr/local/bin/
 
+RUN curl -o /usr/local/bin/gomplate -sSL https://github.com/hairyhenderson/gomplate/releases/download/v3.7.0/gomplate_linux-amd64 \
+    && chmod 755 /usr/local/bin/gomplate
+
 WORKDIR ${HOME}/.config/coc/extensions
 
 COPY config/coc/package.json .
@@ -105,6 +108,8 @@ RUN groupadd workbench && \
     useradd ${USER_NAME} --shell /bin/zsh -g workbench && \
     chown -R ${USER_NAME}: ${HOME} && \
     echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" | tee /etc/sudoers.d/${USER_NAME}
+
+COPY config/tmuxinator/template.tpl /opt/tmuxinator/template.tpl
 
 COPY config/zsh/.zshrc ${HOME}/.zshrc
 

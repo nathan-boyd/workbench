@@ -33,22 +33,18 @@ export GOENV_ROOT="/usr/local/.goenv"
 
 # setup golang
 export PATH=$PATH:/usr/local/go/bin
-#alias go=/usr/local/go/bin/go
-#export GOROOT=/usr/local/go
-#export GOPATH=$HOME/go
-#export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
 
 alias vi=nvim
 alias vim=vi
 alias mux=tmuxinator
 alias muxe=editMuxConfig
 
-
 ################################################################################
 
 MUX_PROJECT_FILE=$HOME/.config/tmuxinator/$PROJECT_DIR.yml
 if [[ ! -f "$MUX_PROJECT_FILE" ]]; then
-    tmuxinator new $PROJECT_DIR
+    touch $MUX_PROJECT_FILE
+    cat /opt/tmuxinator/template.tpl | gomplate > $MUX_PROJECT_FILE
 fi
 
 FILE=$HOME/.init
