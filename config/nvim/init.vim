@@ -290,6 +290,7 @@ call plug#end()
 " Configure NERDTree
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+let g:NERDTreeAutoDeleteBuffer = 1
 let g:NERDTreeShowHidden = 1
 let g:NERDTreeWinSize = 50
 let g:NERDTreeQuitOnOpen = 1
@@ -742,23 +743,33 @@ if !isdirectory(g:SessionDirectory)
     call mkdir(g:SessionDirectory, "p")
 endif
 
+function IsGitCommit()
+  return @% == '.git/COMMIT_EDITMSG'
+endfunction
+
 function SaveSess()
-    execute 'mksession! ' . g:SessionFile
-    echo "created session"
+  if IsGitCommit() | return | endif
+  execute 'mksession! ' . g:SessionFile
+  echo "saved session"
 endfunction
 
 function RestoreSess()
-if filereadable(g:SessionFile)
+
+  if IsGitCommit() | return | endif
+  if len(argv()) != 1 | return | endif
+  if !isdirectory(argv()[0]) | return | endif
+
+  if filereadable(g:SessionFile)
     execute 'so ' . g:SessionFile
-    if bufexists(1)
+      if bufexists(1)
         for l in range(1, bufnr('$'))
             if bufwinnr(l) == -1
                 exec 'sbuffer ' . l
             endif
         endfor
-    endif
+      endif
     echo 'restoring session'
-endif
+  endif
 endfunction
 
 autocmd VimLeave * call SaveSess()
