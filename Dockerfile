@@ -124,7 +124,7 @@ RUN groupadd workbench && \
 COPY config/tmuxinator/template.tpl /opt/tmuxinator/template.tpl
 COPY config/zsh/.zshrc ${HOME}/.zshrc
 COPY config/git/.gitconfig ${HOME}/.gitconfig
-COPY config/nvim/coc-settings.json ${HOME}/.config/nvim/coc-settings.json
+COPY config/coc/coc-settings.json ${HOME}/.config/nvim/coc-settings.json
 COPY config/tmux/.tmux.conf $HOME
 COPY scripts/entrypoint.sh /opt/entrypoint.sh
 COPY scripts/splashScreen.sh /opt/splashScreen.sh
