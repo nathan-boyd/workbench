@@ -36,6 +36,13 @@ if [[ ! -d $PROJECT_UNDO ]]; then
     mkdir -p ${PROJECT_UNDO}
 fi
 
+# stores vim sessions
+ ~/.config/nvim/sessions/home/me/workbench
+PROJECT_SESSION=${HOME}/.workbench/${PROJECT_NAME}/vim/session
+if [[ ! -d $PROJECT_SESSION ]]; then
+    mkdir -p ${PROJECT_SESSION}
+fi
+
 PROJECT_AUTOJUMP=${HOME}/.workbench/${PROJECT_NAME}/autojump
 if [[ ! -d $PROJECT_AUTOJUMP ]]; then
     mkdir -p ${PROJECT_AUTOJUMP}
@@ -53,9 +60,10 @@ docker run \
     -v ${ZSH_HISTORY}:$CONTAINER_HOME/.zsh_history \
     -v $HOME/.kube/config:$CONTAINER_HOME/.kube/config \
     -v ${PROJECT_TMUXINATOR}:$CONTAINER_HOME/.config/tmuxinator \
-    -v ${PROJECT_UNDO}:$CONTAINER_HOME/.config/.vim/undodir \
     -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK \
     -v $PROJECT_AUTOJUMP:$CONTAINER_HOME/.local/share/autojump/ \
+    -v ${PROJECT_UNDO}:$CONTAINER_HOME/.config/.vim/undodir \
+    -v $PROJECT_SESSION:$CONTAINER_HOME/.config/nvim/sessions/ \
     -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK \
     -e ITERM_PROFILE=$ITERM_PROFILE \
     -e HOST_PATH=$PWD \

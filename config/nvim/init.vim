@@ -730,3 +730,36 @@ function StopProfile()
     profile pause
     noautocmd qall!
 endfunction
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Automatically save sessions
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" create session directory if not exists
+let g:SessionDirectory = $HOME . '/.config/nvim/sessions' . getcwd()
+let g:SessionFile = SessionDirectory . '/.session.vim'
+if !isdirectory(g:SessionDirectory)
+    call mkdir(g:SessionDirectory, "p")
+endif
+
+function SaveSess()
+    execute 'mksession! ' . g:SessionFile
+    echo "created session"
+endfunction
+
+function RestoreSess()
+if filereadable(g:SessionFile)
+    execute 'so ' . g:SessionFile
+    if bufexists(1)
+        for l in range(1, bufnr('$'))
+            if bufwinnr(l) == -1
+                exec 'sbuffer ' . l
+            endif
+        endfor
+    endif
+    echo 'restoring session'
+endif
+endfunction
+
+autocmd VimLeave * call SaveSess()
+autocmd VimEnter * nested call RestoreSess()
