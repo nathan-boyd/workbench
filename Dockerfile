@@ -108,11 +108,12 @@ COPY config/powerlevel10k/.p10k.zsh ${HOME}/.p10k.zsh
 RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /usr/local/powerlevel10k \
     && /usr/local/powerlevel10k/gitstatus/install
 
-# install and configure tmux plugin manager
-ENV TMUX_PLUGIN_MANAGER_PATH="${HOME}/.tmux/plugins/tpm"
+# install and configure tmux and nvim plugins
+COPY config/tmux/.tmux.conf ${HOME}/.tmux.conf
 COPY config/nvim/init.vim ${HOME}/.config/nvim/init.vim
-RUN git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm \
-    && ${HOME}/.tmux/plugins/tpm/bin/install_plugins \
+RUN export TMUX_PLUGIN_MANAGER_PATH="$HOME/.tmux/plugins" \
+    && git clone https://github.com/tmux-plugins/tpm $TMUX_PLUGIN_MANAGER_PATH/tpm \
+    &&  $TMUX_PLUGIN_MANAGER_PATH/tpm/bin/install_plugins \
     && nvim --headless +PlugInstall +qall
 
 # create user to run under
@@ -125,7 +126,6 @@ COPY config/tmuxinator/template.tpl /opt/tmuxinator/template.tpl
 COPY config/zsh/.zshrc ${HOME}/.zshrc
 COPY config/git/.gitconfig ${HOME}/.gitconfig
 COPY config/coc/coc-settings.json ${HOME}/.config/nvim/coc-settings.json
-COPY config/tmux/.tmux.conf $HOME
 COPY scripts/entrypoint.sh /opt/entrypoint.sh
 COPY scripts/splashScreen.sh /opt/splashScreen.sh
 COPY scripts/workbenchStop.sh /opt/workbenchStop.sh
