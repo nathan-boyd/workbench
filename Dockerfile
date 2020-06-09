@@ -15,8 +15,10 @@ RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
     apt-get install -y --no-install-recommends \
         apt-transport-https \
+        autojump \
         ca-certificates \
         curl \
+        httpie \
         cowsay \
         ctop \
         git \
@@ -70,13 +72,15 @@ ENV GO_VERSION=1.14.2
 RUN curl -fsSLO "https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKERVERSION}.tgz" \
   && tar xzvf docker-${DOCKERVERSION}.tgz --strip 1 -C /usr/local/bin docker/docker \
   && rm docker-${DOCKERVERSION}.tgz \
-  && pip3 install pynvim \
   && git clone --depth 1 https://github.com/junegunn/fzf.git /usr/local/.fzf && /usr/local/.fzf/install \
   && gem instal tmuxinator \
   && curl https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh \
     -o /usr/local/share/zsh/site-functions/_tmuxinator \
   && curl "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" -o - | tar -xz -C /usr/local \
-  && curl https://github.com/derailed/k9s/releases/download/v0.20.5/k9s_Linux_x86_64.tar.gz  -o- -L | tar -xz -C /usr/local/bin/
+  && curl https://github.com/derailed/k9s/releases/download/v0.20.5/k9s_Linux_x86_64.tar.gz  -o- -L | tar -xz -C /usr/local/bin/ \
+  && pip3 install pynvim \
+  && pip3 install git+https://github.com/jeffkaufman/icdiff.git
+
 
 RUN curl -o /usr/local/bin/gomplate -sSL https://github.com/hairyhenderson/gomplate/releases/download/v3.7.0/gomplate_linux-amd64 \
     && chmod 755 /usr/local/bin/gomplate

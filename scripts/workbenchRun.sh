@@ -37,6 +37,7 @@ fi
 docker run \
     --rm \
     -it \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v /var/run/docker.sock:/var/run/docker.sock \
     -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
     -v ~/.ssh:$CONTAINER_HOME/.ssh \

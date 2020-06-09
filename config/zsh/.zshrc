@@ -19,6 +19,8 @@ source $ZSH/oh-my-zsh.sh
 source /usr/local/powerlevel10k/powerlevel10k.zsh-theme \
     && source "$HOME/.p10k.zsh"
 
+source /usr/share/autojump/autojump.zsh
+
 ################################################################################
 
 source <(kubectl completion zsh)

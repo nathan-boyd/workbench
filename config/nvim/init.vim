@@ -5,105 +5,110 @@ let g:python3_host_skip_check=1
 let g:python3_host_prog = '/usr/bin/python3'
 let g:coc_node_path = '/usr/bin/node'
 
-set shortmess+=c
-set signcolumn=yes
 set autoread
-set ttyfast
-set shell=/usr/bin/zsh
-set laststatus=2
 set autowrite
-set shortmess+=filmnrxoOtT
-set viewoptions=folds,options,cursor,unix,slash
-set virtualedit=onemore
-set history=1000
+set backspace=indent,eol,start
+set cmdheight=1
+set clipboard=unnamed,unnamedplus
+set completeopt+=noinsert,noselect,longest,menuone
+set completeopt-=preview
+set conceallevel=0
+set cursorline
+set diffopt+=vertical
+set fillchars+=vert:┃
+set foldenable
 set hidden
-set iskeyword-=.
+set history=1000
+set hlsearch
+set ignorecase
+set incsearch
 set iskeyword-=#
 set iskeyword-=-
-set showcmd
+set iskeyword-=.
+set laststatus=2
 set lazyredraw
-set fillchars+=vert:┃
-set cursorline
-set backspace=indent,eol,start
 set linespace=0
-set number
-set showmatch
-set incsearch
-set hlsearch
-set winminheight=0
-set ignorecase
-set smartcase
-set wildmenu
-set wildignorecase
-set wildmode=list:full
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
-set whichwrap=b,s,h,l,<,>,[,]
-set scrolljump=5
-set scrolloff=3
-set foldenable
 set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
 set noerrorbells
+set nospell
 set novisualbell
-set t_vb=
-set completeopt-=preview
-set completeopt+=noinsert,noselect,longest,menuone
-set diffopt+=vertical
+set number
 set omnifunc=syntaxcomplete#Complete
-set conceallevel=0
-set cmdheight=1
-set updatetime=100
-set termguicolors
-
 set re=1
-syntax on
+set scrolljump=5
+set scrolloff=3
+set shell=/usr/bin/zsh
+set shortmess+=c
+set shortmess+=filmnrxoOtT
+set showcmd
+set showmatch
+set signcolumn=yes
+set smartcase
 set synmaxcol=128
+set t_vb=
+set termguicolors
+set ttyfast
+set updatetime=100
+set viewoptions=folds,options,cursor,unix,slash
+set virtualedit=onemore
+set whichwrap=b,s,h,l,<,>,[,]
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*.pyc,*.db,*.sqlite
+set wildignorecase
+set wildmenu
+set wildmode=list:full
+set winminheight=0
+
+syntax on
 autocmd BufEnter * :syn sync maxlines=500
-
 scriptencoding utf-8
-
 filetype plugin indent on
 
 highlight clear SignColumn
 highlight clear LineNr
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Configure Spelling
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-set nospell
-" set spell spelllang=en_us                                    " turn on spell check
-" syn match myExCapitalWords +\<\w*[_0-9A-Z-]\w*\>+ contains=@NoSpell " Ignore CamelCase words when spell checking
+let g:matchparen_timeout = 1
+let g:matchparen_insert_timeout = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Netrw
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:netrw_banner       = 0  " remove the netrw banner
-let g:netrw_liststyle    = 3  " tree style listing
-let g:netrw_browse_split = 4  " see help on this one. lots of useful options
-let g:netrw_altv         = 1  " change from left splitting to right splitting
-let g:netrw_winsize      = 20 " initial size of new explore windows
-let g:netrw_keepdir      = 0  " update current directory along with browsing directory
-let g:netrw_fastbrowse   = 1  " reuse directory listings
+let g:netrw_browse_split = 4
+let g:netrw_banner       = 0
+let g:netrw_liststyle    = 3
+let g:netrw_keepdir      = 0
+let g:netrw_fastbrowse   = 1
+let g:netrw_altv         = 1
+let g:netrw_winsize      = 20
+let g:netrw_list_hide    = '.*\.swp$,.DS_Store,*/tmp/*,*.so,*.swp,*.zip,*.git,^\.\.\=/\=$'
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Configure Clipboard
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType netrw set nolist
 
-" pbcopy for OSX copy/paste
-if has('macunix')
-    vmap <C-x> :!pbcopy<CR>
-    vmap <C-c> :w !pbcopy<CR><CR>
-endif
+" Toggle Vexplore with Ctrl-E
+function! ToggleVExplorer()
+  if exists("t:expl_buf_num")
+      let expl_win_num = bufwinnr(t:expl_buf_num)
+      if expl_win_num != -1
+          let cur_win_nr = winnr()
+          exec expl_win_num . 'wincmd w'
+          close
+          exec cur_win_nr . 'wincmd w'
+          unlet t:expl_buf_num
+      else
+          unlet t:expl_buf_num
+      endif
+  else
+      exec '1wincmd w'
+      Vexplore
+      let t:expl_buf_num = bufnr("%")
+  endif
+endfunction
 
-if has('clipboard')
-    if has('unnamedplus')   " When possible use + register for copy-paste
-        set clipboard=unnamed,unnamedplus
-    else                    " On mac and Windows, use * register for copy-paste
-        set clipboard=unnamed
-    endif
-endif
+" Change directory to the current buffer when opening files.
+set autochdir
+
+map <silent> <C-E> :call ToggleVExplorer()<CR>.
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Backups
@@ -193,10 +198,6 @@ augroup END
 let mapleader=" "
 let maplocalleader = ","
 
-" wait indefinitely after leader key is pressed
-" set notimeout
-" set nottimeout
-
 " config edit / load
 nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>ev :e! $MYVIMRC<CR>
@@ -209,10 +210,6 @@ function ClearSearch()
   :nohlsearch
   :let @/ = ""
 endfunction
-
-if !exists(":PushStandupUpdate")
-    :command PushStandupUpdate :!gist -u 5b9de1197606716cf48b586065ea8a43 ~/Users/nboyd/standupUpdates/updates.md
-endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " close quickfix when entering new buffer
@@ -298,7 +295,7 @@ call plug#begin('~/.config/.vim/plugged')
 Plug 'fatih/vim-go'                                                " go support
 Plug 'vim-airline/vim-airline'                                     " modeline
 Plug 'vim-airline/vim-airline-themes'                              " modeline theme
-Plug 'morhetz/gruvbox'                                             " color theme
+Plug 'sainnhe/gruvbox-material'                                    " theme
 Plug 'godlygeek/tabular'                                           " vertical alignment
 Plug 'easymotion/vim-easymotion'                                   " ace movements
 Plug 'tpope/vim-fugitive'                                          " git tooling
@@ -308,116 +305,17 @@ Plug 'Yggdroot/indentLine'                                         " vertical al
 Plug 'maxbrunsfeld/vim-yankstack'                                  " kill ring behavior
 Plug 'SirVer/ultisnips'                                            " snippets engine
 Plug 'honza/vim-snippets'                                          " snippets
-Plug 'scrooloose/nerdtree'                                         " file explorer
-Plug 'Xuyuanp/nerdtree-git-plugin'                                 " show git status in nerdtree
-Plug 'sainnhe/gruvbox-material'                                    " theme
 Plug 'junegunn/vim-easy-align'                                     " column alignment on characters
-Plug 'scrooloose/nerdcommenter'                                    " global comment patterns
 Plug 'majutsushi/tagbar'                                           " tag visualization
 Plug 'ekalinin/Dockerfile.vim'                                     " dockerfile syntax highlighting
 Plug 'romainl/vim-qf'                                              " quick fix / location window config
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'hashivim/vim-terraform'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'Raimondi/delimitMate'
-Plug 'tpope/vim-cucumber'
-Plug 'tpope/vim-surround'
-Plug 'junegunn/fzf'
-Plug 'junegunn/fzf.vim'
-
+Plug 'neoclide/coc.nvim', {'branch': 'release'}                    " language server
+Plug 'christoomey/vim-tmux-navigator'                              " window navigation that integrates with tmux
+Plug 'Raimondi/delimitMate'                                        " delimiter auto completion
+Plug 'junegunn/fzf'                                                " fuzzy searching
+Plug 'junegunn/fzf.vim'                                            " also require for fuzzy searching
 
 call plug#end()
-
-" autocmd VimEnter *
-"   \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
-"   \|   PlugInstall --sync | q
-"   \| endif
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Configure Omnisharp
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" let g:OmniSharp_typeLookupInPreview = 1
-
-" let g:OmniSharp_server_type = 'roslyn'
-"
-" " Use the stdio OmniSharp-roslyn server
-" let g:OmniSharp_server_stdio = 1
-"
-" " Timeout in seconds to wait for a response from the server
-" let g:OmniSharp_timeout = 5
-"
-" " Fetch semantic type/interface/identifier names on BufEnter and highlight them
-" let g:OmniSharp_highlight_types = 1
-"
-" " Enable snippet completion
-" let g:OmniSharp_want_snippet=1
-"
-" let g:OmniSharp_selector_ui = 'fzf'
-"
-" augroup omnisharp_commands
-"     autocmd!
-"
-"     autocmd BufWritePre *.cs call OmniSharp#CodeFormat()
-"
-"     " Show type information automatically when the cursor stops moving
-"     autocmd CursorHold *.cs call OmniSharp#TypeLookupWithoutDocumentation()
-"
-"     " Update the highlighting whenever leaving insert mode
-"     autocmd InsertLeave *.cs call OmniSharp#HighlightBuffer()
-"
-"     autocmd FileType cs nnoremap <buffer> <Leader>rn :OmniSharpRename<CR>
-"
-"     " Alternatively, use a mapping to refresh highlighting for the current buffer
-"     autocmd FileType cs nnoremap <buffer> <Leader>th :OmniSharpHighlightTypes<CR>
-"
-"     " The following commands are contextual, based on the cursor position.
-"     autocmd FileType cs nnoremap <buffer> <Leader>gd :OmniSharpGotoDefinition<CR>
-"     autocmd FileType cs nnoremap <buffer> <Leader>fi :OmniSharpFindImplementations<CR>
-"     autocmd FileType cs nnoremap <buffer> <Leader>fs :OmniSharpFindSymbol<CR>
-"     autocmd FileType cs nnoremap <buffer> <Leader>fu :OmniSharpFindUsages<CR>
-"     autocmd FileType cs nnoremap <buffer> <Leader>rt :OmniSharpRunTest<CR>
-"
-"     " Finds members in the current buffer
-"     autocmd FileType cs nnoremap <buffer> <Leader>fm :OmniSharpFindMembers<CR>
-"
-"     autocmd FileType cs nnoremap <buffer> <Leader>fx :OmniSharpFixUsings<CR>
-"     autocmd FileType cs nnoremap <buffer> <Leader>tt :OmniSharpTypeLookup<CR>
-"     autocmd FileType cs nnoremap <buffer> <Leader>dc :OmniSharpDocumentation<CR>
-"
-"     autocmd FileType cs nnoremap <buffer> <C-\> :OmniSharpSignatureHelp<CR>
-"     autocmd FileType cs inoremap <buffer> <C-\> <C-o>:OmniSharpSignatureHelp<CR>
-"
-"     " Navigate up and down by method/property/field
-"     autocmd FileType cs nnoremap <buffer> <C-k> :OmniSharpNavigateUp<CR>
-"     autocmd FileType cs nnoremap <buffer> <C-j> :OmniSharpNavigateDown<CR>
-"
-"     " Find all code errors/warnings for the current solution and populate the quickfix window
-"     autocmd FileType cs nnoremap <buffer> <Leader>gcc :OmniSharpGlobalCodeCheck<CR>
-"
-" augroup END
-"
-" " Contextual code actions (uses fzf, CtrlP or unite.vim when available)
-" nnoremap <Leader><Space> :OmniSharpGetCodeActions<CR>
-"
-" " Run code actions with text selected in visual mode to extract method
-" xnoremap <Leader><Space> :call OmniSharp#GetCodeActions('visual')<CR>
-"
-" " Rename with dialog
-" nnoremap <Leader>nm :OmniSharpRename<CR>
-" nnoremap <F2> :OmniSharpRename<CR>
-"
-" " Rename without dialog - with cursor on the symbol to rename: `:Rename newname`
-" command! -nargs=1 Rename :call OmniSharp#RenameTo("<args>")
-"
-" nnoremap <Leader>cf :OmniSharpCodeFormat<CR>
-"
-" " Start the omnisharp server for the current solution
-" nnoremap <Leader>ss :OmniSharpStartServer<CR>
-" nnoremap <Leader>sp :OmniSharpStopServer<CR>
-
-" Enable snippet completion
-" let g:OmniSharp_want_snippet=1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure tmux-navigator
@@ -433,27 +331,10 @@ nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
 nnoremap <silent> <C-p> :TmuxNavigatePrevious<cr>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Configure terraform
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:terraform_align=1
-let g:terraform_fmt_on_save=1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Vim-Qf
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:qf_loclist_window_bottom=0
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Configure EasyAlign
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Tagbar
@@ -497,39 +378,6 @@ let g:tagbar_type_go = {
 " dont change gutter highlights
 let g:gitgutter_override_sign_column_highlight = 0
 let g:gitgutter_max_signs = 100
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Configure NERDTree
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:NERDTreeShowHidden = 1
-let g:NERDTreeWinSize = 50
-let g:NERDTreeQuitOnOpen = 1
-let g:NERDTreeMinimalUI = 1
-let g:NERDTreeDirArrows = 1
-let g:NERDTREE_TABS_FOCUS_ON_FILES = 1
-let g:NERDTreeIgnore = [
-    \ 'obj$',
-    \ 'bin$',
-    \ 'vendor',
-    \ '\.git$',
-    \ '\.rbc$',
-    \ '\~$',
-    \ '\.pyc$',
-    \ '\.sqlite$',
-    \ '__pycache__',
-    \ '.DS_Store',
-    \ 'node_modules'
-\]
-
-nnoremap <C-e> :call CheckNERD()<CR>
-function CheckNERD()
-  if @% =~ "NERD"
-    NERDTreeToggle
-  else
-    NERDTreeFind
-  endif
-endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure COC
@@ -601,16 +449,6 @@ nnoremap <silent> <leader>gp :Git push<CR>
 nnoremap <silent> <leader>gr :Gread<CR>
 nnoremap <silent> <leader>gw :Gwrite<CR>
 nnoremap <silent> <leader>ge :Gedit<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Configure NerdCommenter
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:NERDSpaceDelims = 1            " Add spaces after comment delimiters by default
-let g:NERDDefaultAlign = 'left'      " Align line-wise comment delimiters flush left instead of following code indentation
-let g:NERDCommentEmptyLines = 1      " Allow commenting and inverting empty lines (useful when commenting a region)
-let g:NERDTrimTrailingWhitespace = 1 " Enable trimming of trailing whitespace when uncommenting
-let g:NERDToggleCheckAllLines = 1    " Enable NERDCommenterToggle to check all selected lines is commented or not
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Vim-go
@@ -867,8 +705,18 @@ let g:airline_theme = 'gruvbox_material'
 
 silent! colorscheme gruvbox-material
 
-let g:matchparen_timeout = 1
-let g:matchparen_insert_timeout = 1
+
+if $ITERM_PROFILE == 'dark'
+  set background=dark
+endif
+
+if $ITERM_PROFILE == 'light'
+  set background=light
+endif
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Custom functions
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 function StartProfile()
     profile start profile.log
@@ -880,11 +728,3 @@ function StopProfile()
     profile pause
     noautocmd qall!
 endfunction
-
-if $ITERM_PROFILE == 'dark'
-  set background=dark
-endif
-
-if $ITERM_PROFILE == 'light'
-  set background=light
-endif
