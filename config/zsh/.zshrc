@@ -39,6 +39,7 @@ export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.g
 alias fzp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 
 alias c=clear
+alias diff=icdiff
 alias gdt="git difftool -y"
 alias gs="git status"
 alias vi=nvim
@@ -46,7 +47,7 @@ alias vim=vi
 alias mux=tmuxinator
 alias muxe=editMuxConfig
 alias k=kubectl
-alias xxx="/opt/workbenchStop.sh"
+alias eee="/opt/workbenchStop.sh"
 
 ################################################################################
 
