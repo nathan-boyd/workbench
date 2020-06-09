@@ -1,11 +1,18 @@
 # workbench
 
-# TODO
-- open vim to last file
+A development environment.
 
-My development environment.
+## Starting the environment
 
-## Tools
+### Building from source
+
+`./scripts/workbenchBuild.sh`
+
+### Running the container
+
+`./scripts/workbenchRun.sh`
+
+## Installed Tools
 
 - autojump
 - cowsay
