@@ -74,42 +74,6 @@ let g:matchparen_insert_timeout = 1
 " Configure Netrw
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:netrw_browse_split = 4
-let g:netrw_banner       = 0
-let g:netrw_liststyle    = 3
-let g:netrw_keepdir      = 1
-let g:netrw_fastbrowse   = 1
-let g:netrw_altv         = 1
-let g:netrw_winsize      = 20
-let g:netrw_list_hide    = '.*\.swp$,.DS_Store,*/tmp/*,*.so,*.swp,*.zip,*.git,^\.\.\=/\=$'
-let g:netrw_keepdir = 0
-
-autocmd FileType netrw set nolist
-
-" Toggle Vexplore with Ctrl-E
-function! ToggleVExplorer()
-  if exists("t:expl_buf_num")
-      let expl_win_num = bufwinnr(t:expl_buf_num)
-      if expl_win_num != -1
-          let cur_win_nr = winnr()
-          exec expl_win_num . 'wincmd w'
-          close
-          exec cur_win_nr . 'wincmd w'
-          unlet t:expl_buf_num
-      else
-          unlet t:expl_buf_num
-      endif
-  else
-      exec '1wincmd w'
-      Vexplore
-      let t:expl_buf_num = bufnr("%")
-  endif
-endfunction
-
-" Change directory to the current buffer when opening files.
-set autochdir
-
-map <silent> <C-E> :call ToggleVExplorer()<CR>.
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Backups
@@ -292,7 +256,8 @@ command! -nargs=1 -complete=command -bar -range Redir silent call Redir(<q-args>
 let g:plug_threads=1
 
 call plug#begin('~/.config/.vim/plugged')
-
+Plug 'scrooloose/nerdtree'                                         " file explorer
+Plug 'Xuyuanp/nerdtree-git-plugin'                                 " show git status in nerdtree
 Plug 'fatih/vim-go'                                                " go support
 Plug 'vim-airline/vim-airline'                                     " modeline
 Plug 'vim-airline/vim-airline-themes'                              " modeline theme
@@ -316,7 +281,43 @@ Plug 'Raimondi/delimitMate'                                        " delimiter a
 Plug 'junegunn/fzf'                                                " fuzzy searching
 Plug 'junegunn/fzf.vim'                                            " also require for fuzzy searching
 
+" alternative plugins
+"Plug 'tpope/vim-vinegar'
+
 call plug#end()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Configure NERDTree
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:NERDTreeShowHidden = 1
+let g:NERDTreeWinSize = 50
+let g:NERDTreeQuitOnOpen = 1
+let g:NERDTreeMinimalUI = 1
+let g:NERDTreeDirArrows = 1
+let g:NERDTREE_TABS_FOCUS_ON_FILES = 1
+let g:NERDTreeIgnore = [
+    \ 'obj$',
+    \ 'bin$',
+    \ 'vendor',
+    \ '\.git$',
+    \ '\.rbc$',
+    \ '\~$',
+    \ '\.pyc$',
+    \ '\.sqlite$',
+    \ '__pycache__',
+    \ '.DS_Store',
+    \ 'node_modules'
+\]
+
+nnoremap - :call CheckNERD()<CR>
+function CheckNERD()
+  if @% =~ "NERD"
+    NERDTreeToggle
+  else
+    NERDTreeFind
+  endif
+endfunction
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure tmux-navigator
