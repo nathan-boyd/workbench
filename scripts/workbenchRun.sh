@@ -37,7 +37,6 @@ if [[ ! -d $PROJECT_UNDO ]]; then
 fi
 
 # stores vim sessions
- ~/.config/nvim/sessions/home/me/workbench
 PROJECT_SESSION=${HOME}/.workbench/${PROJECT_NAME}/vim/session
 if [[ ! -d $PROJECT_SESSION ]]; then
     mkdir -p ${PROJECT_SESSION}
@@ -52,10 +51,8 @@ fi
 docker run \
     --rm \
     -it \
-    -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v /var/run/docker.sock:/var/run/docker.sock \
-    -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
-    -v ~/.ssh:$CONTAINER_HOME/.ssh \
+    -v $HOME/.ssh:$CONTAINER_HOME/.ssh \
     -v $PWD:${CONTAINER_HOME}/${PROJECT_DIR} \
     -v ${ZSH_HISTORY}:$CONTAINER_HOME/.zsh_history \
     -v $HOME/.kube/config:$CONTAINER_HOME/.kube/config \
