@@ -1,0 +1,6 @@
+[pager]
+    difftool = true
+[diff]
+    tool = icdiff
+[difftool "icdiff"]
+    cmd = icdiff --head=5000 --line-numbers -L \"$BASE\" -L \"$REMOTE\" \"$LOCAL\" \"$REMOTE\" --color-map='add:green,change:yellow,description:blue,meta:magenta,separator:blue,subtract:red'

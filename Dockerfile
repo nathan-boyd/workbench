@@ -42,10 +42,6 @@ RUN apt-get update && \
         zsh \
     && apt-get clean
 
-RUN export BAT_VERSION="0.15.4" && wget "https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/bat_${BAT_VERSION}_amd64.deb" \
-    && dpkg -i "bat_${BAT_VERSION}_amd64.deb" \
-    && rm "bat_${BAT_VERSION}_amd64.deb"
-
 # set locale
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
     dpkg-reconfigure --frontend=noninteractive locales && \
@@ -63,28 +59,29 @@ RUN apt-get update && \
         nodejs \
     && apt-get clean
 
-ENV PATH="$PATH:$(which node)"
+ENV PATH="$PATH:/usr/bin/node"
 
 # add binaries
-ENV DOCKERVERSION=18.03.1-ce
-ENV GO_VERSION=1.14.2
-
-RUN curl -fsSLO "https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKERVERSION}.tgz" \
-  && tar xzvf docker-${DOCKERVERSION}.tgz --strip 1 -C /usr/local/bin docker/docker \
-  && rm docker-${DOCKERVERSION}.tgz \
+RUN \
+  export DOCKERVERSION=18.03.1-ce \
+    && curl -fsSLO "https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKERVERSION}.tgz" \
+    && tar xzvf docker-${DOCKERVERSION}.tgz --strip 1 -C /usr/local/bin docker/docker \
+    && rm docker-${DOCKERVERSION}.tgz \
   && git clone --depth 1 https://github.com/junegunn/fzf.git /usr/local/.fzf && /usr/local/.fzf/install \
   && gem instal tmuxinator \
   && curl https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh \
     -o /usr/local/share/zsh/site-functions/_tmuxinator \
-  && curl "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" -o - | tar -xz -C /usr/local \
+  && export GO_VERSION=1.14.2 \
+    && curl "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" -o - | tar -xz -C /usr/local \
   && curl https://github.com/derailed/k9s/releases/download/v0.20.5/k9s_Linux_x86_64.tar.gz  -o- -L | tar -xz -C /usr/local/bin/ \
   && pip3 install pynvim \
-  && pip3 install git+https://github.com/jeffkaufman/icdiff.git
-
-
-RUN curl -o /usr/local/bin/gomplate -sSL https://github.com/hairyhenderson/gomplate/releases/download/v3.7.0/gomplate_linux-amd64 \
+  && pip3 install git+https://github.com/jeffkaufman/icdiff.git \
+  && export BAT_VERSION="0.15.4" \
+    && wget "https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/bat_${BAT_VERSION}_amd64.deb" \
+    && dpkg -i "bat_${BAT_VERSION}_amd64.deb" \
+    && rm "bat_${BAT_VERSION}_amd64.deb" \
+  && curl -o /usr/local/bin/gomplate -sSL https://github.com/hairyhenderson/gomplate/releases/download/v3.7.0/gomplate_linux-amd64 \
     && chmod 755 /usr/local/bin/gomplate
-
 
 WORKDIR ${HOME}/.config/coc/extensions
 
@@ -101,10 +98,10 @@ RUN curl -fLo ${HOME}/.config/nvim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # install and configure oh-my-zsh
-RUN curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | zsh || true
-RUN git clone https://github.com/zsh-users/zsh-autosuggestions ${HOME}/.oh-my-zsh/plugins/zsh-autosuggestions
 ENV ZSH_CUSTOM=/home/me/.oh-my-zsh/custom
-RUN git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+RUN curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | zsh || true \
+    && git clone https://github.com/zsh-users/zsh-autosuggestions ${HOME}/.oh-my-zsh/plugins/zsh-autosuggestions \
+    && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 # install and configure powerlevel10k
 COPY config/powerlevel10k/.p10k.zsh ${HOME}/.p10k.zsh
@@ -112,13 +109,12 @@ RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /usr/local/
     && /usr/local/powerlevel10k/gitstatus/install
 
 # install and configure tmux plugin manager
-COPY config/tmux/.tmux.conf $HOME
 ENV TMUX_PLUGIN_MANAGER_PATH="${HOME}/.tmux/plugins/tpm"
-RUN git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm \
-    && ${HOME}/.tmux/plugins/tpm/bin/install_plugins
-
+COPY config/tmux/.tmux.conf $HOME
 COPY config/nvim/init.vim ${HOME}/.config/nvim/init.vim
-RUN nvim --headless +PlugInstall +qall
+RUN git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm \
+    && ${HOME}/.tmux/plugins/tpm/bin/install_plugins \
+    && nvim --headless +PlugInstall +qall
 
 RUN groupadd workbench && \
     useradd ${USER_NAME} --shell /bin/zsh -g workbench && \
@@ -127,7 +123,7 @@ RUN groupadd workbench && \
 
 COPY config/tmuxinator/template.tpl /opt/tmuxinator/template.tpl
 COPY config/zsh/.zshrc ${HOME}/.zshrc
-
+COPY config/git/.gitconfig ${HOME}/.gitconfig
 COPY scripts/entrypoint.sh /opt/entrypoint.sh
 COPY scripts/splashScreen.sh /opt/splashScreen.sh
 COPY scripts/workbenchStop.sh /opt/workbenchStop.sh
