@@ -83,11 +83,11 @@ RUN \
   && curl -o /usr/local/bin/gomplate -sSL https://github.com/hairyhenderson/gomplate/releases/download/v3.7.0/gomplate_linux-amd64 \
     && chmod 755 /usr/local/bin/gomplate
 
+# install coc extensions
 WORKDIR ${HOME}/.config/coc/extensions
 
 COPY config/coc/package.json .
 RUN /usr/bin/npm install --ignore-scripts --no-lockfile
-
 # remove all global node modules
 RUN npm ls -gp --depth=0 | awk -F/node_modules/ '{print $2}' | grep -vE '^(npm|)$' | xargs -r npm -g rm
 
@@ -110,12 +110,12 @@ RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /usr/local/
 
 # install and configure tmux plugin manager
 ENV TMUX_PLUGIN_MANAGER_PATH="${HOME}/.tmux/plugins/tpm"
-COPY config/tmux/.tmux.conf $HOME
 COPY config/nvim/init.vim ${HOME}/.config/nvim/init.vim
 RUN git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm \
     && ${HOME}/.tmux/plugins/tpm/bin/install_plugins \
     && nvim --headless +PlugInstall +qall
 
+# create user to run under
 RUN groupadd workbench && \
     useradd ${USER_NAME} --shell /bin/zsh -g workbench && \
     chown -R ${USER_NAME}: ${HOME} && \
@@ -124,6 +124,8 @@ RUN groupadd workbench && \
 COPY config/tmuxinator/template.tpl /opt/tmuxinator/template.tpl
 COPY config/zsh/.zshrc ${HOME}/.zshrc
 COPY config/git/.gitconfig ${HOME}/.gitconfig
+COPY config/nvim/coc-settings.json ${HOME}/.config/nvim/coc-settings.json
+COPY config/tmux/.tmux.conf $HOME
 COPY scripts/entrypoint.sh /opt/entrypoint.sh
 COPY scripts/splashScreen.sh /opt/splashScreen.sh
 COPY scripts/workbenchStop.sh /opt/workbenchStop.sh

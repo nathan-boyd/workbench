@@ -13,6 +13,8 @@ PROJECT_NAME=${PWD#"${PWD%/*/*}/"}
 CONTAINER_NAME=${PROJECT_NAME//\//_}
 CONTAINER_HOME="/home/me"
 
+# Eventually may just mount the .workbench directory and symlink within the container
+
 PROJECT_ZSH=${HOME}/.workbench/${PROJECT_NAME}/zsh
 if [[ ! -d $PROJECT_ZSH ]]; then
     mkdir -p ${PROJECT_ZSH}
@@ -34,6 +36,12 @@ if [[ ! -d $PROJECT_UNDO ]]; then
     mkdir -p ${PROJECT_UNDO}
 fi
 
+PROJECT_AUTOJUMP=${HOME}/.workbench/${PROJECT_NAME}/autojump
+if [[ ! -d $PROJECT_AUTOJUMP ]]; then
+    mkdir -p ${PROJECT_AUTOJUMP}
+    touch ${PROJECT_AUTOJUMP}/autojump.txt
+fi
+
 docker run \
     --rm \
     -it \
@@ -47,6 +55,7 @@ docker run \
     -v ${PROJECT_TMUXINATOR}:$CONTAINER_HOME/.config/tmuxinator \
     -v ${PROJECT_UNDO}:$CONTAINER_HOME/.config/.vim/undodir \
     -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK \
+    -v $PROJECT_AUTOJUMP:$CONTAINER_HOME/.local/share/autojump/ \
     -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK \
     -e ITERM_PROFILE=$ITERM_PROFILE \
     -e HOST_PATH=$PWD \
