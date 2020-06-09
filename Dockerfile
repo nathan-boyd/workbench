@@ -1,5 +1,10 @@
 FROM ubuntu:20.04
 
+# add man pages
+RUN yes | unminimize && \
+    apt-get install -y man-db && \
+    rm -r /var/lib/apt/lists/*
+
 ENV USER_NAME me
 ENV HOME /home/${USER_NAME}
 WORKDIR ${HOME}
