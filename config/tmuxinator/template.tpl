@@ -5,7 +5,7 @@ root: .
 startup_window: shell
 windows:
   - shell:
-      layout: 9a86,208x57,0,0{104x57,0,0,1,103x57,105,0[103x28,105,0,4,103x28,105,29,5]}
+      layout: 722b,208x57,0,0[208x38,0,0,0,208x18,0,39{104x18,0,39,5,103x18,105,39,6}]
       panes:
         - /opt/splashScreen.sh
         - htop

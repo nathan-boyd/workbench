@@ -4,18 +4,21 @@ My development environment.
 
 ## Tools
  - autojump
- - curl
- - httpie
  - cowsay
  - ctop
+ - curl
  - git
- - jq
+ - golang
+ - golang
  - htop
- - mtr
+ - httpie
+ - jq
  - less
- - ripgrep
+ - mtr
  - ncdu
  - neovim
+ - python
+ - ripgrep
  - ruby
  - screenfetch
  - ssh-client
@@ -23,4 +26,3 @@ My development environment.
  - tmux
  - wget
  - zsh
- - python

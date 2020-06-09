@@ -38,7 +38,9 @@ export PATH=$PATH:/usr/local/go/bin
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 alias fzp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 
+alias c=clear
 alias gdt="git difftool -y"
+alias gs="git status"
 alias vi=nvim
 alias vim=vi
 alias mux=tmuxinator
