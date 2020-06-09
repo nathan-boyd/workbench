@@ -1,0 +1,35 @@
+{
+  "languageserver": {
+    "golang": {
+      "enable": false,
+      "command": "gopls",
+      "rootPatterns": ["go.mod"],
+      "filetypes": ["go"],
+      "disableWorkspaceFolders": true,
+      "progressOnInitialization": true
+    },
+    "dockerfile": {
+      "command": "docker-langserver",
+      "filetypes": ["Dockerfile"],
+      "args": ["--stdio"]
+    },
+    "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    }
+  },
+  "diagnostic.enableMessage": "always",
+  "diagnostic.refreshOnInsertMode": true,
+  "diagnostic.enableSign": true,
+  "diagnostic.warningSign": "⚠",
+  "diagnostic.infoSign": "ℹ",
+  "diagnostic.errorSign": "✖",
+  "diagnostic.signOffset": 9999999,
+  "diagnostic.highlightOffset": 9999999,
+  "suggest.languageSourcePriority": 100,
+  "suggest.removeDuplicateItems": true,
+  "snippets.userSnippetsDirectory": "$HOME/.vim/UltiSnip",
+  "coc.preferences.formatOnSaveFiletypes": ["json", "markdown", "go"]
+}
