@@ -404,7 +404,7 @@ let g:tagbar_type_go = {
 " Configure gitgutter
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" dont change gutter highlights
+" don't change gutter highlights
 let g:gitgutter_override_sign_column_highlight = 0
 let g:gitgutter_max_signs = 100
 
@@ -419,7 +419,6 @@ let g:coc_global_extensions = [
     \'coc-json',
     \'coc-lists',
     \'coc-snippets',
-    \'coc-spell-checker',
     \'coc-yaml',
 \]
 
