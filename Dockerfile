@@ -21,6 +21,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         apt-transport-https \
         autojump \
+        build-essential \
         ca-certificates \
         cowsay \
         ctop \
