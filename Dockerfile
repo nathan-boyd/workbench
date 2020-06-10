@@ -22,27 +22,28 @@ RUN apt-get update && \
         apt-transport-https \
         autojump \
         ca-certificates \
-        curl \
-        httpie \
         cowsay \
         ctop \
+        curl \
         git \
         gnupg-agent \
-        jq \
         htop \
-        mtr \
+        httpie \
+        jq \
         less \
-        ripgrep \
         locales \
+        mtr \
         ncdu \
         neovim \
         python3-pip \
+        ripgrep \
         ruby \
         screenfetch \
         software-properties-common \
         ssh-client \
         sudo \
         tmux \
+        tree \
         wget \
         zsh \
     && apt-get clean
