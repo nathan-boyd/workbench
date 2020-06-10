@@ -13,7 +13,6 @@ A development environment.
 `./scripts/workbenchRun.sh`
 
 ## Installed CLI Tools
-
 - autojump
 - cowsay
 - ctop
@@ -38,7 +37,6 @@ A development environment.
 - zsh
 
 ## NeoVim Installed Plugins
-
 - Dockerfile
 - ale
 - coc.nvim
