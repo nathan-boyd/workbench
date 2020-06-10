@@ -31,7 +31,6 @@ set linespace=0
 set list
 set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
 set noerrorbells
-set nospell
 set novisualbell
 set number
 set omnifunc=syntaxcomplete#Complete
@@ -88,6 +87,13 @@ set nowritebackup
 
 set noswapfile
 set dir=~/tmp
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Configure spelling
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set spell spelllang=en_us
+syn match myExCapitalWords +\<\w*[_0-9A-Z-]\w*\>+ contains=@NoSpell " Ignore CamelCase words when spell checking
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Text Formatting
@@ -281,6 +287,7 @@ Plug 'Raimondi/delimitMate'                                        " delimiter a
 Plug 'junegunn/fzf'                                                " fuzzy searching
 Plug 'junegunn/fzf.vim'                                            " also require for fuzzy searching
 Plug 'easymotion/vim-easymotion'
+Plug 'preservim/nerdcommenter'
 
 call plug#end()
 
@@ -412,6 +419,7 @@ let g:coc_global_extensions = [
     \'coc-json',
     \'coc-lists',
     \'coc-snippets',
+    \'coc-spell-checker',
     \'coc-yaml',
 \]
 
