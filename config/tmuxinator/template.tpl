@@ -10,7 +10,7 @@ windows:
       panes:
         - /bin/zsh
         - htop
-        - docker run --rm -ti -v /var/run/docker.sock:/var/run/docker.sock --name workbench-{{ .Env.PROJECT_DIR }} quay.io/vektorlab/ctop:latest
+        - docker run --rm -ti -v /var/run/docker.sock:/var/run/docker.sock --name workbench-{{ .Env.PROJECT_DIR }}-ctop quay.io/vektorlab/ctop:latest
   - editor:
       panes:
         - vim .
