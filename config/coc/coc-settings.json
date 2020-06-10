@@ -1,17 +1,5 @@
 {
   "languageserver": {
-    "golang": {
-      "enable": false,
-      "command": "gopls",
-      "rootPatterns": [
-        "go.mod"
-      ],
-      "filetypes": [
-        "go"
-      ],
-      "disableWorkspaceFolders": true,
-      "progressOnInitialization": true
-    },
     "bash": {
       "command": "bash-language-server",
       "args": [

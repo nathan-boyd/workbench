@@ -264,7 +264,7 @@ let g:plug_threads=1
 call plug#begin('~/.config/.vim/plugged')
 Plug 'scrooloose/nerdtree'                                         " file explorer
 Plug 'Xuyuanp/nerdtree-git-plugin'                                 " show git status in nerdtree
-"Plug 'fatih/vim-go'                                                " go support
+Plug 'fatih/vim-go'                                                " go support
 Plug 'vim-airline/vim-airline'                                     " modeline
 Plug 'vim-airline/vim-airline-themes'                              " modeline theme
 Plug 'sainnhe/gruvbox-material'                                    " theme
@@ -413,7 +413,6 @@ let g:gitgutter_max_signs = 100
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:coc_global_extensions = [
-    \'coc-go',
     \'coc-json',
     \'coc-lists',
     \'coc-snippets',
@@ -481,63 +480,58 @@ nnoremap <silent> <leader>ge :Gedit<CR>
 " Configure Vim-go
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"autocmd InsertLeave go :write
-"
-"" the following are handled by the language client / server
-"let g:go_def_mapping_enabled = 0
-"let g:go_code_completion_enabled = 0
-"
-"let g:go_bin_path = "/usr/local/bin/go"
-"let $GOPATH = $HOME."/go"
-"let g:go_autodetect_gopath = 1
-"
-""let g:go_auto_type_info = 1
-"
-"let g:go_fmt_autosave = 0
-"let g:go_fmt_experimental = 1 " fixes opening folds on save
-"let g:go_highlight_extra_types = 1
-"let g:go_highlight_types = 1
-"let g:go_highlight_fields = 1
-"let g:go_highlight_functions = 1
-"let g:go_highlight_methods = 1
-"let g:go_highlight_operators = 1
-"let g:go_highlight_structs = 1
-"let g:go_highlight_types = 1
-"let g:go_highlight_function_parameters = 1
-"let g:go_highlight_function_calls = 1
-"let g:go_highlight_variable_declarations = 1
-"let g:go_highlight_variable_assignments = 1
-"
-"let g:go_highlight_build_constraints = 1
-"let g:go_highlight_extra_types = 1
-"let g:go_highlight_fields = 1
-"let g:go_highlight_functions = 1
-"let g:go_highlight_methods = 1
-"let g:go_highlight_operators = 1
-"let g:go_highlight_structs = 1
-"let g:go_highlight_types = 1
-"
-"let g:go_decls_mode = 'fzf'
-"let g:go_fmt_command = "goimports"
-"let g:go_def_mode='gopls'
-"let g:go_info_mode='gopls'
-"let g:go_list_type = "quickfix"
-"let g:go_snippet_engine = "ultisnips"
-"let g:go_debug_break_point_symbol='>>'
-"
-"let $GINKGO_EDITOR_INTEGRATION = "true" " uses ginkgo for tests
-"
-"au FileType go nmap <leader>gd <Plug>(go-definition)
-"au FileType go nmap <leader>bp <Plug>(go-build)
-"au FileType go nmap <leader>tt <Plug>(go-test)
-"au FileType go nmap <leader>cv <Plug>(go-coverage)
-"au FileType go nmap <leader>rn <Plug>(go-rename)
-"au FileType go nmap <leader>rf <Plug>(go-referrers)
-"au FileType go nmap <leader>df <Plug>(go-def)
-"
-"" swap between tests and code
-"au FileType go nmap <leader>ae <Plug>(go-alternate-edit)
-"au Filetype go nmap <leader>aev <Plug>(go-alternate-vertical)
+autocmd InsertLeave go :write
+
+" the following are handled by the language client / server
+let g:go_fmt_experimental = 1 " fixes opening folds on save
+
+let g:go_autodetect_gopath = 1
+let g:go_fmt_autosave = 1
+let g:go_get_update = 0
+
+let g:go_auto_type_info = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_highlight_function_parameters = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_variable_declarations = 1
+let g:go_highlight_variable_assignments = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+
+let g:go_decls_mode = 'fzf'
+let g:go_fmt_command = "goimports"
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+let g:go_list_type = "quickfix"
+let g:go_snippet_engine = "ultisnips"
+let g:go_debug_break_point_symbol='>>'
+
+let $GINKGO_EDITOR_INTEGRATION = "true" " uses ginkgo for tests
+
+au FileType go nmap <leader>gd <Plug>(go-definition)
+au FileType go nmap <leader>bp <Plug>(go-build)
+au FileType go nmap <leader>tt <Plug>(go-test)
+au FileType go nmap <leader>cv <Plug>(go-coverage)
+au FileType go nmap <leader>rn <Plug>(go-rename)
+au FileType go nmap <leader>rf <Plug>(go-referrers)
+au FileType go nmap <leader>df <Plug>(go-def)
+
+" swap between tests and code
+au FileType go nmap <leader>ae <Plug>(go-alternate-edit)
+au Filetype go nmap <leader>aev <Plug>(go-alternate-vertical)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Ale

@@ -84,6 +84,7 @@ RUN \
     && /usr/local/go/bin/go get golang.org/x/tools/gopls@latest \
     && /usr/local/go/bin/go get github.com/cweill/gotests/... \
     && /usr/local/go/bin/go get github.com/fatih/gomodifytags \
+    && /usr/local/go/bin/go get golang.org/x/tools/cmd/goimports \
   && curl https://github.com/derailed/k9s/releases/download/v0.20.5/k9s_Linux_x86_64.tar.gz  -o- -L | tar -xz -C /usr/local/bin/ \
   && pip3 install pynvim \
   && pip3 install git+https://github.com/jeffkaufman/icdiff.git \
