@@ -80,6 +80,10 @@ RUN \
     -o /usr/local/share/zsh/site-functions/_tmuxinator \
   && export GO_VERSION=1.14.2 \
     && curl "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" -o - | tar -xz -C /usr/local \
+  && export GO111MODULE=on \
+    && /usr/local/go/bin/go get golang.org/x/tools/gopls@latest \
+    && /usr/local/go/bin/go get github.com/cweill/gotests/... \
+    && /usr/local/go/bin/go get github.com/fatih/gomodifytags \
   && curl https://github.com/derailed/k9s/releases/download/v0.20.5/k9s_Linux_x86_64.tar.gz  -o- -L | tar -xz -C /usr/local/bin/ \
   && pip3 install pynvim \
   && pip3 install git+https://github.com/jeffkaufman/icdiff.git \
