@@ -1,10 +1,5 @@
 #!/usr/bin/env bash
 
-if [ ! -n $(docker ps -a --format '{{ .Names }}' | grep -oE workbench) ]; then
-	echo "workbench already exists!" >&2;
-	exit 1;
-fi
-
 GIT_USER_NAME=$(git config user.name)
 GIT_USER_EMAIL=$(git config user.email)
 
@@ -12,6 +7,12 @@ PROJECT_DIR=${PWD##*/}
 PROJECT_NAME=${PWD#"${PWD%/*/*}/"}
 CONTAINER_NAME=${PROJECT_NAME//\//_}
 CONTAINER_HOME="/home/me"
+
+if [ ! -n $(docker ps -a --format '{{ .Names }}' | grep -oE ${CONTAINER_NAME}) ]; then
+	echo "workbench already exists!" >&2;
+	exit 1;
+fi
+
 
 # Eventually may just mount the .workbench directory and symlink within the container
 
