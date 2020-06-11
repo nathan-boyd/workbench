@@ -16,6 +16,7 @@ fi
 #find $HOME/ -not -user $USER_NAME -execdir chown $USER_NAME {} \+
 echo "performing chown on mounted volumes within container"
 find $HOME/ -print | xargs --max-args=5 --max-procs=100 chown ${USER_NAME}:${USER_GROUP} > /dev/null 2>&1
+chown ${USER_NAME}:${USER_GROUP} /usr/lib/node_modules
 echo "completed chown"
 
 if [ -S "/var/run/docker.sock" ]; then
