@@ -12,13 +12,20 @@ A development environment.
 
 `./scripts/workbenchRun.sh`
 
+## Langages
+- Dotnet 3.1
+- GoLang 1.24.2
+- NodeJS 14.4.0
+- Python 2.8.18
+- Python 3.8.2
+- Ruby   2.7
+
 ## Installed CLI Tools
 - autojump
 - cowsay
 - ctop
 - curl
 - git
-- golang
 - htop
 - httpie
 - jq
@@ -26,9 +33,7 @@ A development environment.
 - mtr
 - ncdu
 - neovim
-- python
 - ripgrep
-- ruby
 - screenfetch
 - ssh-client
 - sudo
@@ -37,7 +42,6 @@ A development environment.
 - zsh
 
 ## NeoVim Installed Plugins
-- Dockerfile
 - ale
 - coc.nvim
 - delimitMate
