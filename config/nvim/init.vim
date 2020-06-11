@@ -1,9 +1,3 @@
-let g:loaded_python_provider = 1
-let g:python_host_skip_check=1
-let g:python_host_prog = '/usr/bin/python'
-let g:python3_host_skip_check=1
-let g:python3_host_prog = '/usr/bin/python3'
-let g:coc_node_path = '/usr/bin/node'
 
 set autoread
 set autowrite
@@ -66,6 +60,11 @@ filetype plugin indent on
 highlight clear SignColumn
 highlight clear LineNr
 
+let g:loaded_python_provider = 1
+let g:python_host_skip_check=1
+let g:python_host_prog = '/usr/bin/python'
+let g:python3_host_skip_check=1
+let g:python3_host_prog = '/usr/bin/python3'
 let g:matchparen_timeout = 1
 let g:matchparen_insert_timeout = 1
 
@@ -411,6 +410,8 @@ let g:gitgutter_max_signs = 100
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure COC
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:coc_node_path = '/usr/bin/node'
 
 let g:coc_global_extensions = [
     \'coc-json',
