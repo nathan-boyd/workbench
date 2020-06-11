@@ -58,12 +58,15 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
     touch /etc/apt/sources.list.d/kubernetes.list && \
     echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list && \
-    curl -sL https://deb.nodesource.com/setup_14.x | bash
+    curl -sL https://deb.nodesource.com/setup_14.x | bash \
+    && wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
+        && dpkg -i packages-microsoft-prod.deb
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         kubectl \
         nodejs \
+        dotnet-sdk-3.1 \
     && apt-get clean
 
 ENV PATH="$PATH:/usr/bin/node"
