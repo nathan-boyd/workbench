@@ -96,7 +96,8 @@ RUN \
     && dpkg -i "bat_${BAT_VERSION}_amd64.deb" \
     && rm "bat_${BAT_VERSION}_amd64.deb" \
   && curl -o /usr/local/bin/gomplate -sSL https://github.com/hairyhenderson/gomplate/releases/download/v3.7.0/gomplate_linux-amd64 \
-    && chmod 755 /usr/local/bin/gomplate
+    && chmod 755 /usr/local/bin/gomplate \
+  && curl -sL https://aka.ms/InstallAzureCLIDeb | bash
 
 # install coc extensions
 WORKDIR ${HOME}/.config/coc/extensions
