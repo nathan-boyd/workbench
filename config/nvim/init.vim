@@ -258,22 +258,22 @@ command! -nargs=1 -complete=command -bar -range Redir silent call Redir(<q-args>
 " Install Plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:plug_threads=1
+"let g:plug_threads=1
 
 call plug#begin('~/.config/.vim/plugged')
+
 Plug 'scrooloose/nerdtree'                                         " file explorer
 Plug 'Xuyuanp/nerdtree-git-plugin'                                 " show git status in nerdtree
 Plug 'fatih/vim-go'                                                " go support
 Plug 'vim-airline/vim-airline'                                     " modeline
 Plug 'vim-airline/vim-airline-themes'                              " modeline theme
 Plug 'sainnhe/gruvbox-material'                                    " theme
-Plug 'godlygeek/tabular'                                           " vertical alignment
 Plug 'easymotion/vim-easymotion'                                   " ace movements
 Plug 'tpope/vim-fugitive'                                          " git tooling
+Plug 'junegunn/gv.vim'
 Plug 'airblade/vim-gitgutter'                                      " dirty indicators
 Plug 'w0rp/ale'                                                    " syntax highlighting
 Plug 'Yggdroot/indentLine'                                         " vertical alignment markers
-Plug 'maxbrunsfeld/vim-yankstack'                                  " kill ring behavior
 Plug 'SirVer/ultisnips'                                            " snippets engine
 Plug 'honza/vim-snippets'                                          " snippets
 Plug 'junegunn/vim-easy-align'                                     " column alignment on characters
