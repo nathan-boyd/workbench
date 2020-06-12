@@ -285,7 +285,6 @@ Plug 'christoomey/vim-tmux-navigator'                              " window navi
 Plug 'Raimondi/delimitMate'                                        " delimiter auto completion
 Plug 'junegunn/fzf'                                                " fuzzy searching
 Plug 'junegunn/fzf.vim'                                            " also require for fuzzy searching
-Plug 'easymotion/vim-easymotion'
 Plug 'preservim/nerdcommenter'
 
 call plug#end()
@@ -295,13 +294,11 @@ call plug#end()
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
-
-" case-insensitive searching
 let g:EasyMotion_smartcase = 1
 
-" <Leader>f{char} to move to {char}
-map  <Leader>f <Plug>(easymotion-bd-f)
-nmap <Leader>f <Plug>(easymotion-overwin-f)
+" f{char}{char} to move to {char}{char}
+map  <Leader>f <Plug>(easymotion-bd-f2)
+nmap <Leader>f <Plug>(easymotion-overwin-f2)
 
 " Move to line
 map <Leader>L <Plug>(easymotion-bd-jk)
