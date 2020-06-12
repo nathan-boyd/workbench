@@ -71,3 +71,6 @@ fi
 function editMuxConfig(){
     vi "$HOME/.config/tmuxinator/$PROJECT_DIR.yml"
 }
+
+# clear mux output on source
+clear
