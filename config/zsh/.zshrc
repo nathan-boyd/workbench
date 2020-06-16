@@ -23,7 +23,12 @@ source /usr/share/autojump/autojump.zsh
 
 ################################################################################
 
+# enable bash completion (for user when zsh completion doesn't exist)
+# required for azure cli completion
+autoload -U +X bashcompinit && bashcompinit
 source <(kubectl completion zsh)
+source /etc/bash_completion.d/azure-cli
+
 source $HOME/.fzf.zsh
 
 export EDITOR='nvim'
@@ -38,6 +43,7 @@ export PATH=$PATH:/usr/local/go/bin
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 alias fzp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 
+alias jless="jq -C | less"
 alias c=clear
 alias diff=icdiff
 alias gdt="git difftool -y"
