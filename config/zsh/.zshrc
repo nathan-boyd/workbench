@@ -44,9 +44,9 @@ export RANGER_LOAD_DEFAULT_RC=FALSE
 # --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 
-alias fzp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
+alias fp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 alias rn=ranger
-alias jless="jq -C | less"
+alias jp="jq -C | less"
 alias c=clear
 alias diff=icdiff
 alias gdt="git difftool -y"

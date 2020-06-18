@@ -71,12 +71,31 @@ A development environment.
 
 # ShortCuts
 
-## FZF
+| Command | List                      |
+| ---     | ---                       |
+| `rn`    | start ranger file manager |
+| `jp`    | pipe jq output into pager |
+| `c`     | clear shell               |
+| `k`     | kubectl                   |
+| `mux`   | tmuxinator                |
+| `eee`   | exit workbench            |
+
+## Git
+
+| Command | List                    |
+| ---     | ---                     |
+| `gs`    | git status              |
+| `gdt`   | git diff tool (icdiff)  |
+| `gaa`   | git add all             |
+| `gcmsg` | git commit with message |
+
+### FZF
 
 | Command  | List              |
 | ---      | ---               |
 | `ctrl-t` | complete with fzf |
 | `alt-c`  | fzf               |
+| `fp`     | fzf with preview  |
 
 ## Tmux
 
