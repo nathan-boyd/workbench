@@ -20,14 +20,17 @@ RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive \
     apt-get install -y --no-install-recommends \
         apt-transport-https \
+        atool \
         autojump \
         build-essential \
         ca-certificates \
         cowsay \
         ctop \
         curl \
+        file \
         git \
         gnupg-agent \
+        highlight \
         htop \
         httpie \
         jq \
@@ -45,6 +48,7 @@ RUN apt-get update && \
         sudo \
         tmux \
         tree \
+        w3m \
         wget \
         zsh \
     && apt-get clean
@@ -143,6 +147,7 @@ COPY config/tmuxinator/template.tpl /opt/tmuxinator/template.tpl
 COPY config/zsh/.zshrc ${HOME}/.zshrc
 COPY config/git/.gitconfig ${HOME}/.gitconfig
 COPY config/coc/coc-settings.json ${HOME}/.config/nvim/coc-settings.json
+COPY config/ranger ${HOME}/.config/ranger
 COPY scripts/entrypoint.sh /opt/entrypoint.sh
 COPY scripts/splashScreen.sh /opt/splashScreen.sh
 COPY scripts/workbenchStop.sh /opt/workbenchStop.sh

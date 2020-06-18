@@ -35,6 +35,7 @@ export EDITOR='nvim'
 export VISUAL=$EDITOR
 export PAGER=less
 export PATH=$PATH:/usr/local/go/bin
+export RANGER_LOAD_DEFAULT_RC=FALSE
 
 # --files: List files that would be searched but do not search
 # --no-ignore: Do not respect .gitignore, etc...
