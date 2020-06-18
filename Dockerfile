@@ -30,7 +30,6 @@ RUN apt-get update && \
         file \
         git \
         gnupg-agent \
-        highlight \
         htop \
         httpie \
         jq \

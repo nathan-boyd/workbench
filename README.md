@@ -1,6 +1,6 @@
 # workbench
 
-A development environment.
+A project focused, development environment running in docker.
 
 ## Starting the environment
 
@@ -12,7 +12,7 @@ A development environment.
 
 `./scripts/workbenchRun.sh`
 
-## Langages
+## Langages and Frameworks
 - Dotnet 3.1
 - GoLang 1.24.2
 - NodeJS 14.4.0
@@ -20,30 +20,21 @@ A development environment.
 - Python 3.8.2
 - Ruby   2.7
 
-## Installed CLI Tools
-- autojump
-- cowsay
-- ctop
-- curl
-- fmt
-- git
-- highlight
-- htop
-- httpie
-- jq
-- less
-- mtr
-- ncdu
-- neovim
-- ranger
-- ripgrep
-- screenfetch
-- ssh-client
-- sudo
-- tmux
-- w3m
-- wget
-- zsh
+## CLI Tools
+A list of some of the cli tools installed. Some commonplace tools like `git`, `curl`, `wget` etc are not listed because but they are available.
+- [autojump](https://github.com/wting/autojump)
+- [cowsay](https://web.archive.org/web/20071026043648/http://www.nog.net/~tony/warez/cowsay.shtml)
+- [ctop](https://github.com/bcicen/ctop)
+- [htop](https://github.com/hishamhm/htop)
+- [httpie](https://github.com/jakubroztocil/httpie)
+- [jq](https://github.com/stedolan/jq)
+- [mtr](https://github.com/traviscross/mtr)
+- [ncdu](https://dev.yorhel.nl/ncdu)
+- [neovim](https://github.com/neovim/neovim)
+- [ranger](https://github.com/ranger/ranger)
+- [ripgrep](https://github.com/BurntSushi/ripgrep)
+- [screenfetch](https://github.com/KittyKatt/screenFetch)
+- [tmux](https://github.com/tmux/tmux)
 
 ## NeoVim Plugins
 - [ale](https://github.com/dense-analysis/ale)
@@ -158,7 +149,6 @@ A development environment.
 | `:%!python -m json.tool`                    | format json                                             |
 | `:verbose set conceallevel? concealcursor?` | determine what modified a setting                       |
 
-
 ### Working with registers
 
 | Command                | List                            |
@@ -167,7 +157,6 @@ A development environment.
 | `"{A-Z}y`              | Append yank to register         |
 | `"{a-z}p`              | Paste from register             |
 | `:reg`                 | Show contents ofnamed registers |
-
 
 ### Macros
 
@@ -234,30 +223,6 @@ A development environment.
 | `Commands`        | Commands                                                                |
 | `Maps`            | Normal mode mappings                                                    |
 | `Helptags`        | Help tags <sup id="a1">[1](#helptags)</sup>                             |
-
-### Vim Omnisharp
-
-| Command           | List                         |
-| ---               | ---                          |
-| `gd`              | OmniSharpGotoDefinition      |
-| `<Leader>fi`      | OmniSharpFindImplementations |
-| `<Leader>fs`      | OmniSharpFindSymbol          |
-| `<Leader>fu`      | OmniSharpFindUsages          |
-| `<Leader>fm`      | OmniSharpFindMembers         |
-| `<Leader>fx`      | OmniSharpFixUsings           |
-| `<Leader>tt`      | OmniSharpTypeLookup          |
-| `<Leader>dc`      | OmniSharpDocumentation       |
-| `<C-\>`           | OmniSharpSignatureHelp       |
-| `<C-\> <C-o>`     | OmniSharpSignatureHelp       |
-| `<C-k>`           | OmniSharpNavigateUp          |
-| `<C-j>`           | OmniSharpNavigateDown        |
-| `<Leader>cc`      | OmniSharpGlobalCodeCheck     |
-| `<Leader><Space>` | OmniSharpGetCodeActions      |
-| `<Leader>nm`      | OmniSharpRename              |
-| `<F2>`            | OmniSharpRename              |
-| `<Leader>cf`      | OmniSharpCodeFormat          |
-| `<Leader>ss`      | OmniSharpStartServer         |
-| `<Leader>sp`      | OmniSharpStopServer          |
 
 ## Docker
 
