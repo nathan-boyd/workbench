@@ -32,6 +32,7 @@ source /etc/bash_completion.d/azure-cli
 source $HOME/.fzf.zsh
 
 export EDITOR='nvim'
+export VISUAL=$EDITOR
 export PAGER=less
 export PATH=$PATH:/usr/local/go/bin
 
