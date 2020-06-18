@@ -105,9 +105,6 @@ WORKDIR ${HOME}/.config/coc/extensions
 COPY config/coc/package.json .
 RUN /usr/bin/npm install --ignore-scripts --no-lockfile --production
 
-## remove all npm global modules
-#RUN npm ls -gp --depth=0 | awk -F/node_modules/ '{print $2}' | grep -vE '^(npm|)$' | xargs -r npm -g rm
-
 WORKDIR ${HOME}
 
 RUN /usr/bin/npm install --ignore-scripts --no-lockfile --production --global bash-language-server
