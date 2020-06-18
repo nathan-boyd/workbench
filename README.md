@@ -25,7 +25,9 @@ A development environment.
 - cowsay
 - ctop
 - curl
+- fmt
 - git
+- highlight
 - htop
 - httpie
 - jq
@@ -33,11 +35,13 @@ A development environment.
 - mtr
 - ncdu
 - neovim
+- ranger
 - ripgrep
 - screenfetch
 - ssh-client
 - sudo
 - tmux
+- w3m
 - wget
 - zsh
 
