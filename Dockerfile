@@ -91,6 +91,7 @@ RUN \
   && curl https://github.com/derailed/k9s/releases/download/v0.20.5/k9s_Linux_x86_64.tar.gz  -o- -L | tar -xz -C /usr/local/bin/ \
   && pip3 install pynvim \
   && pip3 install git+https://github.com/jeffkaufman/icdiff.git \
+  && pip3 install ranger-fm \
   && export BAT_VERSION="0.15.4" \
     && wget "https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/bat_${BAT_VERSION}_amd64.deb" \
     && dpkg -i "bat_${BAT_VERSION}_amd64.deb" \
