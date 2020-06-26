@@ -91,6 +91,8 @@ RUN \
     && /usr/local/go/bin/go get github.com/cweill/gotests/... \
     && /usr/local/go/bin/go get github.com/fatih/gomodifytags \
     && /usr/local/go/bin/go get golang.org/x/tools/cmd/goimports \
+    && /usr/local/go/bin/go get github.com/onsi/ginkgo/ginkgo \
+    && /usr/local/go/bin/go get github.com/onsi/gomega/... \
   && curl https://github.com/derailed/k9s/releases/download/v0.20.5/k9s_Linux_x86_64.tar.gz  -o- -L | tar -xz -C /usr/local/bin/ \
   && pip3 install pynvim \
   && pip3 install git+https://github.com/jeffkaufman/icdiff.git \
@@ -101,7 +103,10 @@ RUN \
     && rm "bat_${BAT_VERSION}_amd64.deb" \
   && curl -o /usr/local/bin/gomplate -sSL https://github.com/hairyhenderson/gomplate/releases/download/v3.7.0/gomplate_linux-amd64 \
     && chmod 755 /usr/local/bin/gomplate \
-  && curl -sL https://aka.ms/InstallAzureCLIDeb | bash
+  && curl -sL https://aka.ms/InstallAzureCLIDeb | bash \
+  && curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash \
+  && curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose \
+    && chmod +x /usr/local/bin/docker-compose
 
 # install coc extensions
 WORKDIR ${HOME}/.config/coc/extensions
