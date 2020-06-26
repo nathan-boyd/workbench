@@ -71,6 +71,7 @@ docker run \
     -v $PROJECT_AUTOJUMP:$CONTAINER_HOME/.local/share/autojump/ \
     -v ${PROJECT_UNDO}:$CONTAINER_HOME/.config/.vim/undodir \
     -v $PROJECT_SESSION:$CONTAINER_HOME/.config/nvim/sessions/ \
+    -v $HOME/.docker/:$CONTAINER_HOME/.docker/ \
     -e DISPLAY=$IP:0 \
     -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK \
     -e ITERM_PROFILE=$ITERM_PROFILE \
