@@ -49,6 +49,8 @@ RUN apt-get update && \
         tree \
         w3m \
         wget \
+        xclip \
+        xvfb \
         zsh \
     && apt-get clean
 

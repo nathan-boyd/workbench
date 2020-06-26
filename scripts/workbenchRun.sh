@@ -13,7 +13,6 @@ if [ ! -n $(docker ps -a --format '{{ .Names }}' | grep -oE ${CONTAINER_NAME}) ]
 	exit 1;
 fi
 
-
 # Eventually may just mount the .workbench directory and symlink within the container
 
 PROJECT_ZSH=${HOME}/.workbench/${PROJECT_NAME}/zsh
@@ -49,10 +48,20 @@ if [[ ! -d $PROJECT_AUTOJUMP ]]; then
     touch ${PROJECT_AUTOJUMP}/autojump.txt
 fi
 
+IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
+if pgrep -x "xhost" >/dev/null
+then
+    echo "xhost is running"
+else
+    xhost + $IP > /dev/null &
+    echo "started xhost"
+fi
+
 docker run \
     --rm \
     -it \
     -v /var/run/docker.sock:/var/run/docker.sock \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v $HOME/.ssh:$CONTAINER_HOME/.ssh \
     -v $PWD:${CONTAINER_HOME}/${PROJECT_DIR} \
     -v ${ZSH_HISTORY}:$CONTAINER_HOME/.zsh_history \
@@ -62,6 +71,7 @@ docker run \
     -v $PROJECT_AUTOJUMP:$CONTAINER_HOME/.local/share/autojump/ \
     -v ${PROJECT_UNDO}:$CONTAINER_HOME/.config/.vim/undodir \
     -v $PROJECT_SESSION:$CONTAINER_HOME/.config/nvim/sessions/ \
+    -e DISPLAY=$IP:0 \
     -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK \
     -e ITERM_PROFILE=$ITERM_PROFILE \
     -e HOST_PATH=$PWD \
