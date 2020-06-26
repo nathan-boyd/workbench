@@ -50,7 +50,6 @@ RUN apt-get update && \
         w3m \
         wget \
         xclip \
-        xvfb \
         zsh \
     && apt-get clean
 
