@@ -37,8 +37,10 @@ export PAGER=less
 export RANGER_LOAD_DEFAULT_RC=FALSE
 
 # go path adds
-export PATH=$PATH:/usr/local/go/bin
-export PATH=$PATH:$HOME/go/bin
+export GO111MODULE=on
+export GOPATH=$HOME/go
+export GOBIN=$GOPATH/bin
+export PATH=$PATH:/usr/local/go/bin:$GOBIN
 
 # --files: List files that would be searched but do not search
 # --no-ignore: Do not respect .gitignore, etc...
