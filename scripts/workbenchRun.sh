@@ -48,13 +48,28 @@ if [[ ! -d $PROJECT_AUTOJUMP ]]; then
     touch ${PROJECT_AUTOJUMP}/autojump.txt
 fi
 
+GO_PKG=${HOME}/.workbench/golang/pkg
+if [[ ! -d $GO_PKG ]]; then
+    mkdir -p $GO_PKG
+fi
+
+GO_BIN=${HOME}/.workbench/golang/bin
+if [[ ! -d $GO_BIN ]]; then
+    mkdir -p $GO_BIN
+fi
+
+GO_BUILD_CACHE=${HOME}/.workbench/golang/build-cache
+if [[ ! -d $GO_BUILD_CACHE ]]; then
+    mkdir -p $GO_BUILD_CACHE
+fi
+
 IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
 if pgrep -x "xhost" >/dev/null
 then
-    echo "xhost is running"
+    echo "xhost is running on host"
 else
     xhost + $IP > /dev/null &
-    echo "started xhost"
+    echo "started xhost on host"
 fi
 
 docker run \
@@ -69,9 +84,13 @@ docker run \
     -v ${PROJECT_TMUXINATOR}:$CONTAINER_HOME/.config/tmuxinator \
     -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK \
     -v $PROJECT_AUTOJUMP:$CONTAINER_HOME/.local/share/autojump/ \
+    -v $PROJECT_GO_BUILD_CACHE:$CONTAINER_HOME/.cache/go-build \
     -v ${PROJECT_UNDO}:$CONTAINER_HOME/.config/.vim/undodir \
     -v $PROJECT_SESSION:$CONTAINER_HOME/.config/nvim/sessions/ \
     -v $HOME/.docker/:$CONTAINER_HOME/.docker/ \
+    -v $GO_PKG:$CONTAINER_HOME/go/pkg \
+    -v $GO_BIN:$CONTAINER_HOME/go/bin \
+    -v $GO_BUILD_CACHE:$CONTAINER_HOME/.cache/go-build \
     -e DISPLAY=$IP:0 \
     -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK \
     -e ITERM_PROFILE=$ITERM_PROFILE \
