@@ -566,8 +566,12 @@ let g:ale_fixers={
 " Configure IndentLine
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:indentLine_char = '¦'
-let g:indentLine_setConceal = 0
+let g:indentLine_enabled = 1
+let g:vim_json_syntax_conceal = 0
+
+let g:indentLine_bufTypeExclude = ['help', 'terminal']
+let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*']
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Gruvbox & Airline Plugins
@@ -602,6 +606,9 @@ let g:EditorConfig_verbose = 1
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure FZF
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+autocmd! FileType fzf set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
 
 " override default command to search hidden files
 command! -bang -nargs=* Rg

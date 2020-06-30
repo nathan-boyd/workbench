@@ -15,9 +15,6 @@ windows:
   - editor:
       panes:
         - vim .
-  - lazydocker:
-      panes:
-        - lazydocker
   - ctop:
       panes:
         - docker run --rm -ti -v /var/run/docker.sock:/var/run/docker.sock --name workbench-workbench-ctop quay.io/vektorlab/ctop:latest
