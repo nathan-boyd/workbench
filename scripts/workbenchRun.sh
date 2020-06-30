@@ -81,34 +81,38 @@ fi
 docker run \
     --rm \
     -it \
-    -v /var/run/docker.sock:/var/run/docker.sock \
-    -v /tmp/.X11-unix:/tmp/.X11-unix \
-    -v $HOME/.ssh:$CONTAINER_HOME/.ssh \
-    -v $PWD:${CONTAINER_HOME}/${PROJECT_DIR} \
-    -v ${ZSH_HISTORY}:$CONTAINER_HOME/.zsh_history \
-    -v $HOME/.kube/config:$CONTAINER_HOME/.kube/config \
-    -v ${PROJECT_TMUXINATOR}:$CONTAINER_HOME/.config/tmuxinator \
-    -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK \
-    -v $PROJECT_AUTOJUMP:$CONTAINER_HOME/.local/share/autojump/ \
-    -v $PROJECT_GO_BUILD_CACHE:$CONTAINER_HOME/.cache/go-build \
-    -v ${PROJECT_UNDO}:$CONTAINER_HOME/.config/.vim/undodir \
-    -v $PROJECT_SESSION:$CONTAINER_HOME/.config/nvim/sessions/ \
-    -v $HOME/.docker/:$CONTAINER_HOME/.docker/ \
-    -v $GO_PKG:$CONTAINER_HOME/go/pkg \
     -v $GO_BIN:$CONTAINER_HOME/go/bin \
     -v $GO_BUILD_CACHE:$CONTAINER_HOME/.cache/go-build \
+    -v $GO_PKG:$CONTAINER_HOME/go/pkg \
+    -v $HOME/.docker/:$CONTAINER_HOME/.docker/ \
+    -v $HOME/.kube/config:$CONTAINER_HOME/.kube/config \
+    -v $HOME/.ssh:$CONTAINER_HOME/.ssh \
     -v $LAZY_DOCKER:$CONTAINER_HOME/.config/jesseduffield/lazydocker \
+    -v $PROJECT_AUTOJUMP:$CONTAINER_HOME/.local/share/autojump/ \
+    -v $PROJECT_GO_BUILD_CACHE:$CONTAINER_HOME/.cache/go-build \
+    -v $PROJECT_SESSION:$CONTAINER_HOME/.config/nvim/sessions/ \
+    -v $PWD:${CONTAINER_HOME}/${PROJECT_DIR} \
+    -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK \
+    -v ${PROJECT_TMUXINATOR}:$CONTAINER_HOME/.config/tmuxinator \
+    -v ${PROJECT_UNDO}:$CONTAINER_HOME/.config/.vim/undodir \
+    -v ${ZSH_HISTORY}:$CONTAINER_HOME/.zsh_history \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v /var/run/docker.sock:/var/run/docker.sock \
+    -e ARTIFACTORY_APIKEY="$ARTIFACTORY_APIKEY" \
+    -e ARTIFACTORY_USER="$ARTIFACTORY_USER" \
+    -e ARTIFACTORY_AUTH="$ARTIFACTORY_AUTH" \
+    -e ARTIFACTORY_EMAIL="$ARTIFACTORY_EMAIL" \
+    -e CONTAINER_NAME="$CONTAINER_NAME" \
     -e DISPLAY=$IP:0 \
-    -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK \
-    -e ITERM_PROFILE=$ITERM_PROFILE \
+    -e GIT_USER_EMAIL="$GIT_USER_EMAIL" \
+    -e GIT_USER_NAME="$GIT_USER_NAME" \
+    -e HOST_GROUP_ID=$(id -g $USER) \
     -e HOST_PATH=$PWD \
     -e HOST_USER_ID=$(id -u $USER) \
-    -e HOST_GROUP_ID=$(id -g $USER) \
-    -e PROJECT_NAME=$PROJECT_NAME \
+    -e ITERM_PROFILE=$ITERM_PROFILE \
     -e PROJECT_DIR=$PROJECT_DIR \
-    -e GIT_USER_NAME="$GIT_USER_NAME" \
-    -e GIT_USER_EMAIL="$GIT_USER_EMAIL" \
-    -e CONTAINER_NAME="$CONTAINER_NAME" \
+    -e PROJECT_NAME=$PROJECT_NAME \
+    -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK \
     -w ${CONTAINER_HOME}/${PROJECT_DIR} \
     --name $CONTAINER_NAME \
     --net host \

@@ -215,7 +215,7 @@ autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 " configure aliases file types
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-autocmd BufNewFile,BufRead *.tpl set filetype=go
+autocmd BufNewFile,BufRead *.tpl set filetype=yaml
 autocmd BufNewFile,BufRead *.manifest set filetype=json
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
