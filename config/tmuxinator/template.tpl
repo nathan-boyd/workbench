@@ -6,14 +6,21 @@ startup_window: shell
 on_project_stop: docker container kill workbench-{{ .Env.PROJECT_DIR }}
 windows:
   - shell:
-      layout: 722b,208x57,0,0[208x38,0,0,0,208x18,0,39{104x18,0,39,5,103x18,105,39,6}]
+      layout: 304f,238x58,0,0[238x38,0,0,0,238x19,0,39,4]
       panes:
-        - /bin/zsh
-        - htop
-        - docker run --rm -ti -v /var/run/docker.sock:/var/run/docker.sock --name workbench-{{ .Env.PROJECT_DIR }}-ctop quay.io/vektorlab/ctop:latest
+        - zsh:
+          - /bin/zsh
+        - glances:
+          - glances
   - editor:
       panes:
         - vim .
+  - lazydocker:
+      panes:
+        - lazydocker
+  - ctop:
+      panes:
+        - docker run --rm -ti -v /var/run/docker.sock:/var/run/docker.sock --name workbench-workbench-ctop quay.io/vektorlab/ctop:latest
   - k9s:
       panes:
         - k9s

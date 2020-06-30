@@ -35,6 +35,8 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
 - [screenfetch](https://github.com/KittyKatt/screenFetch)
 - [tmux](https://github.com/tmux/tmux)
+- [glances](https://nicolargo.github.io/glances/)
+- [lazydocker](https://github.com/jesseduffield/lazydocker)
 
 ## NeoVim Plugins
 - [ale](https://github.com/dense-analysis/ale)

@@ -29,6 +29,7 @@ RUN apt-get update && \
         curl \
         file \
         git \
+        gcc \
         gnupg-agent \
         htop \
         httpie \
@@ -38,6 +39,7 @@ RUN apt-get update && \
         mtr \
         ncdu \
         neovim \
+        python3-dev \
         python3-pip \
         ripgrep \
         ruby \
@@ -94,10 +96,12 @@ RUN \
     && /usr/local/go/bin/go get golang.org/x/tools/cmd/goimports \
     && /usr/local/go/bin/go get github.com/onsi/ginkgo/ginkgo \
     && /usr/local/go/bin/go get github.com/onsi/gomega/... \
+    && /usr/local/go/bin/go get github.com/jesseduffield/lazydocker \
   && curl https://github.com/derailed/k9s/releases/download/v0.20.5/k9s_Linux_x86_64.tar.gz  -o- -L | tar -xz -C /usr/local/bin/ \
   && pip3 install pynvim \
   && pip3 install git+https://github.com/jeffkaufman/icdiff.git \
   && pip3 install ranger-fm \
+  && pip3 install glances \
   && export BAT_VERSION="0.15.4" \
     && wget "https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/bat_${BAT_VERSION}_amd64.deb" \
     && dpkg -i "bat_${BAT_VERSION}_amd64.deb" \

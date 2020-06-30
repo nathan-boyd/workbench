@@ -63,6 +63,12 @@ if [[ ! -d $GO_BUILD_CACHE ]]; then
     mkdir -p $GO_BUILD_CACHE
 fi
 
+LAZY_DOCKER=${HOME}/.workbench/lazydocker
+if [[ ! -d $LAZY_DOCKER ]]; then
+    mkdir -p $LAZY_DOCKER
+    echo 'reporting: "off"' > $LAZY_DOCKER/config.yml
+fi
+
 IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
 if pgrep -x "xhost" >/dev/null
 then
@@ -91,6 +97,7 @@ docker run \
     -v $GO_PKG:$CONTAINER_HOME/go/pkg \
     -v $GO_BIN:$CONTAINER_HOME/go/bin \
     -v $GO_BUILD_CACHE:$CONTAINER_HOME/.cache/go-build \
+    -v $LAZY_DOCKER:$CONTAINER_HOME/.config/jesseduffield/lazydocker \
     -e DISPLAY=$IP:0 \
     -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK \
     -e ITERM_PROFILE=$ITERM_PROFILE \
