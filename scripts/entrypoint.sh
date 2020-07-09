@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+
 export TERM=xterm-256color
 
 USER_NAME=me
@@ -13,7 +14,6 @@ fi
 # chown mounted volumes here until the following is resolved
 # until Add ability to mount volume as user other than root #2259
 # https://github.com/moby/moby/issues/2259
-#find $HOME/ -not -user $USER_NAME -execdir chown $USER_NAME {} \+
 echo "performing chown on mounted volumes within container"
 find $HOME/ -print | xargs --max-args=5 --max-procs=100 chown ${USER_NAME}:${USER_GROUP} > /dev/null 2>&1
 chown ${USER_NAME}:${USER_GROUP} /usr/lib/node_modules
@@ -28,7 +28,7 @@ fi
 
 export PROJECT_NAME=${PROJECT_NAME:-"scratch"}
 
-#/bin/zsh
+# other attempts at non root identity within container, keeping around so i dont try again :|
 #su -s /bin/zsh -g $USER_GROUP $USER_NAME
 #su -s /bin/tmux -g $USER_GROUP $USER_NAME -- -u -2 new -s ${PROJECT_NAME}
 #su -s tmuxinator -g $USER_GROUP $USER_NAME -- start $PROJECT_DIR
