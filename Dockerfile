@@ -138,13 +138,39 @@ COPY config/powerlevel10k/.p10k.zsh ${HOME}/.p10k.zsh
 RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /usr/local/powerlevel10k \
     && /usr/local/powerlevel10k/gitstatus/install
 
-# install and configure tmux and nvim plugins
+# install and configure tmux
 COPY config/tmux/.tmux.conf ${HOME}/.tmux.conf
 COPY config/nvim/init.vim ${HOME}/.config/nvim/init.vim
 RUN export TMUX_PLUGIN_MANAGER_PATH="$HOME/.tmux/plugins" \
     && git clone https://github.com/tmux-plugins/tpm $TMUX_PLUGIN_MANAGER_PATH/tpm \
-    &&  $TMUX_PLUGIN_MANAGER_PATH/tpm/bin/install_plugins \
-    && nvim --headless +PlugInstall +qall
+    &&  $TMUX_PLUGIN_MANAGER_PATH/tpm/bin/install_plugins
+
+ENV GO111MODULE=on
+ENV GOPATH=$HOME/go
+ENV GOBIN=$GOPATH/bin
+ENV PATH=$PATH:/usr/local/go/bin:$GOBIN
+
+# install nvim plugins and dependencies
+RUN nvim --headless +PlugInstall +qall
+RUN nvim --headless +OmniSharpInstall +qall
+
+# install vim-go dependencies
+RUN go get golang.org/x/tools/cmd/guru@master \
+&& go get github.com/davidrjenni/reftools/cmd/fillstruct@master \
+&& go get github.com/rogpeppe/godef@master \
+&& go get github.com/fatih/motion@master \
+&& go get github.com/kisielk/errcheck@master \
+&& go get github.com/go-delve/delve/cmd/dlv@master \
+&& go get github.com/koron/iferr@master \
+&& go get golang.org/x/lint/golint@master
+&& go get github.com/jstemmer/gotags@master \
+&& go get github.com/josharian/impl@master \
+&& go get github.com/golangci/golangci-lint/cmd/golangci-lint@master \
+&& go get honnef.co/go/tools/cmd/keyify@master \
+&& go get golang.org/x/tools/cmd/gorename@master \
+&& go get github.com/klauspost/asmfmt/cmd/asmfmt@master
+
+RUN nvim --headless +GoInstallBinaries +qall
 
 # create user to run under
 RUN groupadd workbench && \

@@ -49,6 +49,7 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 - [nerd-commenter](https://github.com/preservim/nerdcommenter)
 - [nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin)
 - [nerdtree](https://github.com/preservim/nerdtree)
+- [omnisharp](https://github.com/OmniSharp/omnisharp-vim)
 - [tagbar](https://github.com/majutsushi/tagbar)
 - [ultisnips](https://github.com/SirVer/ultisnips)
 - [vim-airline-themes](https://github.com/vim-airline/vim-airline-themes)
