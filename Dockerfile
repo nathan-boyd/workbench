@@ -75,7 +75,7 @@ RUN apt-get update && \
         dotnet-sdk-3.1 \
     && apt-get clean
 
-ENV PATH="$PATH:/usr/bin/node"
+ENV PATH="$PATH:/usr/bin/node:/usr/local/go/bin"
 
 # add binaries
 RUN \
@@ -90,13 +90,14 @@ RUN \
   && export GO_VERSION=1.14.2 \
     && curl "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" -o - | tar -xz -C /usr/local \
   && export GO111MODULE=on \
-    && /usr/local/go/bin/go get golang.org/x/tools/gopls@latest \
-    && /usr/local/go/bin/go get github.com/cweill/gotests/... \
-    && /usr/local/go/bin/go get github.com/fatih/gomodifytags \
-    && /usr/local/go/bin/go get golang.org/x/tools/cmd/goimports \
-    && /usr/local/go/bin/go get github.com/onsi/ginkgo/ginkgo \
-    && /usr/local/go/bin/go get github.com/onsi/gomega/... \
-    && /usr/local/go/bin/go get github.com/jesseduffield/lazydocker \
+    && go get golang.org/x/tools/gopls@latest \
+    && go get github.com/cweill/gotests/... \
+    && go get github.com/fatih/gomodifytags \
+    && go get golang.org/x/tools/cmd/goimports \
+    && go get github.com/onsi/ginkgo/ginkgo \
+    && go get github.com/onsi/gomega/... \
+    && go get github.com/jesseduffield/lazydocker \
+    && go get sigs.k8s.io/kind@v0.8.1 \
   && curl https://github.com/derailed/k9s/releases/download/v0.20.5/k9s_Linux_x86_64.tar.gz  -o- -L | tar -xz -C /usr/local/bin/ \
   && pip3 install pynvim \
   && pip3 install git+https://github.com/jeffkaufman/icdiff.git \
@@ -151,8 +152,8 @@ ENV GOBIN=$GOPATH/bin
 ENV PATH=$PATH:/usr/local/go/bin:$GOBIN
 
 # install nvim plugins and dependencies
-RUN nvim --headless +PlugInstall +qall
-RUN nvim --headless +OmniSharpInstall +qall
+RUN nvim --headless +PlugInstall +qall \
+&& nvim --headless +OmniSharpInstall +qall
 
 # install vim-go dependencies
 RUN go get golang.org/x/tools/cmd/guru@master \
@@ -162,7 +163,7 @@ RUN go get golang.org/x/tools/cmd/guru@master \
 && go get github.com/kisielk/errcheck@master \
 && go get github.com/go-delve/delve/cmd/dlv@master \
 && go get github.com/koron/iferr@master \
-&& go get golang.org/x/lint/golint@master
+&& go get golang.org/x/lint/golint@master \
 && go get github.com/jstemmer/gotags@master \
 && go get github.com/josharian/impl@master \
 && go get github.com/golangci/golangci-lint/cmd/golangci-lint@master \
