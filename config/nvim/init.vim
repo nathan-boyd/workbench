@@ -568,7 +568,7 @@ let g:ale_fixers={
 " Configure IndentLine
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:indentLine_enabled = 1
+let g:indentLine_enabled = 0
 let g:vim_json_syntax_conceal = 0
 
 let g:indentLine_bufTypeExclude = ['help', 'terminal']

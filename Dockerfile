@@ -46,6 +46,7 @@ RUN apt-get update && \
         screenfetch \
         software-properties-common \
         ssh-client \
+        sshfs \
         sudo \
         tmux \
         tree \
@@ -53,6 +54,7 @@ RUN apt-get update && \
         wget \
         xclip \
         zsh \
+        unzip \
     && apt-get clean
 
 # set locale
@@ -113,6 +115,11 @@ RUN \
   && curl https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 | bash \
   && curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose \
     && chmod +x /usr/local/bin/docker-compose
+
+  RUN wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip \
+    && /usr/bin/unzip terraform_0.12.26_linux_amd64.zip \
+    && mv terraform /usr/local/bin \
+    && rm terraform_0.12.26_linux_amd64.zip
 
 # install coc extensions
 WORKDIR ${HOME}/.config/coc/extensions

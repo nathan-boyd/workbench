@@ -116,4 +116,5 @@ docker run \
     -w ${CONTAINER_HOME}/${PROJECT_DIR} \
     --name $CONTAINER_NAME \
     --net host \
+    --privileged \
     nathan-boyd/workbench:latest
