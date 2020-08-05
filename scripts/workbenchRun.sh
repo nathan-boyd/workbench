@@ -69,13 +69,25 @@ if [[ ! -d $LAZY_DOCKER ]]; then
     echo 'reporting: "off"' > $LAZY_DOCKER/config.yml
 fi
 
-IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
+GATEWAY=$(ip route | grep default | grep -Eio 'en{1}\d')
+if [ -z "$GATEWAY" ]
+then
+    echo "could not find default gateway"
+    exit 1
+fi
+
+IP=$(ifconfig "$GATEWAY" | grep inet | awk '$1=="inet" {print $2}')
+if [ -z "$IP" ]
+then
+    echo "could not find default network IP"
+fi
+
 if pgrep -x "xhost" >/dev/null
 then
-    echo "xhost is running on host"
+    echo "xhost is already running at: $IP"
 else
     xhost + $IP > /dev/null &
-    echo "started xhost on host"
+    echo "started xhost on host at: $IP"
 fi
 
 docker run \
