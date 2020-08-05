@@ -1,5 +1,7 @@
 #source ~/.auth.sh
 
+TERM="screen-256color"
+
 export ZSH="${HOME}/.oh-my-zsh"
 
 plugins=(
