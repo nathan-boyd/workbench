@@ -69,20 +69,20 @@ if [[ ! -d $LAZY_DOCKER ]]; then
     echo 'reporting: "off"' > $LAZY_DOCKER/config.yml
 fi
 
-GATEWAY=$(ip route | grep default | grep -Eio 'en{1}\d')
+GATEWAY=$(ip route | grep default | grep -Eio 'en{1}\d' | head -1)
 if [ -z "$GATEWAY" ]
 then
     echo "could not find default gateway"
-    exit 1
+else
+    echo "found default gateway at $GATEWAY"
 fi
 
 IP=$(ifconfig "$GATEWAY" | grep inet | awk '$1=="inet" {print $2}')
 if [ -z "$IP" ]
 then
-    echo "could not find default network IP"
-fi
+    echo "could not find default network IP, host clipboard integration may not function properly"
 
-if pgrep -x "xhost" >/dev/null
+elif pgrep -x "xhost" >/dev/null
 then
     echo "xhost is already running at: $IP"
 else
