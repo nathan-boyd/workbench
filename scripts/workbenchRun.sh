@@ -96,6 +96,8 @@ docker run \
     -v $GO_BIN:$CONTAINER_HOME/go/bin \
     -v $GO_BUILD_CACHE:$CONTAINER_HOME/.cache/go-build \
     -v $GO_PKG:$CONTAINER_HOME/go/pkg \
+    -v $HOME/Desktop/:$CONTAINER_HOME/Desktop \
+    -v $HOME/Downloads/:$CONTAINER_HOME/Downloads \
     -v $HOME/.docker/:$CONTAINER_HOME/.docker/ \
     -v $HOME/.kube/config:$CONTAINER_HOME/.kube/config \
     -v $HOME/.ssh:$CONTAINER_HOME/.ssh \
