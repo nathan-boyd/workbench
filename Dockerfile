@@ -26,6 +26,7 @@ RUN apt-get update && \
         ca-certificates \
         cowsay \
         ctop \
+        ctags \
         curl \
         file \
         git \
