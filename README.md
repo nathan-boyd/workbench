@@ -193,11 +193,11 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 
 ### Vim EasyAlign
 
-| Command      | List                          |
-| ---          | ---                           |
-| ``gaip=``    | align on equal sign character |
-| ``gaip*=``   | align all = characters        |
-| ``gaip*|``   | align all pipe characters     |
+| Command                  | List                          |
+| ---                      | ---                           |
+| `gaip=`                  | align on equal sign character |
+| `gaip*=`                 | align all = characters        |
+| <code>gaip*&#124;</code> | align all pipe characters     |
 
 ### Vim FZF
 
