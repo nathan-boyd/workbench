@@ -22,21 +22,24 @@ A project focused, development environment running in docker.
 
 ## CLI Tools
 A list of some of the cli tools installed. Some commonplace tools like `git`, `curl`, `wget` etc are not listed because but they are available.
-- [autojump](https://github.com/wting/autojump)
-- [cowsay](https://web.archive.org/web/20071026043648/http://www.nog.net/~tony/warez/cowsay.shtml)
-- [ctop](https://github.com/bcicen/ctop)
-- [htop](https://github.com/hishamhm/htop)
-- [httpie](https://github.com/jakubroztocil/httpie)
-- [jq](https://github.com/stedolan/jq)
-- [mtr](https://github.com/traviscross/mtr)
-- [ncdu](https://dev.yorhel.nl/ncdu)
-- [neovim](https://github.com/neovim/neovim)
-- [ranger](https://github.com/ranger/ranger)
-- [ripgrep](https://github.com/BurntSushi/ripgrep)
-- [screenfetch](https://github.com/KittyKatt/screenFetch)
-- [tmux](https://github.com/tmux/tmux)
-- [glances](https://nicolargo.github.io/glances/)
-- [lazydocker](https://github.com/jesseduffield/lazydocker)
+
+| Tool                                                                                             | Description                                       |
+| ---                                                                                              | ---                                               |
+| [autojump](https://github.com/wting/autojump)                                                    | file system navigation                            |
+| [cowsay](https://web.archive.org/web/20071026043648/http://www.nog.net/~tony/warez/cowsay.shtml) | funny text filter                                 |
+| [ctop](https://github.com/bcicen/ctop)                                                           | provides an overview of container metrics         |
+| [htop](https://github.com/hishamhm/htop)                                                         | interactive process viewer                        |
+| [httpie](https://github.com/jakubroztocil/httpie)                                                | HTTP client                                       |
+| [jq](https://github.com/stedolan/jq)                                                             | JSON processor                                    |
+| [mtr](https://github.com/traviscross/mtr)                                                        | combines functionality of 'traceroute' and 'ping' |
+| [ncdu](https://dev.yorhel.nl/ncdu)                                                               | disk usage analyzer                               |
+| [neovim](https://github.com/neovim/neovim)                                                       | modern vim                                        |
+| [ranger](https://github.com/ranger/ranger)                                                       | console file manager with VI key bindings         |
+| [ripgrep](https://github.com/BurntSushi/ripgrep)                                                 | line-oriented search tool                         |
+| [screenfetch](https://github.com/KittyKatt/screenFetch)                                          | splash screens                                    |
+| [tmux](https://github.com/tmux/tmux)                                                             | terminal multiplexer                              |
+| [glances](https://nicolargo.github.io/glances/)                                                  | system monitoring                                 |
+| [lazydocker](https://github.com/jesseduffield/lazydocker)                                        | terminal UI for docker                            |
 
 ## NeoVim Plugins
 - [ale](https://github.com/dense-analysis/ale)
