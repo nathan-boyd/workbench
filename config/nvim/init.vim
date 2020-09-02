@@ -735,8 +735,14 @@ xmap ga <Plug>(EasyAlign)
 " Easy Align
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" Tell ALE to use OmniSharp for linting C# files, and no other linters.
-let g:ale_linters = { 'cs': ['OmniSharp'] }
+let g:OmniSharp_server_type = 'roslyn'
+let g:OmniSharp_selector_ui = 'fzf'
+
+let g:ale_linters = { 'cs': ['OmniSharp'] } " Tell ALE to use OmniSharp for linting C# files, and no other linters.
+let g:OmniSharp_server_stdio = 1            " Use the stdio OmniSharp-roslyn server
+let g:OmniSharp_timeout = 5                 " Timeout in seconds to wait for a response from the server
+let g:OmniSharp_highlight_types = 1         " Fetch semantic type/interface/identifier names on BufEnter and highlight them
+let g:OmniSharp_want_snippet=1              " Enable snippet completion
 
 augroup omnisharp_commands
   autocmd!
@@ -777,8 +783,6 @@ augroup omnisharp_commands
   autocmd FileType cs nmap <silent> <buffer> <Leader>ossp <Plug>(omnisharp_stop_server)
 augroup END
 
-" Enable snippet completion, using the ultisnips plugin
-" let g:OmniSharp_want_snippet=1e
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors
