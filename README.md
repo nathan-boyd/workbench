@@ -195,9 +195,9 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 
 | Command      | List                          |
 | ---          | ---                           |
-| `gaip=`      | align on equal sign character |
-| `gaip*=`     | align all = characters        |
-| `gaip*|`     | align all pipe characters     |
+| ``gaip=``    | align on equal sign character |
+| ``gaip*=``   | align all = characters        |
+| ``gaip*|``   | align all pipe characters     |
 
 ### Vim FZF
 
