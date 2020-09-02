@@ -193,11 +193,11 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 
 ### Vim EasyAlign
 
-| Command                  | List                          |
-| ---                      | ---                           |
-| `gaip=`                  | align on equal sign character |
-| `gaip*=`                 | align all = characters        |
-| <code>gaip*&#124;</code> | align all pipe characters     |
+| Command                  | List                                |
+| ---                      | ---                                 |
+| `gaip=`                  | align on first equal sign character |
+| `gaip*=`                 | align all `=` characters            |
+| <code>gaip*&#124;</code> | align all pipe characters           |
 
 ### Vim FZF
 
@@ -225,7 +225,7 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 | `BCommits`        | Git commits for the current buffer                                      |
 | `Commands`        | Commands                                                                |
 | `Maps`            | Normal mode mappings                                                    |
-| `Helptags`        | Show Help tags                                                              |
+| `Helptags`        | Show Help tags                                                          |
 
 ## Docker
 
