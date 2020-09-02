@@ -83,7 +83,7 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 | `gaa`   | git add all             |
 | `gcmsg` | git commit with message |
 
-### FZF
+## FZF
 
 | Command  | List              |
 | ---      | ---               |
@@ -154,12 +154,12 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 
 ### Working with registers
 
-| Command                | List                            |
-| ---                    | ---                             |
-| `"{a-z}y`              | Yank to register                |
-| `"{A-Z}y`              | Append yank to register         |
-| `"{a-z}p`              | Paste from register             |
-| `:reg`                 | Show contents ofnamed registers |
+| Command                | List                             |
+| ---                    | ---                              |
+| `"{a-z}y`              | Yank to register                 |
+| `"{A-Z}y`              | Append yank to register          |
+| `"{a-z}p`              | Paste from register              |
+| `:reg`                 | Show contents of named registers |
 
 ### Macros
 
@@ -171,10 +171,10 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 
 ### Movement with Tags
 
-| Command         | List                   |
-| ---             | ---                    |
-| `ctrl - [`         | Jump to definition. |
-| `ctrl - T`         | Jump back.          |
+| Command            | List                   |
+| ---                | ---                    |
+| `ctrl - [`         | Jump to definition.    |
+| `ctrl - T`         | Jump back.             |
 
 ### Marks
 
@@ -195,9 +195,9 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 
 | Command      | List                          |
 | ---          | ---                           |
-| ```gaip=```  | align on equal sign character |
-| ```gaip*=``` | align all = characters        |
-| ```gaip*|``` | align all | characters        |
+| `gaip=`      | align on equal sign character |
+| `gaip*=`     | align all = characters        |
+| `gaip*|`     | align all pipe characters     |
 
 ### Vim FZF
 
@@ -225,7 +225,7 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 | `BCommits`        | Git commits for the current buffer                                      |
 | `Commands`        | Commands                                                                |
 | `Maps`            | Normal mode mappings                                                    |
-| `Helptags`        | Help tags <sup id="a1">[1](#helptags)</sup>                             |
+| `Helptags`        | Show Help tags                                                              |
 
 ## Docker
 
