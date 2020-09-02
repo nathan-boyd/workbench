@@ -14,7 +14,7 @@ windows:
   - filemanager:
       panes:
         - ranger .
-  - glances
+  - glances:
       panes:
         - glances
   - ctop:

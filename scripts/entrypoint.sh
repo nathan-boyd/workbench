@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 export TERM=xterm-256color
 
 USER_NAME=me
@@ -29,8 +28,8 @@ fi
 export PROJECT_NAME=${PROJECT_NAME:-"scratch"}
 
 # other attempts at non root identity within container, keeping around so i dont try again :|
-#su -s /bin/zsh -g $USER_GROUP $USER_NAME
-#su -s /bin/tmux -g $USER_GROUP $USER_NAME -- -u -2 new -s ${PROJECT_NAME}
-#su -s tmuxinator -g $USER_GROUP $USER_NAME -- start $PROJECT_DIR
+# su -s /bin/zsh -g $USER_GROUP $USER_NAME
+# su -s /bin/tmux -g $USER_GROUP $USER_NAME -- -u -2 new -s ${PROJECT_NAME}
+# su -s tmuxinator -g $USER_GROUP $USER_NAME -- start $PROJECT_DIR
 
 su -s /bin/zsh -g $USER_GROUP $USER_NAME
