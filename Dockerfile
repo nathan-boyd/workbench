@@ -44,7 +44,6 @@ RUN apt-get update && \
         python3-pip \
         ripgrep \
         ruby \
-        screenfetch \
         neofetch \
         software-properties-common \
         ssh-client \
@@ -190,6 +189,7 @@ RUN groupadd workbench && \
 
 COPY config/tmuxinator/template.tpl /opt/tmuxinator/template.tpl
 COPY config/zsh/.zshrc ${HOME}/.zshrc
+COPY config/neofetch/config.conf ${HOME}/.config/neofetch/config.conf
 COPY config/git/.gitconfig ${HOME}/.gitconfig
 COPY config/coc/coc-settings.json ${HOME}/.config/nvim/coc-settings.json
 COPY config/ranger ${HOME}/.config/ranger
