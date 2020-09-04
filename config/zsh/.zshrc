@@ -62,6 +62,7 @@ alias vi=nvim
 alias vim=vi
 alias mux=tmuxinator
 alias muxe=editMuxConfig
+alias mtr="mtr -t"
 alias k=kubectl
 alias eee="/opt/workbenchStop.sh"
 
@@ -88,5 +89,3 @@ function editMuxConfig(){
     vi "$HOME/.config/tmuxinator/$PROJECT_DIR.yml"
 }
 
-# clear mux output on source
-clear
