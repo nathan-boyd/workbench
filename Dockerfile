@@ -45,6 +45,7 @@ RUN apt-get update && \
         ripgrep \
         ruby \
         screenfetch \
+        neofetch \
         software-properties-common \
         ssh-client \
         sshfs \
