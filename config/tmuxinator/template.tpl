@@ -1,13 +1,11 @@
 # /home/me/.config/tmuxinator/{{ .Env.PROJECT_DIR }}.yml
 
 name: {{ .Env.PROJECT_DIR }}
-root: .
 startup_window: shell
 on_project_stop: docker container kill workbench-{{ .Env.PROJECT_DIR }}
 windows:
   - shell:
-      panes:
-        - /bin/zsh
+    - /opt/splashScreen.sh
   - editor:
       panes:
         - vim .
