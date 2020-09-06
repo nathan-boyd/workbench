@@ -16,7 +16,6 @@ A project focused, development environment running in docker.
 - Dotnet 3.1
 - GoLang 1.24.2
 - NodeJS 14.4.0
-- Python 2.8.18
 - Python 3.8.2
 - Ruby   2.7
 
@@ -36,7 +35,7 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 | [neovim](https://github.com/neovim/neovim)                                                       | modern vim                                        |
 | [ranger](https://github.com/ranger/ranger)                                                       | console file manager with VI key bindings         |
 | [ripgrep](https://github.com/BurntSushi/ripgrep)                                                 | line-oriented search tool                         |
-| [screenfetch](https://github.com/KittyKatt/screenFetch)                                          | splash screens                                    |
+| [neofetch](https://github.com/dylanaraps/neofetch)                                               | splash screens                                    |
 | [tmux](https://github.com/tmux/tmux)                                                             | terminal multiplexer                              |
 | [glances](https://nicolargo.github.io/glances/)                                                  | system monitoring                                 |
 | [lazydocker](https://github.com/jesseduffield/lazydocker)                                        | terminal UI for docker                            |
