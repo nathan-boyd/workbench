@@ -1,6 +1,6 @@
 # workbench
 
-A project focused, development environment running in docker.
+A development environment running in docker
 
 ## Starting the environment
 
