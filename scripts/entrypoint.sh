@@ -14,7 +14,7 @@ fi
 # until Add ability to mount volume as user other than root #2259
 # https://github.com/moby/moby/issues/2259
 echo "performing chown on mounted volumes within container"
-find $HOME/ -print | xargs --max-args=5 --max-procs=100 chown ${USER_NAME}:${USER_GROUP} > /dev/null 2>&1
+find $HOME/ -print | xargs --max-args=5 --max-procs=10000 chown ${USER_NAME}:${USER_GROUP} > /dev/null 2>&1
 chown ${USER_NAME}:${USER_GROUP} /usr/lib/node_modules
 echo "completed chown"
 
