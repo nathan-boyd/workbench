@@ -44,6 +44,7 @@ RUN apt-get update && \
         python3-pip \
         ripgrep \
         ruby \
+        ruby-dev \
         neofetch \
         software-properties-common \
         ssh-client \
@@ -79,6 +80,7 @@ RUN apt-get update && \
     && apt-get clean
 
 ENV PATH="$PATH:/usr/bin/node:/usr/local/go/bin"
+ENV DOTNET_CLI_TELEMETRY_OPTOUT=true
 
 # add binaries
 RUN \
