@@ -149,6 +149,7 @@ cmap w!! w !sudo tee % >/dev/null
 " line folding
 set foldenable          " enable folding
 set foldmethod=syntax   " fold based on indent level
+set foldlevel=99        " add fold level
 set foldnestmax=5       " max 5 depth
 set foldlevelstart=10   " start with fold level of 1
 set foldcolumn=0        " dont show fold column numbers
