@@ -105,6 +105,31 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 | `ctrl+b+d`     | detach from session                              |
 | `ctrl+b+space` | change pane orientation (horizontal -> vertical) |
 
+## Ranger File Explorer
+
+### Sorting
+
+| Command      | List                                       |
+| ------------ | ------------------------------------------ |
+| ot           | sort by type first                         |
+| os           | sort by size first                         |
+| oa /oc /om   | sort by time                               |
+| on           | sort natural                               |
+| o{T/S/A/C/M} | sort in reverse order from the above modes |
+| or           | reverse the sort order                     |
+
+### File Commands
+
+| Command | List                                                               |
+| ------- | ------------------------------------------------------------------ |
+| fm      | mkdir                                                              |
+| ft      | touch (create file)                                                |
+| fe      | edit file (was E)                                                  |
+| fl      | view file with less. q to quit (ranger `i` doesn't show full file) |
+| fr      | rename                                                             |
+| fb      | bulkrename                                                         |
+| fp      | pyrenamer %d                                                       |
+
 ## Vim
 
 ### Movement
