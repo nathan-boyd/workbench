@@ -352,15 +352,15 @@ let g:NERDTreeIgnore = [
 \]
 let g:NERDTreeBookmarksFile = $HOME ."/.vim/bundle/nerdtree/bookmarks"
 
-function OpenClose()
-  if exists("g:NERDTree") && g:NERDTree.IsOpen()
+function NERDOpenClose()
+  if @% =~ "NERD"
     NERDTreeToggle
   else
-    NERDTree
+    NERDTreeFind
   endif
 endfunction
 
-nnoremap - :call OpenClose()<CR>
+nnoremap - :call NERDOpenClose()<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure tmux-navigator
