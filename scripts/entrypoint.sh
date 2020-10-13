@@ -18,17 +18,21 @@ find $HOME/ -print | xargs --max-args=5 --max-procs=10000 chown ${USER_NAME}:${U
 chown ${USER_NAME}:${USER_GROUP} /usr/lib/node_modules
 echo "completed chown"
 
-if [ -S "/var/run/docker.sock" ]; then
-    USER_GROUP=docker
-    HOST_DOCKER_SOCKET_GROUP_ID=`stat -c %g /var/run/docker.sock`
-    groupadd --non-unique -g $HOST_DOCKER_SOCKET_GROUP_ID $USER_GROUP
-    usermod -aG $USER_GROUP $USER_NAME
-fi
+# if [ -S "/var/run/docker.sock" ]; then
+#     USER_GROUP=docker
+#     HOST_DOCKER_SOCKET_GROUP_ID=`stat -c %g /var/run/docker.sock`
+#
+#     echo "USER_NAME: $USER_NAME"
+#     echo "USER_GROUP: $USER_GROUP"
+#     echo "HOST_DOCKER_SOCKET_GROUP_ID: $HOST_DOCKER_SOCKET_GROUP_ID"
+#
+#     groupadd --non-unique -g $HOST_DOCKER_SOCKET_GROUP_ID $USER_GROUP
+#     usermod -aG $USER_GROUP $USER_NAME
+# fi
 
 export PROJECT_NAME=${PROJECT_NAME:-"scratch"}
 
 # other attempts at non root identity within container, keeping around so i dont try again :|
-# su -s /bin/zsh -g $USER_GROUP $USER_NAME
 # su -s /bin/tmux -g $USER_GROUP $USER_NAME -- -u -2 new -s ${PROJECT_NAME}
 # su -s tmuxinator -g $USER_GROUP $USER_NAME -- start $PROJECT_DIR
 

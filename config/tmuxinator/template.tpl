@@ -17,7 +17,7 @@ windows:
         - glances
   - ctop:
       panes:
-        - docker run --rm -ti -v /var/run/docker.sock:/var/run/docker.sock --name workbench-workbench-ctop quay.io/vektorlab/ctop:latest
+        - sudo docker run --rm -ti -v /var/run/docker.sock:/var/run/docker.sock --name workbench-workbench-ctop quay.io/vektorlab/ctop:latest
   - k9s:
       panes:
         - k9s

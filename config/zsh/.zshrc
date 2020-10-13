@@ -50,6 +50,7 @@ export GO111MODULE=on
 export GOPATH=$HOME/go
 export GOBIN=$GOPATH/bin
 export PATH=$PATH:/usr/local/go/bin:$GOBIN
+export PATH=$PATH:$HOME/.local/bin
 
 # --files: List files that would be searched but do not search
 # --no-ignore: Do not respect .gitignore, etc...
@@ -58,20 +59,21 @@ export PATH=$PATH:/usr/local/go/bin:$GOBIN
 # --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 
+alias c="clear"
+alias diff="icdiff"
+alias eee="/opt/workbenchStop.sh"
 alias fp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
-alias rn=ranger
-alias jp="jq -C | less"
-alias c=clear
-alias diff=icdiff
 alias gdt="git difftool -y"
 alias gs="git status"
-alias vi=nvim
-alias vim=vi
-alias mux=tmuxinator
-alias muxe=editMuxConfig
+alias jp="jq -C | less"
+alias k="kubectl"
 alias mtr="mtr -t"
-alias k=kubectl
-alias eee="/opt/workbenchStop.sh"
+alias mux="tmuxinator"
+alias muxe="editMuxConfig"
+alias pip="pip3"
+alias rn="ranger"
+alias vi="nvim"
+alias vim="vi"
 
 ################################################################################
 
@@ -98,3 +100,5 @@ function editMuxConfig(){
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+eval "$(pipenv --completion)"

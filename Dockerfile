@@ -42,6 +42,7 @@ RUN apt-get update && \
         neovim \
         python3-dev \
         python3-pip \
+        pylint \
         ripgrep \
         ruby \
         ruby-dev \
@@ -57,6 +58,7 @@ RUN apt-get update && \
         xclip \
         zsh \
         unzip \
+        unixodbc-dev \
     && apt-get clean
 
 # set locale
@@ -70,10 +72,15 @@ RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add 
     echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list && \
     curl -sL https://deb.nodesource.com/setup_14.x | bash \
     && wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
-        && dpkg -i packages-microsoft-prod.deb
+        && dpkg -i packages-microsoft-prod.deb \
+    && curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg \
+      && sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg \
+      && sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -cs)-prod $(lsb_release -cs) main" > /etc/apt/sources.list.d/dotnetdev.list' \
+      && rm packages-microsoft-prod.deb
 
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
+        azure-functions-core-tools-3 \
         kubectl \
         nodejs \
         dotnet-sdk-3.1 \
@@ -82,9 +89,7 @@ RUN apt-get update && \
 ENV PATH="$PATH:/usr/bin/node:/usr/local/go/bin"
 ENV DOTNET_CLI_TELEMETRY_OPTOUT=true
 
-# add binaries
-RUN \
-  export DOCKERVERSION=18.03.1-ce \
+RUN export DOCKERVERSION=18.03.1-ce \
     && curl -fsSLO "https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKERVERSION}.tgz" \
     && tar xzvf docker-${DOCKERVERSION}.tgz --strip 1 -C /usr/local/bin docker/docker \
     && rm docker-${DOCKERVERSION}.tgz \
@@ -104,10 +109,13 @@ RUN \
     && go get github.com/jesseduffield/lazydocker \
     && go get sigs.k8s.io/kind@v0.8.1 \
   && curl https://github.com/derailed/k9s/releases/download/v0.20.5/k9s_Linux_x86_64.tar.gz  -o- -L | tar -xz -C /usr/local/bin/ \
-  && pip3 install pynvim \
   && pip3 install git+https://github.com/jeffkaufman/icdiff.git \
-  && pip3 install ranger-fm \
   && pip3 install glances \
+  && pip3 install jedi \
+  && pip3 install pipenv \
+  && pip3 install pynvim \
+  && pip3 install ranger-fm \
+  && pip3 install yapf \
   && export BAT_VERSION="0.15.4" \
     && wget "https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/bat_${BAT_VERSION}_amd64.deb" \
     && dpkg -i "bat_${BAT_VERSION}_amd64.deb" \

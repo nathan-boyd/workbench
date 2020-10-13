@@ -62,9 +62,9 @@ highlight clear LineNr
 
 let g:loaded_python_provider = 1
 let g:python_host_skip_check=1
-let g:python_host_prog = '/usr/bin/python'
-let g:python3_host_skip_check=1
+
 let g:python3_host_prog = '/usr/bin/python3'
+
 let g:matchparen_timeout = 1
 let g:matchparen_insert_timeout = 1
 
@@ -153,12 +153,24 @@ set foldlevel=99        " add fold level
 set foldnestmax=5       " max 5 depth
 set foldlevelstart=10   " start with fold level of 1
 set foldcolumn=0        " dont show fold column numbers
+nnoremap <space> za     " Enable folding with the spacebar
 
-" remember folds when leaving buffer
-augroup remember_folds
+function RememberFolds()
+  if @% !~ "NERD"
+      mkview
+  endif
+endfunction
+
+function RestoreFolds()
+  if @% !~ "NERD"
+      loadview
+  endif
+endfunction
+
+augroup manage_folds
   autocmd!
-  autocmd BufWinLeave * silent! mkview
-  autocmd BufWinEnter * silent! loadview
+  autocmd BufWinLeave * silent! call RememberFolds()
+  autocmd BufWinEnter * silent! call RestoreFolds()
 augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -223,7 +235,7 @@ autocmd BufNewFile,BufRead *.manifest set filetype=json
 " Searching
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" useful for searching the pager
+" redirects to pagable output
 function! Redir(cmd, rng, start, end)
 	for win in range(1, winnr('$'))
 		if getwinvar(win, 'scratch')
@@ -259,12 +271,10 @@ command! -nargs=1 -complete=command -bar -range Redir silent call Redir(<q-args>
 " Install Plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"let g:plug_threads=1
+let g:plug_threads=1
 
 call plug#begin('~/.config/.vim/plugged')
 
-Plug 'scrooloose/nerdtree'                                         " file explorer
-Plug 'Xuyuanp/nerdtree-git-plugin'                                 " show git status in nerdtree
 Plug 'fatih/vim-go'                                                " go support
 Plug 'vim-airline/vim-airline'                                     " modeline
 Plug 'vim-airline/vim-airline-themes'                              " modeline theme
@@ -278,7 +288,6 @@ Plug 'Yggdroot/indentLine'                                         " vertical al
 Plug 'SirVer/ultisnips'                                            " snippets engine
 Plug 'honza/vim-snippets'                                          " snippets
 Plug 'junegunn/vim-easy-align'                                     " column alignment on characters
-Plug 'majutsushi/tagbar'                                           " tag visualization
 Plug 'ekalinin/Dockerfile.vim'                                     " dockerfile syntax highlighting
 Plug 'romainl/vim-qf'                                              " quick fix / location window config
 Plug 'neoclide/coc.nvim', {'branch': 'release'}                    " language server
@@ -287,8 +296,14 @@ Plug 'Raimondi/delimitMate'                                        " delimiter a
 Plug 'junegunn/fzf'                                                " fuzzy searching
 Plug 'junegunn/fzf.vim'                                            " also require for fuzzy searching
 Plug 'preservim/nerdcommenter'
-
 Plug 'OmniSharp/omnisharp-vim'
+Plug 'liuchengxu/vista.vim'
+Plug 'majutsushi/tagbar'                                           " tag visualization
+Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+Plug 'scrooloose/nerdtree'                                         " file explorer
+
+" turning off until "endif" issue is resolved
+"Plug 'Xuyuanp/nerdtree-git-plugin'                                 " show git status in nerdtree
 
 call plug#end()
 
@@ -335,15 +350,17 @@ let g:NERDTreeIgnore = [
     \ '.DS_Store',
     \ 'node_modules'
 \]
+let g:NERDTreeBookmarksFile = $HOME ."/.vim/bundle/nerdtree/bookmarks"
 
-nnoremap - :call CheckNERD()<CR>
-function CheckNERD()
-  if @% =~ "NERD"
+function OpenClose()
+  if exists("g:NERDTree") && g:NERDTree.IsOpen()
     NERDTreeToggle
   else
-    NERDTreeFind
+    NERDTree
   endif
 endfunction
+
+nnoremap - :call OpenClose()<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure tmux-navigator
@@ -419,6 +436,7 @@ let g:coc_global_extensions = [
     \'coc-snippets',
     \'coc-tag',
     \'coc-yaml',
+    \'coc-python',
 \]
 
 " coc-omnisharp plugin not ready for use yet
@@ -476,6 +494,12 @@ nnoremap <silent> <leader>gp :Git push<CR>
 nnoremap <silent> <leader>gr :Gread<CR>
 nnoremap <silent> <leader>gw :Gwrite<CR>
 nnoremap <silent> <leader>ge :Gedit<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Configure Python
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let python_highlight_all=1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Vim-go
@@ -552,15 +576,18 @@ let g:ale_warn_about_trailing_whitespace = 0
 let g:ale_linters_explicit = 1
 let g:ale_linters = {
     \ 'javascript': ['eslint'],
+    \ 'python': ['yapf', 'pylint'],
 \}
+
 "    \ 'cs': ['OmniSharp'],
 "    \ 'go': ['gopls'],
 
 let g:ale_fix_on_save=1
-let g:ale_fixers={
+let g:ale_fixers = {
 \ '*':['remove_trailing_lines','trim_whitespace'],
 \  'javascript': ['eslint'],
-\ }
+\  'python': ['yapf'],
+\}
 
 " nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 " nmap <silent> <C-j> <Plug>(ale_next_wrap)
@@ -574,7 +601,6 @@ let g:vim_json_syntax_conceal = 0
 
 let g:indentLine_bufTypeExclude = ['help', 'terminal']
 let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*']
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Gruvbox & Airline Plugins
@@ -731,9 +757,8 @@ nmap <Leader>w <Plug>(easymotion-overwin-w)
 nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
 
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Easy Align
+" OmniSharp
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:OmniSharp_server_type = 'roslyn'
@@ -784,19 +809,15 @@ augroup omnisharp_commands
   autocmd FileType cs nmap <silent> <buffer> <Leader>ossp <Plug>(omnisharp_stop_server)
 augroup END
 
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Colors
+" Colors and styling
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " change color of quick fix line
 hi QuickFixLine term=reverse ctermfg=224
 
-" colorscheme gruvbox
 let g:airline_theme = 'gruvbox_material'
-
 silent! colorscheme gruvbox-material
-
 
 if $ITERM_PROFILE == 'dark'
   set background=dark
@@ -804,6 +825,16 @@ endif
 
 if $ITERM_PROFILE == 'light'
   set background=light
+endif
+
+"Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+if (has("nvim"))
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+
+if (has("termguicolors"))
+  set termguicolors
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -838,6 +869,7 @@ endfunction
 
 function SaveSess()
   if IsGitCommit() | return | endif
+  NERDTreeClose
   execute 'mksession! ' . g:SessionFile
   echo "saved session"
 endfunction
