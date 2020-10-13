@@ -30,6 +30,7 @@
     "go"
   ],
   "python.jediPath": "/usr/local/lib/python3.8/dist-packages",
+  "python.jediEnabled":"false",
   "python.pythonPath": "${workspaceFolder}/venv/bin/python",
   "python.linting.pylintPath": "/usr/bin/pylint",
 }
