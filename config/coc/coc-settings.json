@@ -29,8 +29,8 @@
     "markdown",
     "go"
   ],
-  "python.jediPath": "/usr/local/lib/python3.8/dist-packages",
-  "python.jediEnabled":"false",
-  "python.pythonPath": "${workspaceFolder}/venv/bin/python",
-  "python.linting.pylintPath": "/usr/bin/pylint",
+  "python.pipenvPath": "~/.local/bin/pipenv",
+  "python.jediPath": "~/.local/lib/python3.8/site-packages",
+  "python.linting.pylintEnabled": true,
+  "python.linting.enabled": true
 }

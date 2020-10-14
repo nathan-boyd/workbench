@@ -111,8 +111,8 @@ RUN export DOCKERVERSION=18.03.1-ce \
   && curl https://github.com/derailed/k9s/releases/download/v0.20.5/k9s_Linux_x86_64.tar.gz  -o- -L | tar -xz -C /usr/local/bin/ \
   && pip3 install git+https://github.com/jeffkaufman/icdiff.git \
   && pip3 install glances \
-  && pip3 install jedi \
-  && pip3 install pipenv \
+  && pip3 install --user jedi \
+  && pip3 install --user pipenv \
   && pip3 install pynvim \
   && pip3 install ranger-fm \
   && pip3 install yapf \

@@ -102,6 +102,7 @@ docker run \
     -v $HOME/.kube/config:$CONTAINER_HOME/.kube/config \
     -v $HOME/.ssh:$CONTAINER_HOME/.ssh \
     -v $HOME/.workbench:$CONTAINER_HOME/.workbench \
+    -v $HOME/.local/share/virtualenvs:$CONTAINER_HOME/.local/share/virtualenvs \
     -v $LAZY_DOCKER:$CONTAINER_HOME/.config/jesseduffield/lazydocker \
     -v $PROJECT_AUTOJUMP:$CONTAINER_HOME/.local/share/autojump/ \
     -v $PROJECT_GO_BUILD_CACHE:$CONTAINER_HOME/.cache/go-build \
