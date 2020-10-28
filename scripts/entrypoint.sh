@@ -18,14 +18,18 @@ find $HOME/ -print | xargs --max-args=5 --max-procs=10000 chown ${USER_NAME}:${U
 chown ${USER_NAME}:${USER_GROUP} /usr/lib/node_modules
 echo "completed chown"
 
+# works non scripted
+# groupadd docker
+# gpasswd -a $USER_NAME docker
+
 # if [ -S "/var/run/docker.sock" ]; then
 #     USER_GROUP=docker
 #     HOST_DOCKER_SOCKET_GROUP_ID=`stat -c %g /var/run/docker.sock`
-#
+# 
 #     echo "USER_NAME: $USER_NAME"
 #     echo "USER_GROUP: $USER_GROUP"
 #     echo "HOST_DOCKER_SOCKET_GROUP_ID: $HOST_DOCKER_SOCKET_GROUP_ID"
-#
+# 
 #     groupadd --non-unique -g $HOST_DOCKER_SOCKET_GROUP_ID $USER_GROUP
 #     usermod -aG $USER_GROUP $USER_NAME
 # fi

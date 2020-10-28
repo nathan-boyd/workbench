@@ -301,11 +301,18 @@ Plug 'liuchengxu/vista.vim'
 Plug 'majutsushi/tagbar'                                           " tag visualization
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'scrooloose/nerdtree'                                         " file explorer
+Plug 'pprovost/vim-ps1'
 
 " turning off until "endif" issue is resolved
 "Plug 'Xuyuanp/nerdtree-git-plugin'                                 " show git status in nerdtree
 
 call plug#end()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Configure powershell files
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+au BufRead,BufNewFile *.ps1 set filetype=ps1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure easy motion
