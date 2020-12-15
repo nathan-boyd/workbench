@@ -199,10 +199,13 @@ RUN groupadd workbench && \
 
 COPY config/tmuxinator/template.tpl /opt/tmuxinator/template.tpl
 COPY config/zsh/.zshrc ${HOME}/.zshrc
+COPY config/ultisnip $HOME/.vim/UltiSnip
 COPY config/neofetch/config.conf ${HOME}/.config/neofetch/config.conf
 COPY config/git/.gitconfig ${HOME}/.gitconfig
 COPY config/coc/coc-settings.json ${HOME}/.config/nvim/coc-settings.json
 COPY config/ranger ${HOME}/.config/ranger
+COPY config/python/.pylintrc ${HOME}/.pylintrc
+
 COPY scripts/entrypoint.sh /opt/entrypoint.sh
 COPY scripts/splashScreen.sh /opt/splashScreen.sh
 COPY scripts/workbenchStop.sh /opt/workbenchStop.sh

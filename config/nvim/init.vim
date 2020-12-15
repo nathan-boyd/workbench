@@ -299,14 +299,23 @@ Plug 'preservim/nerdcommenter'
 Plug 'OmniSharp/omnisharp-vim'
 Plug 'liuchengxu/vista.vim'
 Plug 'majutsushi/tagbar'                                           " tag visualization
-Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'scrooloose/nerdtree'                                         " file explorer
 Plug 'pprovost/vim-ps1'
+Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 
 " turning off until "endif" issue is resolved
 "Plug 'Xuyuanp/nerdtree-git-plugin'                                 " show git status in nerdtree
 
 call plug#end()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" configure pymode
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+let g:pymode = 1
+let g:pymode_lint = 0
+let g:pymode_syntax = 1
+let g:pymode_syntax_all = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure powershell files
@@ -486,6 +495,10 @@ nnoremap <silent> <leader>k :<C-u>CocPrev<CR>
 " resume latest coc list.
 nnoremap <silent> <leader>lr :<C-u>CocListResume<CR>
 
+let g:coc_snippet_next = '<TAB>'
+let g:coc_snippet_prev = '<S-TAB>'
+
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Fugitive
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -507,6 +520,9 @@ nnoremap <silent> <leader>ge :Gedit<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let python_highlight_all=1
+
+autocmd Filetype py setlocal ts=2 sw=2 expandtab
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Vim-go
@@ -580,12 +596,13 @@ let g:ale_sign_error = '✖'
 let g:ale_sign_warning = '⚠'
 let g:ale_warn_about_trailing_whitespace = 0
 
-let g:ale_linters_explicit = 1
 let g:ale_linters = {
     \ 'javascript': ['eslint'],
-    \ 'python': ['yapf', 'pylint'],
+    \ 'python': ['pylint'],
+    \ 'cs': ['OmniSharp'],
 \}
 
+"    \ 'python': ['yapf', 'pylint'],
 "    \ 'cs': ['OmniSharp'],
 "    \ 'go': ['gopls'],
 
@@ -596,8 +613,8 @@ let g:ale_fixers = {
 \  'python': ['yapf'],
 \}
 
-" nmap <silent> <C-k> <Plug>(ale_previous_wrap)
-" nmap <silent> <C-j> <Plug>(ale_next_wrap)
+nmap <silent> <C-n> <Plug>(ale_next_wrap)
+nmap <silent> <C-p> <Plug>(ale_previous_wrap)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure IndentLine
@@ -725,10 +742,12 @@ nmap <leader>P <Plug>yankstack_substitute_newer_paste
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let g:UltiSnipsExpandTrigger = "<tab>"
-let g:UltiSnipsJumpForwardTrigger = "<c-j>"
-let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
+let g:UltiSnipsJumpForwardTrigger = "<C-j>"
+let g:UltiSnipsJumpBackwardTrigger = "<C-k>"
 
 let g:UltiSnipsSnippetDirectories = [$HOME . '/.vim/UltiSnip']
+
+highlight link snipLeadingSpaces NONE
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure EasyMotion Plugin
@@ -771,7 +790,6 @@ xmap ga <Plug>(EasyAlign)
 let g:OmniSharp_server_type = 'roslyn'
 let g:OmniSharp_selector_ui = 'fzf'
 
-let g:ale_linters = { 'cs': ['OmniSharp'] } " Tell ALE to use OmniSharp for linting C# files, and no other linters.
 let g:OmniSharp_server_stdio = 1            " Use the stdio OmniSharp-roslyn server
 let g:OmniSharp_timeout = 5                 " Timeout in seconds to wait for a response from the server
 let g:OmniSharp_highlight_types = 1         " Fetch semantic type/interface/identifier names on BufEnter and highlight them
@@ -858,6 +876,12 @@ function StopProfile()
     profile pause
     noautocmd qall!
 endfunction
+
+" call `:exec SynGroup()` to show the highlight group under the cursor
+function! SynGroup()
+  let l:s = synID(line('.'), col('.'), 1)
+  echo synIDattr(l:s, 'name') . ' -> ' . synIDattr(synIDtrans(l:s), 'name')
+endfun
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Automatically save sessions

@@ -81,8 +81,9 @@ IP=$(ifconfig "$GATEWAY" | grep inet | awk '$1=="inet" {print $2}')
 if [ -z "$IP" ]
 then
     echo "could not find default network IP, host clipboard integration may not function properly"
+fi
 
-elif pgrep -x "xhost" >/dev/null
+if pgrep -x "xhost" >/dev/null
 then
     echo "xhost is already running at: $IP"
 else
@@ -90,14 +91,12 @@ else
     echo "started xhost on host at: $IP"
 fi
 
+echo "starting docker container"
+
 docker run \
     --rm \
     -it \
-    -v $GO_BIN:$CONTAINER_HOME/go/bin \
-    -v $GO_BUILD_CACHE:$CONTAINER_HOME/.cache/go-build \
-    -v $GO_PKG:$CONTAINER_HOME/go/pkg \
     -v $HOME/Desktop/:$CONTAINER_HOME/Desktop \
-    -v $HOME/Downloads/:$CONTAINER_HOME/Downloads \
     -v $HOME/.docker/:$CONTAINER_HOME/.docker/ \
     -v $HOME/.kube/config:$CONTAINER_HOME/.kube/config \
     -v $HOME/.ssh:$CONTAINER_HOME/.ssh \
@@ -105,7 +104,6 @@ docker run \
     -v $HOME/.local/share/virtualenvs:$CONTAINER_HOME/.local/share/virtualenvs \
     -v $LAZY_DOCKER:$CONTAINER_HOME/.config/jesseduffield/lazydocker \
     -v $PROJECT_AUTOJUMP:$CONTAINER_HOME/.local/share/autojump/ \
-    -v $PROJECT_GO_BUILD_CACHE:$CONTAINER_HOME/.cache/go-build \
     -v $PROJECT_SESSION:$CONTAINER_HOME/.config/nvim/sessions/ \
     -v $PWD:${CONTAINER_HOME}/${PROJECT_DIR} \
     -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK \
@@ -134,3 +132,9 @@ docker run \
     --net host \
     --privileged \
     nathan-boyd/workbench:latest
+
+# mounting go volumes is slow
+#    -v $GO_BIN:$CONTAINER_HOME/go/bin \
+#    -v $GO_BUILD_CACHE:$CONTAINER_HOME/.cache/go-build \
+#    -v $GO_PKG:$CONTAINER_HOME/go/pkg \
+#    -v $PROJECT_GO_BUILD_CACHE:$CONTAINER_HOME/.cache/go-build \

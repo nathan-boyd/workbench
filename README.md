@@ -219,11 +219,23 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 | `m {a-z}` | Marks current position as {a-z} |
 | `' {a-z}` | Move to position as {a-z}       |
 
+### Syntax
+
+| Command             | List                        |
+| ------------------- | --------------------------- |
+| `:setlocal syntax?` | get syntax for current file |
+
 ### Buffers
 
 | Command    | List                              |
 | ---------- | --------------------------------- |
 | `:%bd\|e#` | close all buffers and reopen last |
+
+### Windows
+
+| Command    | List                    |
+| ---------- | ----------------------- |
+| ` ctrl-w_` | maximize current window |
 
 ## Vim Plugins
 

@@ -30,7 +30,7 @@
     "go"
   ],
   "python.pipenvPath": "~/.local/bin/pipenv",
-  "python.jediPath": "~/.local/lib/python3.8/site-packages",
   "python.linting.pylintEnabled": true,
-  "python.linting.enabled": true
+  "python.linting.enabled": true,
+  "python.jediEnabled": true
 }

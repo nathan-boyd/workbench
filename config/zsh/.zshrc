@@ -74,6 +74,7 @@ alias pip="pip3"
 alias rn="ranger"
 alias vi="nvim"
 alias vim="vi"
+alias pshell="PYTHONPATH="$PYTHONPATH:$(pipenv --venv)" && pipenv shell"
 
 ################################################################################
 

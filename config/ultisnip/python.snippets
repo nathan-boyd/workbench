@@ -1,0 +1,50 @@
+extends python
+
+snippet docm "google style module docstring" b
+
+""" The `!p snip.rv = snip.basename` module $1.
+
+  Usage examples:
+    $2
+
+"""
+endsnippet
+
+snippet docc "google style class docstring" b
+
+  """ The `!p snip.rv = snip.basename` class $1.
+
+    $2If the class has public attributes, they may be documented here
+    in an ``Attributes`` section and follow the same formatting as a
+    function's ``Args`` section. Alternatively, attributes may be documented
+    inline with the attribute's declaration (see __init__ method below).
+
+    Properties created with the ``@property`` decorator should be documented
+    in the property's getter method.
+
+    Attributes:
+
+      attr1 $3(str): Description of `attr1`.
+
+      attr2 (:obj:`int`, optional): Description of `attr2`.
+
+  """
+endsnippet
+
+snippet docf "google style function docstring" b
+""" The $1 function $2.
+
+This is an example of Google style.
+
+Args:
+    param1: This is the first param.
+    param2: This is a second param.
+
+Returns:
+    This is a description of what is returned.
+
+Raises:
+    KeyError: Raises an exception.
+"""
+endsnippet
+
