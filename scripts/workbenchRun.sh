@@ -131,7 +131,8 @@ docker run \
     --name $CONTAINER_NAME \
     --net host \
     --privileged \
-    nathan-boyd/workbench:latest
+    nathan-boyd/workbench:latest \
+    /opt/entrypoint.sh
 
 # mounting go volumes is slow
 #    -v $GO_BIN:$CONTAINER_HOME/go/bin \

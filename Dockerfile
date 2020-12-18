@@ -1,5 +1,8 @@
 FROM ubuntu:20.04
 
+ARG USER_ID
+ARG GROUP_ID
+
 # add man pages
 RUN yes | unminimize && \
     apt-get install -y man-db && \
@@ -197,6 +200,14 @@ RUN groupadd workbench && \
     chown -R ${USER_NAME}: ${HOME} && \
     echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" | tee /etc/sudoers.d/${USER_NAME}
 
+RUN chown --changes \
+    --silent \
+    --no-dereference \
+    --recursive \
+    --from=33:33 \
+    ${USER_ID}:${GROUP_ID} \
+    /home/me
+
 COPY config/tmuxinator/template.tpl /opt/tmuxinator/template.tpl
 COPY config/zsh/.zshrc ${HOME}/.zshrc
 COPY config/ultisnip $HOME/.vim/UltiSnip
@@ -210,4 +221,4 @@ COPY scripts/entrypoint.sh /opt/entrypoint.sh
 COPY scripts/splashScreen.sh /opt/splashScreen.sh
 COPY scripts/workbenchStop.sh /opt/workbenchStop.sh
 
-CMD ["/opt/entrypoint.sh"]
+USER me
