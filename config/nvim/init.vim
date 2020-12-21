@@ -284,7 +284,6 @@ Plug 'tpope/vim-fugitive'                                          " git tooling
 Plug 'junegunn/gv.vim'
 Plug 'airblade/vim-gitgutter'                                      " dirty indicators
 Plug 'w0rp/ale'                                                    " syntax highlighting
-Plug 'Yggdroot/indentLine'                                         " vertical alignment markers
 Plug 'SirVer/ultisnips'                                            " snippets engine
 Plug 'honza/vim-snippets'                                          " snippets
 Plug 'junegunn/vim-easy-align'                                     " column alignment on characters
@@ -302,6 +301,7 @@ Plug 'majutsushi/tagbar'                                           " tag visuali
 Plug 'scrooloose/nerdtree'                                         " file explorer
 Plug 'pprovost/vim-ps1'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+Plug 'Vimjas/vim-python-pep8-indent'
 
 " turning off until "endif" issue is resolved
 "Plug 'Xuyuanp/nerdtree-git-plugin'                                 " show git status in nerdtree
@@ -309,13 +309,17 @@ Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 call plug#end()
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" configure pymode
+" Configure Python
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let python_highlight_all=1
 
 let g:pymode = 1
 let g:pymode_lint = 0
 let g:pymode_syntax = 1
 let g:pymode_syntax_all = 1
+let g:pymode_indent = 0
+
+autocmd Filetype python setlocal shiftwidth=2 softtabstop=2 expandtab
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure powershell files
@@ -455,7 +459,8 @@ let g:coc_global_extensions = [
     \'coc-python',
 \]
 
-" coc-omnisharp plugin not ready for use yet
+" plugin not ready for use yet
+" \ 'coc-omnisharp',
 
 " GoTo code navigation.
 nmap <silent> gd <Plug>(coc-definition)
@@ -518,10 +523,6 @@ nnoremap <silent> <leader>ge :Gedit<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Python
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let python_highlight_all=1
-
-autocmd Filetype py setlocal ts=2 sw=2 expandtab
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -615,16 +616,6 @@ let g:ale_fixers = {
 
 nmap <silent> <C-n> <Plug>(ale_next_wrap)
 nmap <silent> <C-p> <Plug>(ale_previous_wrap)
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Configure IndentLine
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-let g:indentLine_enabled = 0
-let g:vim_json_syntax_conceal = 0
-
-let g:indentLine_bufTypeExclude = ['help', 'terminal']
-let g:indentLine_bufNameExclude = ['_.*', 'NERD_tree.*']
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Gruvbox & Airline Plugins

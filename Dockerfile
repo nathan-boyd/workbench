@@ -115,6 +115,7 @@ RUN export DOCKERVERSION=18.03.1-ce \
   && pip3 install git+https://github.com/jeffkaufman/icdiff.git \
   && pip3 install glances \
   && pip3 install --user jedi \
+  && pip3 install --user rope \
   && pip3 install --user pipenv \
   && pip3 install pynvim \
   && pip3 install ranger-fm \

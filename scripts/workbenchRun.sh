@@ -37,6 +37,12 @@ if [[ ! -d $PROJECT_UNDO ]]; then
 fi
 
 # stores vim sessions
+PROJECT_COC_SESSIONS=${HOME}/.workbench/${PROJECT_NAME}/.vim/sessions
+if [[ ! -d $PROJECT_SESSION ]]; then
+    mkdir -p ${PROJECT_SESSION}
+fi
+
+# stores vim sessions
 PROJECT_SESSION=${HOME}/.workbench/${PROJECT_NAME}/vim/session
 if [[ ! -d $PROJECT_SESSION ]]; then
     mkdir -p ${PROJECT_SESSION}
@@ -104,6 +110,7 @@ docker run \
     -v $HOME/.local/share/virtualenvs:$CONTAINER_HOME/.local/share/virtualenvs \
     -v $LAZY_DOCKER:$CONTAINER_HOME/.config/jesseduffield/lazydocker \
     -v $PROJECT_AUTOJUMP:$CONTAINER_HOME/.local/share/autojump/ \
+    -v $PROJECT_COC_SESSIONS:$CONTAINER_HOME/.vim/sessions \
     -v $PROJECT_SESSION:$CONTAINER_HOME/.config/nvim/sessions/ \
     -v $PWD:${CONTAINER_HOME}/${PROJECT_DIR} \
     -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK \
