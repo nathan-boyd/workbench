@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+set -e
+
 GIT_USER_NAME=$(git config user.name)
 GIT_USER_EMAIL=$(git config user.email)
 
@@ -38,8 +40,8 @@ fi
 
 # stores vim sessions
 PROJECT_COC_SESSIONS=${HOME}/.workbench/${PROJECT_NAME}/.vim/sessions
-if [[ ! -d $PROJECT_SESSION ]]; then
-    mkdir -p ${PROJECT_SESSION}
+if [[ ! -d $PROJECT_COC_SESSIONS ]]; then
+    mkdir -p ${PROJECT_COC_SESSIONS}
 fi
 
 # stores vim sessions
@@ -107,7 +109,7 @@ docker run \
     -v $HOME/.kube/config:$CONTAINER_HOME/.kube/config \
     -v $HOME/.ssh:$CONTAINER_HOME/.ssh \
     -v $HOME/.workbench:$CONTAINER_HOME/.workbench \
-    -v $HOME/.local/share/virtualenvs:$CONTAINER_HOME/.local/share/virtualenvs \
+    -v $HOME/.local/share/virtualenvs/:$CONTAINER_HOME/.local/share/virtualenvs/ \
     -v $LAZY_DOCKER:$CONTAINER_HOME/.config/jesseduffield/lazydocker \
     -v $PROJECT_AUTOJUMP:$CONTAINER_HOME/.local/share/autojump/ \
     -v $PROJECT_COC_SESSIONS:$CONTAINER_HOME/.vim/sessions \
