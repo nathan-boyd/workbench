@@ -103,3 +103,7 @@ function editMuxConfig(){
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 eval "$(pipenv --completion)"
+
+################################################################################
+
+export PATH="$PATH:/opt/mssql-tools/bin"

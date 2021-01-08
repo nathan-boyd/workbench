@@ -79,14 +79,18 @@ RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add 
     && curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg \
       && sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg \
       && sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -cs)-prod $(lsb_release -cs) main" > /etc/apt/sources.list.d/dotnetdev.list' \
-      && rm packages-microsoft-prod.deb
+      && rm packages-microsoft-prod.deb \
+    && curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends \
+    ACCEPT_EULA=Y apt-get install -y --no-install-recommends \
         azure-functions-core-tools-3 \
         kubectl \
         nodejs \
         dotnet-sdk-3.1 \
+        msodbcsql17 \ 
+        mssql-tools \
+        unixodbc-dev \
     && apt-get clean
 
 ENV PATH="$PATH:/usr/bin/node:/usr/local/go/bin"
