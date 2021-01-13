@@ -31,6 +31,7 @@ RUN apt-get update && \
         ctop \
         ctags \
         curl \
+        dnsutils \
         file \
         git \
         gcc \

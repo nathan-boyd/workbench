@@ -320,6 +320,7 @@ let g:pymode_syntax_all = 1
 let g:pymode_indent = 0
 
 autocmd Filetype python setlocal shiftwidth=2 softtabstop=2 expandtab
+autocmd FileType python set colorcolumn=120
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure powershell files
