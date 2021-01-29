@@ -2,82 +2,96 @@
 
 set -e
 
+USER_ID=$(id -u ${USER})
+GROUP_ID=$(id -g ${USER})
+USER_NAME=$(whoami)
 GIT_USER_NAME=$(git config user.name)
 GIT_USER_EMAIL=$(git config user.email)
-
 PROJECT_DIR=${PWD##*/}
 PROJECT_NAME=${PWD#"${PWD%/*/*}/"}
 CONTAINER_NAME=${PROJECT_NAME//\//_}
-CONTAINER_HOME="/home/me"
+CONTAINER_HOME="/home/$USER_NAME"
 
 if [ ! -n $(docker ps -a --format '{{ .Names }}' | grep -oE ${CONTAINER_NAME}) ]; then
-	echo "workbench already exists!" >&2;
-	exit 1;
+    echo "workbench already exists!" >&2;
+    exit 1;
 fi
 
 # Eventually may just mount the .workbench directory and symlink within the container
 
 PROJECT_ZSH=${HOME}/.workbench/${PROJECT_NAME}/zsh
+echo "PROJECT_ZSH: $PROJECT_ZSH"
 if [[ ! -d $PROJECT_ZSH ]]; then
     mkdir -p ${PROJECT_ZSH}
 fi
 
 ZSH_HISTORY=${PROJECT_ZSH}/.zsh_history
+echo "ZSH_HISTORY: $ZSH_HISTORY"
 if [[ ! -e $ZSH_HISTORY ]]; then
     touch $ZSH_HISTORY
 fi
 
 PROJECT_TMUXINATOR=${HOME}/.workbench/${PROJECT_NAME}/tmuxinator
+echo "PROJECT_TMUXINATOR: $PROJECT_TMUXINATOR"
 if [[ ! -d $PROJECT_ZSH ]]; then
     mkdir -p ${PROJECT_TMUXINATOR}
 fi
 
 # the directory in which to store vim undo files
 PROJECT_UNDO=${HOME}/.workbench/${PROJECT_NAME}/vim/undodir
+echo "PROJECT_UNDO: $PROJECT_UNDO"
 if [[ ! -d $PROJECT_UNDO ]]; then
     mkdir -p ${PROJECT_UNDO}
 fi
 
 # stores vim sessions
 PROJECT_COC_SESSIONS=${HOME}/.workbench/${PROJECT_NAME}/.vim/sessions
+echo "PROJECT_COC_SESSIONS: $PROJECT_COC_SESSIONS"
 if [[ ! -d $PROJECT_COC_SESSIONS ]]; then
     mkdir -p ${PROJECT_COC_SESSIONS}
 fi
 
 # stores vim sessions
 PROJECT_SESSION=${HOME}/.workbench/${PROJECT_NAME}/vim/session
+echo "PROJECT_SESSION: $PROJECT_SESSION"
 if [[ ! -d $PROJECT_SESSION ]]; then
     mkdir -p ${PROJECT_SESSION}
 fi
 
 PROJECT_AUTOJUMP=${HOME}/.workbench/${PROJECT_NAME}/autojump
+echo "PROJECT_AUTOJUMP: $PROJECT_AUTOJUMP"
 if [[ ! -d $PROJECT_AUTOJUMP ]]; then
     mkdir -p ${PROJECT_AUTOJUMP}
     touch ${PROJECT_AUTOJUMP}/autojump.txt
 fi
 
 GO_PKG=${HOME}/.workbench/golang/pkg
+echo "GO_PKG: $GO_PKG"
 if [[ ! -d $GO_PKG ]]; then
     mkdir -p $GO_PKG
 fi
 
 GO_BIN=${HOME}/.workbench/golang/bin
+echo "GO_BIN: $GO_BIN"
 if [[ ! -d $GO_BIN ]]; then
     mkdir -p $GO_BIN
 fi
 
 GO_BUILD_CACHE=${HOME}/.workbench/golang/build-cache
+echo "GO_BUILD_CACHE: $GO_BUILD_CACHE"
 if [[ ! -d $GO_BUILD_CACHE ]]; then
     mkdir -p $GO_BUILD_CACHE
 fi
 
 LAZY_DOCKER=${HOME}/.workbench/lazydocker
+echo "LAZY_DOCKER: $LAZY_DOCKER"
 if [[ ! -d $LAZY_DOCKER ]]; then
     mkdir -p $LAZY_DOCKER
     echo 'reporting: "off"' > $LAZY_DOCKER/config.yml
 fi
 
 GATEWAY=$(ip route | grep default | grep -Eio 'en{1}\d' | head -1)
+echo "GATEWAY: $GATEWAY"
 if [ -z "$GATEWAY" ]
 then
     echo "could not find default gateway"
@@ -86,6 +100,7 @@ else
 fi
 
 IP=$(ifconfig "$GATEWAY" | grep inet | awk '$1=="inet" {print $2}')
+echo "IP: $IP"
 if [ -z "$IP" ]
 then
     echo "could not find default network IP, host clipboard integration may not function properly"
@@ -141,7 +156,10 @@ docker run \
     --net host \
     --privileged \
     nathan-boyd/workbench:latest \
-    /opt/entrypoint.sh
+    /opt/entrypoint.sh 
+
+
+#    --user $USER_ID:$GROUP_ID \
 
 # mounting go volumes is slow
 #    -v $GO_BIN:$CONTAINER_HOME/go/bin \

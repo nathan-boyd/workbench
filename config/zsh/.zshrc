@@ -5,7 +5,9 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-#source ~/.auth.sh
+typeset -g POWERLEVEL9K_INSTANT_PROMPT=quiet
+
+################################################################################
 
 TERM="screen-256color"
 
@@ -23,10 +25,6 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 
 ################################################################################
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-source /usr/local/powerlevel10k/powerlevel10k.zsh-theme \
-    && source "$HOME/.p10k.zsh"
 
 source /usr/share/autojump/autojump.zsh
 
@@ -52,12 +50,16 @@ export GOBIN=$GOPATH/bin
 export PATH=$PATH:/usr/local/go/bin:$GOBIN
 export PATH=$PATH:$HOME/.local/bin
 
+################################################################################
+#
 # --files: List files that would be searched but do not search
 # --no-ignore: Do not respect .gitignore, etc...
 # --hidden: Search hidden files and folders
 # --follow: Follow symlinks
 # --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
+
+################################################################################
 
 alias c="clear"
 alias diff="icdiff"
@@ -74,23 +76,17 @@ alias pip="pip3"
 alias rn="ranger"
 alias vi="nvim"
 alias vim="vi"
-alias pshell="PYTHONPATH="$PYTHONPATH:$(pipenv --venv)" && pipenv shell"
+
+eval "$(pipenv --completion)"
 
 ################################################################################
 
 # if no mux project then create one from template
-MUX_PROJECT_FILE=$HOME/.config/tmuxinator/$PROJECT_DIR.yml
+MUX_PROJECT_FILE="$HOME/.config/tmuxinator/$PROJECT_DIR.yml"
 if [[ ! -f "$MUX_PROJECT_FILE" ]]; then
     touch $MUX_PROJECT_FILE
     cat /opt/tmuxinator/template.tpl | gomplate > $MUX_PROJECT_FILE
     echo "created mux project from template"
-fi
-
-# if starting the shell for the first time then start mux project
-FILE=$HOME/.init
-if [ ! -f $FILE ]; then
-    touch $FILE
-    tmuxinator start ${PROJECT_DIR}
 fi
 
 ################################################################################
@@ -99,11 +95,15 @@ function editMuxConfig(){
     vi "$HOME/.config/tmuxinator/$PROJECT_DIR.yml"
 }
 
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-eval "$(pipenv --completion)"
-
 ################################################################################
 
 export PATH="$PATH:/opt/mssql-tools/bin"
+
+################################################################################
+# Sourcing p10k should be the last paart of the zsh
+################################################################################
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+source /usr/local/powerlevel10k/powerlevel10k.zsh-theme
+source "$HOME/.p10k.zsh"
+

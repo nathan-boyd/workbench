@@ -19,7 +19,6 @@
   "diagnostic.warningSign": "⚠",
   "diagnostic.infoSign": "ℹ",
   "diagnostic.errorSign": "✖",
-  "diagnostic.signOffset": 9999999,
   "diagnostic.highlightOffset": 9999999,
   "suggest.languageSourcePriority": 100,
   "suggest.removeDuplicateItems": true,
@@ -28,10 +27,5 @@
     "json",
     "markdown",
     "go"
-  ],
-  "python.pipenvPath": "~/.local/bin/pipenv",
-  "python.linting.pylintEnabled": true,
-  "python.linting.pylintPath": "/usr/bin/pylint",
-  "python.linting.enabled": true,
-  "python.jediEnabled": true
+  ]
 }

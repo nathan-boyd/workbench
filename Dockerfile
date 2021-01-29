@@ -1,14 +1,14 @@
 FROM ubuntu:20.04
 
-ARG USER_ID
-ARG GROUP_ID
+ARG USER_ID=1000
+ARG GROUP_ID=1000
 
 # add man pages
 RUN yes | unminimize && \
     apt-get install -y man-db && \
     rm -r /var/lib/apt/lists/*
 
-ENV USER_NAME me
+ENV USER_NAME nboyd
 ENV HOME /home/${USER_NAME}
 WORKDIR ${HOME}
 
@@ -136,15 +136,21 @@ RUN export DOCKERVERSION=18.03.1-ce \
   && curl -L "https://github.com/docker/compose/releases/download/1.26.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose \
     && chmod +x /usr/local/bin/docker-compose
 
-  RUN wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip \
-    && /usr/bin/unzip terraform_0.12.26_linux_amd64.zip \
-    && mv terraform /usr/local/bin \
-    && rm terraform_0.12.26_linux_amd64.zip
+RUN wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip \
+  && /usr/bin/unzip terraform_0.12.26_linux_amd64.zip \
+  && mv terraform /usr/local/bin \
+  && rm terraform_0.12.26_linux_amd64.zip
+
+# create user to run under
+RUN groupadd workbench && \
+    useradd ${USER_NAME} --shell /bin/zsh -g workbench && \
+    chown -R ${USER_NAME}: ${HOME} && \
+    echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" | tee /etc/sudoers.d/${USER_NAME}
 
 # install coc extensions
 WORKDIR ${HOME}/.config/coc/extensions
 
-COPY config/coc/package.json .
+COPY --chown=${USER_ID}:${GROUP_ID} config/coc/package.json .
 RUN /usr/bin/npm install --ignore-scripts --no-lockfile --production
 
 WORKDIR ${HOME}
@@ -156,19 +162,19 @@ RUN curl -fLo ${HOME}/.config/nvim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 # install and configure oh-my-zsh
-ENV ZSH_CUSTOM=/home/me/.oh-my-zsh/custom
+ENV ZSH_CUSTOM="${HOME}/.oh-my-zsh/custom"
 RUN curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | zsh || true \
     && git clone https://github.com/zsh-users/zsh-autosuggestions ${HOME}/.oh-my-zsh/plugins/zsh-autosuggestions \
     && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 
 # install and configure powerlevel10k
-COPY config/powerlevel10k/.p10k.zsh ${HOME}/.p10k.zsh
+COPY --chown=${USER_ID}:${GROUP_ID} config/powerlevel10k/.p10k.zsh ${HOME}/.p10k.zsh
 RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /usr/local/powerlevel10k \
     && /usr/local/powerlevel10k/gitstatus/install
 
 # install and configure tmux
-COPY config/tmux/.tmux.conf ${HOME}/.tmux.conf
-COPY config/nvim/init.vim ${HOME}/.config/nvim/init.vim
+COPY --chown=${USER_ID}:${GROUP_ID} config/tmux/.tmux.conf ${HOME}/.tmux.conf
+COPY --chown=${USER_ID}:${GROUP_ID} config/nvim/init.vim ${HOME}/.config/nvim/init.vim
 RUN export TMUX_PLUGIN_MANAGER_PATH="$HOME/.tmux/plugins" \
     && git clone https://github.com/tmux-plugins/tpm $TMUX_PLUGIN_MANAGER_PATH/tpm \
     &&  $TMUX_PLUGIN_MANAGER_PATH/tpm/bin/install_plugins
@@ -200,31 +206,26 @@ RUN go get golang.org/x/tools/cmd/guru@master \
 
 RUN nvim --headless +GoInstallBinaries +qall
 
-# create user to run under
-RUN groupadd workbench && \
-    useradd ${USER_NAME} --shell /bin/zsh -g workbench && \
-    chown -R ${USER_NAME}: ${HOME} && \
-    echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" | tee /etc/sudoers.d/${USER_NAME}
+
+COPY --chown=${USER_ID}:${GROUP_ID} config/tmuxinator/template.tpl /opt/tmuxinator/template.tpl
+COPY --chown=${USER_ID}:${GROUP_ID} config/zsh/.zshrc ${HOME}/.zshrc
+COPY --chown=${USER_ID}:${GROUP_ID} config/ultisnip $HOME/.vim/UltiSnip
+COPY --chown=${USER_ID}:${GROUP_ID} config/neofetch/config.conf ${HOME}/.config/neofetch/config.conf
+COPY --chown=${USER_ID}:${GROUP_ID} config/git/.gitconfig ${HOME}/.gitconfig
+COPY --chown=${USER_ID}:${GROUP_ID} config/coc/coc-settings.json ${HOME}/.config/nvim/coc-settings.json
+COPY --chown=${USER_ID}:${GROUP_ID} config/ranger ${HOME}/.config/ranger
+COPY --chown=${USER_ID}:${GROUP_ID} config/python/.pylintrc ${HOME}/.pylintrc
+
+COPY --chown=${USER_ID}:${GROUP_ID} scripts/entrypoint.sh /opt/entrypoint.sh
+COPY --chown=${USER_ID}:${GROUP_ID} scripts/splashScreen.sh /opt/splashScreen.sh
+COPY --chown=${USER_ID}:${GROUP_ID} scripts/workbenchStop.sh /opt/workbenchStop.sh
 
 RUN chown --changes \
     --silent \
     --no-dereference \
     --recursive \
-    --from=33:33 \
-    ${USER_ID}:${GROUP_ID} \
-    /home/me
+    1000:1000 \
+    $HOME
 
-COPY config/tmuxinator/template.tpl /opt/tmuxinator/template.tpl
-COPY config/zsh/.zshrc ${HOME}/.zshrc
-COPY config/ultisnip $HOME/.vim/UltiSnip
-COPY config/neofetch/config.conf ${HOME}/.config/neofetch/config.conf
-COPY config/git/.gitconfig ${HOME}/.gitconfig
-COPY config/coc/coc-settings.json ${HOME}/.config/nvim/coc-settings.json
-COPY config/ranger ${HOME}/.config/ranger
-COPY config/python/.pylintrc ${HOME}/.pylintrc
+USER $USER_NAME
 
-COPY scripts/entrypoint.sh /opt/entrypoint.sh
-COPY scripts/splashScreen.sh /opt/splashScreen.sh
-COPY scripts/workbenchStop.sh /opt/workbenchStop.sh
-
-USER me

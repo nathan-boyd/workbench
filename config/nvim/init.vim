@@ -457,7 +457,7 @@ let g:coc_global_extensions = [
     \'coc-snippets',
     \'coc-tag',
     \'coc-yaml',
-    \'coc-python',
+    \'coc-pyright',
 \]
 
 " plugin not ready for use yet
@@ -883,6 +883,7 @@ endfun
 let g:SessionDirectory = $HOME . '/.config/nvim/sessions' . getcwd()
 let g:SessionFile = SessionDirectory . '/.session.vim'
 if !isdirectory(g:SessionDirectory)
+    echo "creating sessions directory"
     call mkdir(g:SessionDirectory, "p")
 endif
 
