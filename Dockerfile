@@ -5,8 +5,8 @@ ARG GROUP_ID=1000
 
 # add man pages
 RUN yes | unminimize && \
-    apt-get install -y man-db && \
-    rm -r /var/lib/apt/lists/*
+  apt-get install -y man-db && \
+  rm -r /var/lib/apt/lists/*
 
 ENV USER_NAME nboyd
 ENV HOME /home/${USER_NAME}
@@ -20,55 +20,55 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 RUN echo "Set disable_coredump false" >> /etc/sudo.conf
 
 RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive \
-    apt-get install -y --no-install-recommends \
-        apt-transport-https \
-        atool \
-        autojump \
-        build-essential \
-        ca-certificates \
-        cowsay \
-        ctop \
-        ctags \
-        curl \
-        dnsutils \
-        file \
-        git \
-        gcc \
-        gnupg-agent \
-        htop \
-        httpie \
-        jq \
-        less \
-        locales \
-        mtr \
-        ncdu \
-        neovim \
-        python3-dev \
-        python3-pip \
-        pylint \
-        ripgrep \
-        ruby \
-        ruby-dev \
-        neofetch \
-        software-properties-common \
-        ssh-client \
-        sshfs \
-        sudo \
-        tmux \
-        tree \
-        w3m \
-        wget \
-        xclip \
-        zsh \
-        unzip \
-        unixodbc-dev \
-    && apt-get clean
+  DEBIAN_FRONTEND=noninteractive \
+  apt-get install -y --no-install-recommends \
+      apt-transport-https \
+      atool \
+      autojump \
+      build-essential \
+      ca-certificates \
+      cowsay \
+      ctop \
+      ctags \
+      curl \
+      dnsutils \
+      file \
+      git \
+      gcc \
+      gnupg-agent \
+      htop \
+      httpie \
+      jq \
+      less \
+      locales \
+      mtr \
+      ncdu \
+      neovim \
+      python3-dev \
+      python3-pip \
+      pylint \
+      ripgrep \
+      ruby \
+      ruby-dev \
+      neofetch \
+      software-properties-common \
+      ssh-client \
+      sshfs \
+      sudo \
+      tmux \
+      tree \
+      w3m \
+      wget \
+      xclip \
+      zsh \
+      unzip \
+      unixodbc-dev \
+  && apt-get clean
 
 # set locale
 RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
-    dpkg-reconfigure --frontend=noninteractive locales && \
-    update-locale LANG=en_US.UTF-8
+  dpkg-reconfigure --frontend=noninteractive locales && \
+  update-locale LANG=en_US.UTF-8
 
 # update / install apt sources
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - \
@@ -76,7 +76,7 @@ RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add 
   && echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list \
   && curl -sL https://deb.nodesource.com/setup_14.x | bash \
   && wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
-      && dpkg -i packages-microsoft-prod.deb \
+    && dpkg -i packages-microsoft-prod.deb \
   && curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg \
     && sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg \
     && sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -cs)-prod $(lsb_release -cs) main" > /etc/apt/sources.list.d/dotnetdev.list' \
@@ -98,15 +98,15 @@ ENV PATH="$PATH:/usr/bin/node:/usr/local/go/bin"
 ENV DOTNET_CLI_TELEMETRY_OPTOUT=true
 
 RUN export DOCKERVERSION=18.03.1-ce \
-    && curl -fsSLO "https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKERVERSION}.tgz" \
-    && tar xzvf docker-${DOCKERVERSION}.tgz --strip 1 -C /usr/local/bin docker/docker \
-    && rm docker-${DOCKERVERSION}.tgz 
+  && curl -fsSLO "https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKERVERSION}.tgz" \
+  && tar xzvf docker-${DOCKERVERSION}.tgz --strip 1 -C /usr/local/bin docker/docker \
+  && rm docker-${DOCKERVERSION}.tgz 
 
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git /usr/local/.fzf && /usr/local/.fzf/install \
   && gem instal tmuxinator 
 
 RUN curl https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh \
-    -o /usr/local/share/zsh/site-functions/_tmuxinator
+  -o /usr/local/share/zsh/site-functions/_tmuxinator
 
 RUN export GO_VERSION=1.14.2 \
   && curl "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" -o - | tar -xz -C /usr/local \
@@ -131,9 +131,9 @@ RUN curl https://github.com/derailed/k9s/releases/download/v0.20.5/k9s_Linux_x86
   && pip3 install yapf
 
 RUN export BAT_VERSION="0.15.4" \
-    && wget "https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/bat_${BAT_VERSION}_amd64.deb" \
-    && dpkg -i "bat_${BAT_VERSION}_amd64.deb" \
-    && rm "bat_${BAT_VERSION}_amd64.deb"
+  && wget "https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/bat_${BAT_VERSION}_amd64.deb" \
+  && dpkg -i "bat_${BAT_VERSION}_amd64.deb" \
+  && rm "bat_${BAT_VERSION}_amd64.deb"
 
 RUN curl -o /usr/local/bin/gomplate -sSL https://github.com/hairyhenderson/gomplate/releases/download/v3.7.0/gomplate_linux-amd64 \
   && chmod 755 /usr/local/bin/gomplate \
@@ -157,7 +157,7 @@ WORKDIR ${HOME}
 
 # install vim-plug
 RUN curl -fLo .config/nvim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
 COPY --chown=${USER_ID}:${GROUP_ID} config/nvim/init.vim .config/nvim/init.vim
 COPY --chown=${USER_ID}:${GROUP_ID} config/coc/package.json .config/coc/extensions/package.json
@@ -184,8 +184,8 @@ RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /usr/local/
 # install and configure tmux
 COPY --chown=${USER_ID}:${GROUP_ID} config/tmux/.tmux.conf ${HOME}/.tmux.conf
 RUN export TMUX_PLUGIN_MANAGER_PATH="$HOME/.tmux/plugins" \
-    && git clone https://github.com/tmux-plugins/tpm $TMUX_PLUGIN_MANAGER_PATH/tpm \
-    &&  $TMUX_PLUGIN_MANAGER_PATH/tpm/bin/install_plugins
+  && git clone https://github.com/tmux-plugins/tpm $TMUX_PLUGIN_MANAGER_PATH/tpm \
+  &&  $TMUX_PLUGIN_MANAGER_PATH/tpm/bin/install_plugins
 
 ENV GO111MODULE=on
 ENV GOPATH=$HOME/go
@@ -222,11 +222,11 @@ COPY --chown=${USER_ID}:${GROUP_ID} scripts/splashScreen.sh /opt/splashScreen.sh
 COPY --chown=${USER_ID}:${GROUP_ID} scripts/workbenchStop.sh /opt/workbenchStop.sh
 
 RUN chown \
-    --silent \
-    --no-dereference \
-    --recursive \
-    1000:1000 \
-    $HOME
+  --silent \
+  --no-dereference \
+  --recursive \
+  1000:1000 \
+  $HOME
 
 USER $USER_NAME
 
