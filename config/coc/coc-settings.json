@@ -27,5 +27,13 @@
     "json",
     "markdown",
     "go"
+  ],
+  "python.linting.pylintEnabled": true,
+  "python.linting.pylintPath": "/usr/bin/pylint",
+  "python.linting.enabled": true,
+  "python.pythonPath": "/usr/bin/python3",
+  "python.venvPath": "$HOME/.local/share/virtualenvs/",
+  "python.analysis.extraPaths": [
+    "lib/python"
   ]
 }
