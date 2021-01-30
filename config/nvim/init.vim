@@ -295,7 +295,7 @@ Plug 'Raimondi/delimitMate'                                        " delimiter a
 Plug 'junegunn/fzf'                                                " fuzzy searching
 Plug 'junegunn/fzf.vim'                                            " also require for fuzzy searching
 Plug 'preservim/nerdcommenter'
-Plug 'OmniSharp/omnisharp-vim'
+"Plug 'OmniSharp/omnisharp-vim'
 Plug 'liuchengxu/vista.vim'
 Plug 'majutsushi/tagbar'                                           " tag visualization
 Plug 'scrooloose/nerdtree'                                         " file explorer
@@ -457,7 +457,7 @@ let g:coc_global_extensions = [
     \'coc-snippets',
     \'coc-tag',
     \'coc-yaml',
-    \'coc-pyright',
+    \'coc-pyright'
 \]
 
 " plugin not ready for use yet
@@ -503,7 +503,6 @@ nnoremap <silent> <leader>lr :<C-u>CocListResume<CR>
 
 let g:coc_snippet_next = '<TAB>'
 let g:coc_snippet_prev = '<S-TAB>'
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Fugitive
@@ -600,8 +599,7 @@ let g:ale_warn_about_trailing_whitespace = 0
 
 let g:ale_linters = {
     \ 'javascript': ['eslint'],
-    \ 'python': ['pylint'],
-    \ 'cs': ['OmniSharp'],
+    \ 'python': ['pylint']
 \}
 
 "    \ 'python': ['yapf', 'pylint'],
@@ -779,52 +777,52 @@ xmap ga <Plug>(EasyAlign)
 " OmniSharp
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:OmniSharp_server_type = 'roslyn'
-let g:OmniSharp_selector_ui = 'fzf'
-
-let g:OmniSharp_server_stdio = 1            " Use the stdio OmniSharp-roslyn server
-let g:OmniSharp_timeout = 5                 " Timeout in seconds to wait for a response from the server
-let g:OmniSharp_highlight_types = 1         " Fetch semantic type/interface/identifier names on BufEnter and highlight them
-let g:OmniSharp_want_snippet=1              " Enable snippet completion
-
-augroup omnisharp_commands
-  autocmd!
-
-  " Show type information automatically when the cursor stops moving.
-  " Note that the type is echoed to the Vim command line, and will overwrite
-  " any other messages in this space including e.g. ALE linting messages.
-  autocmd CursorHold *.cs OmniSharpTypeLookup
-
-  " The following commands are contextual, based on the cursor position.
-  autocmd FileType cs nmap <silent> <buffer> gd <Plug>(omnisharp_go_to_definition)
-  autocmd FileType cs nmap <silent> <buffer> <Leader>osfu <Plug>(omnisharp_find_usages)
-  autocmd FileType cs nmap <silent> <buffer> <Leader>osfi <Plug>(omnisharp_find_implementations)
-  autocmd FileType cs nmap <silent> <buffer> <Leader>ospd <Plug>(omnisharp_preview_definition)
-  autocmd FileType cs nmap <silent> <buffer> <Leader>ospi <Plug>(omnisharp_preview_implementations)
-  autocmd FileType cs nmap <silent> <buffer> <Leader>ost <Plug>(omnisharp_type_lookup)
-  autocmd FileType cs nmap <silent> <buffer> <Leader>osd <Plug>(omnisharp_documentation)
-  autocmd FileType cs nmap <silent> <buffer> <Leader>osfs <Plug>(omnisharp_find_symbol)
-  autocmd FileType cs nmap <silent> <buffer> <Leader>osfx <Plug>(omnisharp_fix_usings)
-  autocmd FileType cs nmap <silent> <buffer> <C-\> <Plug>(omnisharp_signature_help)
-  autocmd FileType cs imap <silent> <buffer> <C-\> <Plug>(omnisharp_signature_help)
-
-  " Navigate up and down by method/property/field
-  autocmd FileType cs nmap <silent> <buffer> [[ <Plug>(omnisharp_navigate_up)
-  autocmd FileType cs nmap <silent> <buffer> ]] <Plug>(omnisharp_navigate_down)
-  " Find all code errors/warnings for the current solution and populate the quickfix window
-  autocmd FileType cs nmap <silent> <buffer> <Leader>osgcc <Plug>(omnisharp_global_code_check)
-  " Contextual code actions (uses fzf, CtrlP or unite.vim when available)
-  autocmd FileType cs nmap <silent> <buffer> <Leader>osca <Plug>(omnisharp_code_actions)
-  autocmd FileType cs xmap <silent> <buffer> <Leader>osca <Plug>(omnisharp_code_actions)
-
-  autocmd FileType cs nmap <silent> <buffer> <Leader>os= <Plug>(omnisharp_code_format)
-
-  autocmd FileType cs nmap <silent> <buffer> <Leader>osnm <Plug>(omnisharp_rename)
-
-  autocmd FileType cs nmap <silent> <buffer> <Leader>osre <Plug>(omnisharp_restart_server)
-  autocmd FileType cs nmap <silent> <buffer> <Leader>osst <Plug>(omnisharp_start_server)
-  autocmd FileType cs nmap <silent> <buffer> <Leader>ossp <Plug>(omnisharp_stop_server)
-augroup END
+" let g:OmniSharp_server_type = 'roslyn'
+" let g:OmniSharp_selector_ui = 'fzf'
+" 
+" let g:OmniSharp_server_stdio = 1            " Use the stdio OmniSharp-roslyn server
+" let g:OmniSharp_timeout = 5                 " Timeout in seconds to wait for a response from the server
+" let g:OmniSharp_highlight_types = 1         " Fetch semantic type/interface/identifier names on BufEnter and highlight them
+" let g:OmniSharp_want_snippet=1              " Enable snippet completion
+" 
+" augroup omnisharp_commands
+"   autocmd!
+" 
+"   " Show type information automatically when the cursor stops moving.
+"   " Note that the type is echoed to the Vim command line, and will overwrite
+"   " any other messages in this space including e.g. ALE linting messages.
+"   autocmd CursorHold *.cs OmniSharpTypeLookup
+" 
+"   " The following commands are contextual, based on the cursor position.
+"   autocmd FileType cs nmap <silent> <buffer> gd <Plug>(omnisharp_go_to_definition)
+"   autocmd FileType cs nmap <silent> <buffer> <Leader>osfu <Plug>(omnisharp_find_usages)
+"   autocmd FileType cs nmap <silent> <buffer> <Leader>osfi <Plug>(omnisharp_find_implementations)
+"   autocmd FileType cs nmap <silent> <buffer> <Leader>ospd <Plug>(omnisharp_preview_definition)
+"   autocmd FileType cs nmap <silent> <buffer> <Leader>ospi <Plug>(omnisharp_preview_implementations)
+"   autocmd FileType cs nmap <silent> <buffer> <Leader>ost <Plug>(omnisharp_type_lookup)
+"   autocmd FileType cs nmap <silent> <buffer> <Leader>osd <Plug>(omnisharp_documentation)
+"   autocmd FileType cs nmap <silent> <buffer> <Leader>osfs <Plug>(omnisharp_find_symbol)
+"   autocmd FileType cs nmap <silent> <buffer> <Leader>osfx <Plug>(omnisharp_fix_usings)
+"   autocmd FileType cs nmap <silent> <buffer> <C-\> <Plug>(omnisharp_signature_help)
+"   autocmd FileType cs imap <silent> <buffer> <C-\> <Plug>(omnisharp_signature_help)
+" 
+"   " Navigate up and down by method/property/field
+"   autocmd FileType cs nmap <silent> <buffer> [[ <Plug>(omnisharp_navigate_up)
+"   autocmd FileType cs nmap <silent> <buffer> ]] <Plug>(omnisharp_navigate_down)
+"   " Find all code errors/warnings for the current solution and populate the quickfix window
+"   autocmd FileType cs nmap <silent> <buffer> <Leader>osgcc <Plug>(omnisharp_global_code_check)
+"   " Contextual code actions (uses fzf, CtrlP or unite.vim when available)
+"   autocmd FileType cs nmap <silent> <buffer> <Leader>osca <Plug>(omnisharp_code_actions)
+"   autocmd FileType cs xmap <silent> <buffer> <Leader>osca <Plug>(omnisharp_code_actions)
+" 
+"   autocmd FileType cs nmap <silent> <buffer> <Leader>os= <Plug>(omnisharp_code_format)
+" 
+"   autocmd FileType cs nmap <silent> <buffer> <Leader>osnm <Plug>(omnisharp_rename)
+" 
+"   autocmd FileType cs nmap <silent> <buffer> <Leader>osre <Plug>(omnisharp_restart_server)
+"   autocmd FileType cs nmap <silent> <buffer> <Leader>osst <Plug>(omnisharp_start_server)
+"   autocmd FileType cs nmap <silent> <buffer> <Leader>ossp <Plug>(omnisharp_stop_server)
+" augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors and styling
@@ -879,43 +877,43 @@ endfun
 " Automatically save sessions
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" create session directory if not exists
-let g:SessionDirectory = $HOME . '/.config/nvim/sessions' . getcwd()
-let g:SessionFile = SessionDirectory . '/.session.vim'
-if !isdirectory(g:SessionDirectory)
-    echo "creating sessions directory"
-    call mkdir(g:SessionDirectory, "p")
-endif
-
-function IsGitCommit()
-  return @% == '.git/COMMIT_EDITMSG'
-endfunction
-
-function SaveSess()
-  if IsGitCommit() | return | endif
-  NERDTreeClose
-  execute 'mksession! ' . g:SessionFile
-  echo "saved session"
-endfunction
-
-function RestoreSess()
-
-  if IsGitCommit() | return | endif
-  if len(argv()) != 1 | return | endif
-  if !isdirectory(argv()[0]) | return | endif
-
-  if filereadable(g:SessionFile)
-    execute 'so ' . g:SessionFile
-      if bufexists(1)
-        for l in range(1, bufnr('$'))
-            if bufwinnr(l) == -1
-                exec 'sbuffer ' . l
-            endif
-        endfor
-      endif
-    echo 'restoring session'
-  endif
-endfunction
-
-autocmd VimLeave * call SaveSess()
-autocmd VimEnter * nested call RestoreSess()
+"   " create session directory if not exists
+"   let g:SessionDirectory = $HOME . '/.config/nvim/sessions' . getcwd()
+"   let g:SessionFile = SessionDirectory . '/.session.vim'
+"   if !isdirectory(g:SessionDirectory)
+"       echo "creating sessions directory"
+"       call mkdir(g:SessionDirectory, "p")
+"   endif
+"   
+"   function IsGitCommit()
+"     return @% == '.git/COMMIT_EDITMSG'
+"   endfunction
+"   
+"   function SaveSess()
+"     if IsGitCommit() | return | endif
+"     NERDTreeClose
+"     execute 'mksession! ' . g:SessionFile
+"     echo "saved session"
+"   endfunction
+"   
+"   function RestoreSess()
+"   
+"     if IsGitCommit() | return | endif
+"     if len(argv()) != 1 | return | endif
+"     if !isdirectory(argv()[0]) | return | endif
+"   
+"     if filereadable(g:SessionFile)
+"       execute 'so ' . g:SessionFile
+"         if bufexists(1)
+"           for l in range(1, bufnr('$'))
+"               if bufwinnr(l) == -1
+"                   exec 'sbuffer ' . l
+"               endif
+"           endfor
+"         endif
+"       echo 'restoring session'
+"     endif
+"   endfunction
+"   
+"   autocmd VimLeave * call SaveSess()
+"   autocmd VimEnter * nested call RestoreSess()

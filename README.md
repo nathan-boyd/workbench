@@ -98,12 +98,15 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 
 ## Tmux
 
-| Command        | List                                             |
-| -------------- | ------------------------------------------------ |
-| `ctrl+b+w`     | list sessions and windows                        |
-| `ctrl+b+q`     | list pane indexex                                |
-| `ctrl+b+d`     | detach from session                              |
-| `ctrl+b+space` | change pane orientation (horizontal -> vertical) |
+| Command              | List                                             |
+| -------------------- | ------------------------------------------------ |
+| `ctrl+b+w`           | list sessions and windows                        |
+| `ctrl+b+q`           | list pane indexex                                |
+| `ctrl+b+d`           | detach from session                              |
+| `ctrl+b+space`       | change pane orientation (horizontal -> vertical) |
+| `ctrl+b+{`           | swap panes up                                    |
+| `ctrl+b+}`           | swap panes down                                  |
+| `ctrl+b+M-1,2,3,4,5` | select layout                                    |
 
 ## Ranger File Explorer
 

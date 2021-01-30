@@ -1,4 +1,4 @@
-4o update extensions
+to update extensions
 
 - add dependeny to package.json
 - add dependency to coc-extensions in nvim config

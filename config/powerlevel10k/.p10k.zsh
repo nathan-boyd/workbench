@@ -40,7 +40,7 @@
   # Prompt colors.
   local grey='242'
   local red='1'
-  local yellow='136'
+  local yellow='3'
   local blue='4'
   local magenta='5'
   local cyan='6'
