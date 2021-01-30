@@ -295,16 +295,16 @@ Plug 'Raimondi/delimitMate'                                        " delimiter a
 Plug 'junegunn/fzf'                                                " fuzzy searching
 Plug 'junegunn/fzf.vim'                                            " also require for fuzzy searching
 Plug 'preservim/nerdcommenter'
-"Plug 'OmniSharp/omnisharp-vim'
 Plug 'liuchengxu/vista.vim'
 Plug 'majutsushi/tagbar'                                           " tag visualization
 Plug 'scrooloose/nerdtree'                                         " file explorer
 Plug 'pprovost/vim-ps1'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npm install'  }
 
 " turning off until "endif" issue is resolved
-"Plug 'Xuyuanp/nerdtree-git-plugin'                                 " show git status in nerdtree
+Plug 'Xuyuanp/nerdtree-git-plugin'                                 " show git status in nerdtree
 
 call plug#end()
 
@@ -877,43 +877,42 @@ endfun
 " Automatically save sessions
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-"   " create session directory if not exists
-"   let g:SessionDirectory = $HOME . '/.config/nvim/sessions' . getcwd()
-"   let g:SessionFile = SessionDirectory . '/.session.vim'
-"   if !isdirectory(g:SessionDirectory)
-"       echo "creating sessions directory"
-"       call mkdir(g:SessionDirectory, "p")
-"   endif
-"   
-"   function IsGitCommit()
-"     return @% == '.git/COMMIT_EDITMSG'
-"   endfunction
-"   
-"   function SaveSess()
-"     if IsGitCommit() | return | endif
-"     NERDTreeClose
-"     execute 'mksession! ' . g:SessionFile
-"     echo "saved session"
-"   endfunction
-"   
-"   function RestoreSess()
-"   
-"     if IsGitCommit() | return | endif
-"     if len(argv()) != 1 | return | endif
-"     if !isdirectory(argv()[0]) | return | endif
-"   
-"     if filereadable(g:SessionFile)
-"       execute 'so ' . g:SessionFile
-"         if bufexists(1)
-"           for l in range(1, bufnr('$'))
-"               if bufwinnr(l) == -1
-"                   exec 'sbuffer ' . l
-"               endif
-"           endfor
-"         endif
-"       echo 'restoring session'
-"     endif
-"   endfunction
-"   
-"   autocmd VimLeave * call SaveSess()
-"   autocmd VimEnter * nested call RestoreSess()
+" create session directory if not exists
+let g:SessionDirectory = $HOME . '/.config/nvim/sessions' . getcwd()
+let g:SessionFile = SessionDirectory . '/.session.vim'
+if !isdirectory(g:SessionDirectory)
+    echo "creating sessions directory"
+    call mkdir(g:SessionDirectory, "p")
+endif
+
+function IsGitCommit()
+  return @% == '.git/COMMIT_EDITMSG'
+endfunction
+
+function SaveSess()
+  if IsGitCommit() | return | endif
+  execute 'mksession! ' . g:SessionFile
+  echo "saved session"
+endfunction
+
+function RestoreSess()
+
+  if IsGitCommit() | return | endif
+  if len(argv()) != 1 | return | endif
+  if !isdirectory(argv()[0]) | return | endif
+
+  if filereadable(g:SessionFile)
+    execute 'so ' . g:SessionFile
+      if bufexists(1)
+        for l in range(1, bufnr('$'))
+            if bufwinnr(l) == -1
+                exec 'sbuffer ' . l
+            endif
+        endfor
+      endif
+    echo 'restoring session'
+  endif
+endfunction
+
+autocmd VimLeave * call SaveSess()
+autocmd VimEnter * nested call RestoreSess()

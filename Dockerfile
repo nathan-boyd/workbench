@@ -163,8 +163,7 @@ COPY --chown=${USER_ID}:${GROUP_ID} config/nvim/init.vim .config/nvim/init.vim
 COPY --chown=${USER_ID}:${GROUP_ID} config/coc/package.json .config/coc/extensions/package.json
 
 # install nvim plugins
-RUN nvim --headless +PlugInstall +qall \
-  && nvim --headless +GoInstallBinaries +qall
+RUN nvim --headless +PlugInstall +qall!
 
 # install coc extensions
 RUN cd $HOME/.config/coc/extensions \
@@ -207,6 +206,8 @@ RUN go get golang.org/x/tools/cmd/guru@master \
   && go get honnef.co/go/tools/cmd/keyify@master \
   && go get golang.org/x/tools/cmd/gorename@master \
   && go get github.com/klauspost/asmfmt/cmd/asmfmt@master
+
+RUN nvim --headless +GoInstallBinaries +qall!
 
 COPY --chown=${USER_ID}:${GROUP_ID} config/tmuxinator/template.tpl /opt/tmuxinator/template.tpl
 COPY --chown=${USER_ID}:${GROUP_ID} config/zsh/.zshrc ${HOME}/.zshrc
