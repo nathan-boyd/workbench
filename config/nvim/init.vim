@@ -297,14 +297,15 @@ Plug 'junegunn/fzf.vim'                                            " also requir
 Plug 'preservim/nerdcommenter'
 Plug 'liuchengxu/vista.vim'
 Plug 'majutsushi/tagbar'                                           " tag visualization
-Plug 'scrooloose/nerdtree'                                         " file explorer
+Plug 'preservim/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'                                 " show git status in nerdtree
 Plug 'pprovost/vim-ps1'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npm install'  }
 
-" turning off until "endif" issue is resolved
-Plug 'Xuyuanp/nerdtree-git-plugin'                                 " show git status in nerdtree
+Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown'}
+
 
 call plug#end()
 
@@ -371,6 +372,7 @@ let g:NERDTreeIgnore = [
     \ '.DS_Store',
     \ 'node_modules'
 \]
+
 let g:NERDTreeBookmarksFile = $HOME ."/.vim/bundle/nerdtree/bookmarks"
 
 function NERDOpenClose()
@@ -382,6 +384,25 @@ function NERDOpenClose()
 endfunction
 
 nnoremap - :call NERDOpenClose()<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Configure NerdCommenter
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Create default mappings
+let g:NERDCreateDefaultMappings = 1
+
+" Align line-wise comment delimiters flush left instead of following code indentation
+let g:NERDDefaultAlign = 'left'
+
+" Allow commenting and inverting empty lines (useful when commenting a region)
+let g:NERDCommentEmptyLines = 1
+
+" Enable trimming of trailing whitespace when uncommenting
+let g:NERDTrimTrailingWhitespace = 1
+
+" Enable NERDCommenterToggle to check all selected lines is commented or not
+let g:NERDToggleCheckAllLines = 1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure tmux-navigator
@@ -779,20 +800,20 @@ xmap ga <Plug>(EasyAlign)
 
 " let g:OmniSharp_server_type = 'roslyn'
 " let g:OmniSharp_selector_ui = 'fzf'
-" 
+"
 " let g:OmniSharp_server_stdio = 1            " Use the stdio OmniSharp-roslyn server
 " let g:OmniSharp_timeout = 5                 " Timeout in seconds to wait for a response from the server
 " let g:OmniSharp_highlight_types = 1         " Fetch semantic type/interface/identifier names on BufEnter and highlight them
 " let g:OmniSharp_want_snippet=1              " Enable snippet completion
-" 
+"
 " augroup omnisharp_commands
 "   autocmd!
-" 
+"
 "   " Show type information automatically when the cursor stops moving.
 "   " Note that the type is echoed to the Vim command line, and will overwrite
 "   " any other messages in this space including e.g. ALE linting messages.
 "   autocmd CursorHold *.cs OmniSharpTypeLookup
-" 
+"
 "   " The following commands are contextual, based on the cursor position.
 "   autocmd FileType cs nmap <silent> <buffer> gd <Plug>(omnisharp_go_to_definition)
 "   autocmd FileType cs nmap <silent> <buffer> <Leader>osfu <Plug>(omnisharp_find_usages)
@@ -805,7 +826,7 @@ xmap ga <Plug>(EasyAlign)
 "   autocmd FileType cs nmap <silent> <buffer> <Leader>osfx <Plug>(omnisharp_fix_usings)
 "   autocmd FileType cs nmap <silent> <buffer> <C-\> <Plug>(omnisharp_signature_help)
 "   autocmd FileType cs imap <silent> <buffer> <C-\> <Plug>(omnisharp_signature_help)
-" 
+"
 "   " Navigate up and down by method/property/field
 "   autocmd FileType cs nmap <silent> <buffer> [[ <Plug>(omnisharp_navigate_up)
 "   autocmd FileType cs nmap <silent> <buffer> ]] <Plug>(omnisharp_navigate_down)
@@ -814,11 +835,11 @@ xmap ga <Plug>(EasyAlign)
 "   " Contextual code actions (uses fzf, CtrlP or unite.vim when available)
 "   autocmd FileType cs nmap <silent> <buffer> <Leader>osca <Plug>(omnisharp_code_actions)
 "   autocmd FileType cs xmap <silent> <buffer> <Leader>osca <Plug>(omnisharp_code_actions)
-" 
+"
 "   autocmd FileType cs nmap <silent> <buffer> <Leader>os= <Plug>(omnisharp_code_format)
-" 
+"
 "   autocmd FileType cs nmap <silent> <buffer> <Leader>osnm <Plug>(omnisharp_rename)
-" 
+"
 "   autocmd FileType cs nmap <silent> <buffer> <Leader>osre <Plug>(omnisharp_restart_server)
 "   autocmd FileType cs nmap <silent> <buffer> <Leader>osst <Plug>(omnisharp_start_server)
 "   autocmd FileType cs nmap <silent> <buffer> <Leader>ossp <Plug>(omnisharp_stop_server)

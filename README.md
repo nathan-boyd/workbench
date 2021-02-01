@@ -242,6 +242,22 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 
 ## Vim Plugins
 
+### NerdCommenter
+
+| Command                   | List                                                           |
+| ------------------------- | -------------------------------------------------------------- |
+| [count]<leader>cc         | Comment out the current line or text selected in visual mode   |
+
+### GV
+
+A Git commit browser
+
+| Command                   | List                                                          |
+| ------------------------- | --------------------------------------------------------------|
+| `:GV`                     | open git commit browser                                       |
+| `:GV!`                    | list commits that affected the current file                   |
+| `:GV?`                    | fill the location list with the revisions of the current file |
+
 ### Vim EasyAlign
 
 | Command                   | List                                |
