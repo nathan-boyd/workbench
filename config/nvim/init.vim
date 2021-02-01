@@ -1,4 +1,3 @@
-
 set autoread
 set autowrite
 set backspace=indent,eol,start
@@ -303,9 +302,7 @@ Plug 'pprovost/vim-ps1'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npm install'  }
-
 Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown'}
-
 
 call plug#end()
 
@@ -602,6 +599,9 @@ au FileType go nmap <leader>df <Plug>(go-def)
 " swap between tests and code
 au FileType go nmap <leader>ae <Plug>(go-alternate-edit)
 au Filetype go nmap <leader>aev <Plug>(go-alternate-vertical)
+
+" auto complete on dot
+au filetype go inoremap <buffer> . .<C-x><C-o>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Ale
