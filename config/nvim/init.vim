@@ -26,8 +26,6 @@ set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
 set noerrorbells
 set novisualbell
 set number
-set omnifunc=syntaxcomplete#Complete
-set re=1
 set scrolljump=5
 set scrolloff=3
 set shell=/usr/bin/zsh
@@ -90,8 +88,8 @@ set dir=~/tmp
 " Configure spelling
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-set spell spelllang=en_us
-syn match myExCapitalWords +\<\w*[_0-9A-Z-]\w*\>+ contains=@NoSpell " Ignore CamelCase words when spell checking
+" set spell spelllang=en_us
+" syn match myExCapitalWords +\<\w*[_0-9A-Z-]\w*\>+ contains=@NoSpell " Ignore CamelCase words when spell checking
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Text Formatting
@@ -298,11 +296,11 @@ Plug 'liuchengxu/vista.vim'
 Plug 'majutsushi/tagbar'                                           " tag visualization
 Plug 'preservim/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'                                 " show git status in nerdtree
-Plug 'pprovost/vim-ps1'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npm install'  }
 Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown'}
+Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 
 call plug#end()
 
@@ -319,6 +317,72 @@ let g:pymode_indent = 0
 
 autocmd Filetype python setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType python set colorcolumn=120
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Configure WhichKey
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+nnoremap <silent> <leader>      :<c-u>WhichKey '<Space>'<CR>
+nnoremap <silent> <localleader> :<c-u>WhichKey  ','<CR>
+
+" Time in milliseconds to wait for a mapped sequence to complete.
+set timeoutlen=500
+
+" Define prefix dictionary
+let g:which_key_map =  {}
+
+let g:which_key_map['w'] = {
+      \ 'name' : '+windows' ,
+      \ 'w' : ['<C-W>w'     , 'other-window']          ,
+      \ 'd' : ['<C-W>c'     , 'delete-window']         ,
+      \ '-' : ['<C-W>s'     , 'split-window-below']    ,
+      \ '|' : ['<C-W>v'     , 'split-window-right']    ,
+      \ '2' : ['<C-W>v'     , 'layout-double-columns'] ,
+      \ 'h' : ['<C-W>h'     , 'window-left']           ,
+      \ 'j' : ['<C-W>j'     , 'window-below']          ,
+      \ 'l' : ['<C-W>l'     , 'window-right']          ,
+      \ 'k' : ['<C-W>k'     , 'window-up']             ,
+      \ 'H' : ['<C-W>5<'    , 'expand-window-left']    ,
+      \ 'J' : [':resize +5' , 'expand-window-below']   ,
+      \ 'L' : ['<C-W>5>'    , 'expand-window-right']   ,
+      \ 'K' : [':resize -5' , 'expand-window-up']      ,
+      \ '=' : ['<C-W>='     , 'balance-window']        ,
+      \ 's' : ['<C-W>s'     , 'split-window-below']    ,
+      \ 'v' : ['<C-W>v'     , 'split-window-below']    ,
+      \ '?' : ['Windows'    , 'fzf-window']            ,
+      \ }
+
+let g:which_key_map.f = { 'name' : '+file' }
+
+nnoremap <silent> <leader>fs :update<CR>
+let g:which_key_map.f.s = 'save-file'
+
+nnoremap <silent> <leader>fd :e $MYVIMRC<CR>
+let g:which_key_map.f.d = 'open-vimrc'
+
+nnoremap <silent> <leader>oq  :copen<CR>
+nnoremap <silent> <leader>ol  :lopen<CR>
+
+let g:which_key_map.o = {
+      \ 'name' : '+open',
+      \ 'q' : 'open-quickfix'    ,
+      \ 'l' : 'open-locationlist',
+      \ }
+
+let g:which_key_map.b = {
+      \ 'name' : '+buffer' ,
+      \ '1' : ['b1'        , 'buffer 1']        ,
+      \ '2' : ['b2'        , 'buffer 2']        ,
+      \ 'd' : ['bd'        , 'delete-buffer']   ,
+      \ 'f' : ['bfirst'    , 'first-buffer']    ,
+      \ 'h' : ['Startify'  , 'home-buffer']     ,
+      \ 'l' : ['blast'     , 'last-buffer']     ,
+      \ 'n' : ['bnext'     , 'next-buffer']     ,
+      \ 'p' : ['bprevious' , 'previous-buffer'] ,
+      \ '?' : ['Buffers'   , 'fzf-buffer']      ,
+      \ }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure powershell files
@@ -557,26 +621,18 @@ let g:go_fmt_autosave = 1
 let g:go_get_update = 0
 
 let g:go_auto_type_info = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_types = 1
-let g:go_highlight_function_parameters = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_variable_declarations = 1
-let g:go_highlight_variable_assignments = 1
 let g:go_highlight_build_constraints = 1
 let g:go_highlight_extra_types = 1
 let g:go_highlight_fields = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_function_parameters = 1
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_structs = 1
 let g:go_highlight_types = 1
+let g:go_highlight_variable_assignments = 1
+let g:go_highlight_variable_declarations = 1
 
 let g:go_decls_mode = 'fzf'
 let g:go_fmt_command = "goimports"
@@ -602,6 +658,10 @@ au Filetype go nmap <leader>aev <Plug>(go-alternate-vertical)
 
 " auto complete on dot
 au filetype go inoremap <buffer> . .<C-x><C-o>
+
+" set height of location list window
+let g:go_list_height = 10
+let g:go_list_type = "quickfix"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Ale
@@ -902,7 +962,7 @@ endfun
 let g:SessionDirectory = $HOME . '/.config/nvim/sessions' . getcwd()
 let g:SessionFile = SessionDirectory . '/.session.vim'
 if !isdirectory(g:SessionDirectory)
-    echo "creating sessions directory"
+    echom "creating sessions directory " . g:SessionDirectory
     call mkdir(g:SessionDirectory, "p")
 endif
 

@@ -5,6 +5,8 @@
     "coc-pyright": "*",
     "coc-snippets": ">=2.1.26",
     "coc-tag": ">=1.2.4",
-    "coc-yaml": ">=1.0.4"
+    "coc-yaml": ">=1.0.4",
+    "coc-spell-checker": ">=1.2.0",
+    "coc-sh": "0.6.0"
   }
 }

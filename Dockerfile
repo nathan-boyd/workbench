@@ -162,6 +162,8 @@ RUN curl -fLo .config/nvim/autoload/plug.vim --create-dirs \
 COPY --chown=${USER_ID}:${GROUP_ID} config/nvim/init.vim .config/nvim/init.vim
 COPY --chown=${USER_ID}:${GROUP_ID} config/coc/package.json .config/coc/extensions/package.json
 
+RUN mkdir -p "/home/nboyd/.config/nvim/sessions/home/nboyd"
+
 # install nvim plugins
 RUN nvim --headless +PlugInstall +qall!
 
