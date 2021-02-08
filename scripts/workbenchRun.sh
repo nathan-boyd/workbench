@@ -119,6 +119,8 @@ echo "starting docker container"
 docker run \
     --rm \
     -it \
+    -v $HOME/.gitconfig:$CONTAINER_HOME/.gitconfig \
+    -v $HOME/.gnupg:$CONTAINER_HOME/.gnupg \
     -v $HOME/Desktop/:$CONTAINER_HOME/Desktop \
     -v $HOME/.docker/:$CONTAINER_HOME/.docker/ \
     -v $HOME/.kube/config:$CONTAINER_HOME/.kube/config \
