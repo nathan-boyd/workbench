@@ -10,7 +10,6 @@ set cursorline
 set diffopt+=vertical
 set fillchars+=vert:┃
 set foldenable
-set hidden
 set history=1000
 set hlsearch
 set ignorecase
@@ -49,14 +48,6 @@ set wildmenu
 set wildmode=list:full
 set winminheight=0
 
-syntax on
-autocmd BufEnter * :syn sync maxlines=500
-scriptencoding utf-8
-filetype plugin indent on
-
-highlight clear SignColumn
-highlight clear LineNr
-
 let g:loaded_python_provider = 1
 let g:python_host_skip_check=1
 
@@ -71,6 +62,18 @@ if has("autocmd")
 endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Configure relative line numbers
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set so=999
+set number relativenumber
+augroup numbertoggle
+  autocmd!
+  autocmd BufEnter,FocusGained,InsertLeave * set relativenumber
+  autocmd BufLeave,FocusLost,InsertEnter   * set norelativenumber
+augroup END
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Backups
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
@@ -83,13 +86,6 @@ set nowritebackup
 
 set noswapfile
 set dir=~/tmp
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Configure spelling
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" set spell spelllang=en_us
-" syn match myExCapitalWords +\<\w*[_0-9A-Z-]\w*\>+ contains=@NoSpell " Ignore CamelCase words when spell checking
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Text Formatting
@@ -229,80 +225,93 @@ autocmd BufNewFile,BufRead *.tpl set filetype=yaml
 autocmd BufNewFile,BufRead *.manifest set filetype=json
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Searching
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" redirects to pagable output
-function! Redir(cmd, rng, start, end)
-	for win in range(1, winnr('$'))
-		if getwinvar(win, 'scratch')
-			execute win . 'windo close'
-		endif
-	endfor
-	if a:cmd =~ '^!'
-		let cmd = a:cmd =~' %'
-			\ ? matchstr(substitute(a:cmd, ' %', ' ' . expand('%:p'), ''), '^!\zs.*')
-			\ : matchstr(a:cmd, '^!\zs.*')
-		if a:rng == 0
-			let output = systemlist(cmd)
-		else
-			let joined_lines = join(getline(a:start, a:end), '\n')
-			let cleaned_lines = substitute(shellescape(joined_lines), "'\\\\''", "\\\\'", 'g')
-			let output = systemlist(cmd . " <<< $" . cleaned_lines)
-		endif
-	else
-		redir => output
-		execute a:cmd
-		redir END
-		let output = split(output, "\n")
-	endif
-	vnew
-	let w:scratch = 1
-	setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile
-	call setline(1, output)
-endfunction
-
-command! -nargs=1 -complete=command -bar -range Redir silent call Redir(<q-args>, <range>, <line1>, <line2>)
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Install Plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:plug_threads=1
-
 call plug#begin('~/.config/.vim/plugged')
 
-Plug 'fatih/vim-go'                                                " go support
-Plug 'vim-airline/vim-airline'                                     " modeline
-Plug 'vim-airline/vim-airline-themes'                              " modeline theme
-Plug 'sainnhe/gruvbox-material'                                    " theme
-Plug 'easymotion/vim-easymotion'                                   " ace movements
-Plug 'tpope/vim-fugitive'                                          " git tooling
-Plug 'junegunn/gv.vim'
-Plug 'airblade/vim-gitgutter'                                      " dirty indicators
-Plug 'w0rp/ale'                                                    " syntax highlighting
-Plug 'SirVer/ultisnips'                                            " snippets engine
-Plug 'honza/vim-snippets'                                          " snippets
-Plug 'junegunn/vim-easy-align'                                     " column alignment on characters
-Plug 'ekalinin/Dockerfile.vim'                                     " dockerfile syntax highlighting
-Plug 'romainl/vim-qf'                                              " quick fix / location window config
-Plug 'neoclide/coc.nvim', {'branch': 'release'}                    " language server
-Plug 'christoomey/vim-tmux-navigator'                              " window navigation that integrates with tmux
 Plug 'Raimondi/delimitMate'                                        " delimiter auto completion
+Plug 'SirVer/ultisnips'                                            " snippets engine
+Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'Xuyuanp/nerdtree-git-plugin'                                 " show git status in nerdtree
+Plug 'airblade/vim-gitgutter'                                      " dirty indicators
+Plug 'christoomey/vim-tmux-navigator'                              " window navigation that integrates with tmux
+Plug 'easymotion/vim-easymotion'                                   " ace movements
+Plug 'ekalinin/Dockerfile.vim'                                     " dockerfile syntax highlighting
+Plug 'fatih/vim-go'
+Plug 'honza/vim-snippets'                                          " snippets
 Plug 'junegunn/fzf'                                                " fuzzy searching
 Plug 'junegunn/fzf.vim'                                            " also require for fuzzy searching
-Plug 'preservim/nerdcommenter'
+Plug 'junegunn/gv.vim'
+Plug 'junegunn/vim-easy-align'                                     " column alignment on characters
+Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 Plug 'liuchengxu/vista.vim'
 Plug 'majutsushi/tagbar'                                           " tag visualization
+Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+Plug 'preservim/nerdcommenter'
 Plug 'preservim/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'                                 " show git status in nerdtree
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-Plug 'Vimjas/vim-python-pep8-indent'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && npm install'  }
-Plug 'instant-markdown/vim-instant-markdown', {'for': 'markdown'}
-Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+Plug 'romainl/vim-qf'                                              " quick fix / location window config
+Plug 'sainnhe/gruvbox-material'                                    " theme
+Plug 'tpope/vim-fugitive'                                          " git tooling
+Plug 'vim-airline/vim-airline'                                     " modeline
+Plug 'vim-airline/vim-airline-themes'                              " modeline theme
+Plug 'w0rp/ale'                                                    " syntax highlighting
 
 call plug#end()
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Configure Vim-Go
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+autocmd InsertLeave go :write
+
+" the following are handled by the language client / server
+let g:go_fmt_experimental = 1 " fixes opening folds on save
+
+let g:go_autodetect_gopath = 1
+let g:go_fmt_autosave = 1
+let g:go_get_update = 0
+
+let g:go_auto_type_info = 1
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_function_parameters = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_types = 1
+let g:go_highlight_variable_assignments = 1
+let g:go_highlight_variable_declarations = 1
+
+let g:go_decls_mode = 'fzf'
+let g:go_fmt_command = "goimports"
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+let g:go_list_type = "quickfix"
+let g:go_snippet_engine = "ultisnips"
+let g:go_debug_break_point_symbol='>>'
+
+let $GINKGO_EDITOR_INTEGRATION = "true" " uses ginkgo for tests
+
+au FileType go nmap <leader>gd <Plug>(go-definition)
+au FileType go nmap <leader>bp <Plug>(go-build)
+au FileType go nmap <leader>tt <Plug>(go-test)
+au FileType go nmap <leader>cv <Plug>(go-coverage)
+au FileType go nmap <leader>rn <Plug>(go-rename)
+au FileType go nmap <leader>rf <Plug>(go-referrers)
+au FileType go nmap <leader>df <Plug>(go-def)
+
+" swap between tests and code
+au FileType go nmap <leader>ae <Plug>(go-alternate-edit)
+au Filetype go nmap <leader>aev <Plug>(go-alternate-vertical)
+
+" set height of location list window
+let g:go_list_height = 10
+let g:go_list_type = "quickfix"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Python
@@ -317,7 +326,6 @@ let g:pymode_indent = 0
 
 autocmd Filetype python setlocal shiftwidth=2 softtabstop=2 expandtab
 autocmd FileType python set colorcolumn=120
-
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure WhichKey
@@ -385,25 +393,11 @@ let g:which_key_map.b = {
       \ }
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Configure powershell files
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-au BufRead,BufNewFile *.ps1 set filetype=ps1
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure easy motion
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:EasyMotion_do_mapping = 0 " Disable default mappings
+let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
-
-" f{char}{char} to move to {char}{char}
-map  <Leader>f <Plug>(easymotion-bd-f2)
-nmap <Leader>f <Plug>(easymotion-overwin-f2)
-
-" Move to line
-map <Leader>L <Plug>(easymotion-bd-jk)
-nmap <Leader>L <Plug>(easymotion-overwin-line)
 
 " Move to word
 map  <Leader>w <Plug>(easymotion-bd-w)
@@ -542,49 +536,80 @@ let g:coc_global_extensions = [
     \'coc-pyright'
 \]
 
-" plugin not ready for use yet
-" \ 'coc-omnisharp',
+" if hidden is not set, TextEdit might fail.
+set hidden
 
-" GoTo code navigation.
+" Better display for messages
+set cmdheight=2
+
+" Smaller updatetime for CursorHold & CursorHoldI
+set updatetime=300
+
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+" always show signcolumns
+set signcolumn=yes
+
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use `[c` and `]c` to navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
-nmap <silent> gE <Plug>(coc-diagnostic-prev-error)
-nmap <silent> ge <Plug>(coc-diagnostic-next-error)
-nmap <silent> rn <Plug>(coc-rename)
+" Use U to show documentation in preview window
+nnoremap <silent> U :call <SID>show_documentation()<CR>
 
-" use <c-space>for trigger completion
-inoremap <silent><expr> <c-space> coc#refresh()
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
 
-" mappings using CoCList:
-" show all diagnostics.
-nnoremap <silent> <leader>a :<C-u>CocList diagnostics<CR>
+" Remap for format selected region
+vmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
 
-" manage extensions.
-nnoremap <silent> <leader>e :<C-u>CocList extensions<CR><CR>
+" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
 
-" show commands.
-nnoremap <silent> <leader>l :<C-u>CocList commands<CR>
+" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
 
-" find symbol of current document.
-nnoremap <silent> <leader>o :<C-u>CocList outline<CR>
+" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
 
-" search workleader symbols.
-nnoremap <silent> <leader>s :<C-u>CocList -I symbols<CR>
+" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
 
-" do default action for next item.
-nnoremap <silent> <leader>j :<C-u>CocNext<CR>
+" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
 
-" do default action for previous item.
-nnoremap <silent> <leader>k :<C-u>CocPrev<CR>
+" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 
-" resume latest coc list.
-nnoremap <silent> <leader>lr :<C-u>CocListResume<CR>
+" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 
-let g:coc_snippet_next = '<TAB>'
-let g:coc_snippet_prev = '<S-TAB>'
+" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Fugitive
@@ -601,67 +626,6 @@ nnoremap <silent> <leader>gp :Git push<CR>
 nnoremap <silent> <leader>gr :Gread<CR>
 nnoremap <silent> <leader>gw :Gwrite<CR>
 nnoremap <silent> <leader>ge :Gedit<CR>
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Configure Python
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Configure Vim-go
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-autocmd InsertLeave go :write
-
-" the following are handled by the language client / server
-let g:go_fmt_experimental = 1 " fixes opening folds on save
-
-let g:go_autodetect_gopath = 1
-let g:go_fmt_autosave = 1
-let g:go_get_update = 0
-
-let g:go_auto_type_info = 1
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_function_parameters = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_types = 1
-let g:go_highlight_variable_assignments = 1
-let g:go_highlight_variable_declarations = 1
-
-let g:go_decls_mode = 'fzf'
-let g:go_fmt_command = "goimports"
-let g:go_def_mode='gopls'
-let g:go_info_mode='gopls'
-let g:go_list_type = "quickfix"
-let g:go_snippet_engine = "ultisnips"
-let g:go_debug_break_point_symbol='>>'
-
-let $GINKGO_EDITOR_INTEGRATION = "true" " uses ginkgo for tests
-
-au FileType go nmap <leader>gd <Plug>(go-definition)
-au FileType go nmap <leader>bp <Plug>(go-build)
-au FileType go nmap <leader>tt <Plug>(go-test)
-au FileType go nmap <leader>cv <Plug>(go-coverage)
-au FileType go nmap <leader>rn <Plug>(go-rename)
-au FileType go nmap <leader>rf <Plug>(go-referrers)
-au FileType go nmap <leader>df <Plug>(go-def)
-
-" swap between tests and code
-au FileType go nmap <leader>ae <Plug>(go-alternate-edit)
-au Filetype go nmap <leader>aev <Plug>(go-alternate-vertical)
-
-" auto complete on dot
-au filetype go inoremap <buffer> . .<C-x><C-o>
-
-" set height of location list window
-let g:go_list_height = 10
-let g:go_list_type = "quickfix"
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Ale
@@ -821,89 +785,11 @@ let g:UltiSnipsSnippetDirectories = [$HOME . '/.vim/UltiSnip']
 highlight link snipLeadingSpaces NONE
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Configure EasyMotion Plugin
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Turn on case-insensitive feature
-let g:EasyMotion_smartcase = 1
-
-" JK motions: Line motions
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-
-" <Leader>f{char} to move to {char}
-map  <Leader>f <Plug>(easymotion-bd-f)
-nmap <Leader>f <Plug>(easymotion-overwin-f)
-
-" s{char}{char} to move to {char}{char}
-nmap s <Plug>(easymotion-overwin-f2)
-
-" Move to line
-map <Leader>L <Plug>(easymotion-bd-jk)
-nmap <Leader>L <Plug>(easymotion-overwin-line)
-
-" Move to word
-map  <Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
-
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Easy Align
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 nmap ga <Plug>(EasyAlign)
 xmap ga <Plug>(EasyAlign)
-
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" OmniSharp
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" let g:OmniSharp_server_type = 'roslyn'
-" let g:OmniSharp_selector_ui = 'fzf'
-"
-" let g:OmniSharp_server_stdio = 1            " Use the stdio OmniSharp-roslyn server
-" let g:OmniSharp_timeout = 5                 " Timeout in seconds to wait for a response from the server
-" let g:OmniSharp_highlight_types = 1         " Fetch semantic type/interface/identifier names on BufEnter and highlight them
-" let g:OmniSharp_want_snippet=1              " Enable snippet completion
-"
-" augroup omnisharp_commands
-"   autocmd!
-"
-"   " Show type information automatically when the cursor stops moving.
-"   " Note that the type is echoed to the Vim command line, and will overwrite
-"   " any other messages in this space including e.g. ALE linting messages.
-"   autocmd CursorHold *.cs OmniSharpTypeLookup
-"
-"   " The following commands are contextual, based on the cursor position.
-"   autocmd FileType cs nmap <silent> <buffer> gd <Plug>(omnisharp_go_to_definition)
-"   autocmd FileType cs nmap <silent> <buffer> <Leader>osfu <Plug>(omnisharp_find_usages)
-"   autocmd FileType cs nmap <silent> <buffer> <Leader>osfi <Plug>(omnisharp_find_implementations)
-"   autocmd FileType cs nmap <silent> <buffer> <Leader>ospd <Plug>(omnisharp_preview_definition)
-"   autocmd FileType cs nmap <silent> <buffer> <Leader>ospi <Plug>(omnisharp_preview_implementations)
-"   autocmd FileType cs nmap <silent> <buffer> <Leader>ost <Plug>(omnisharp_type_lookup)
-"   autocmd FileType cs nmap <silent> <buffer> <Leader>osd <Plug>(omnisharp_documentation)
-"   autocmd FileType cs nmap <silent> <buffer> <Leader>osfs <Plug>(omnisharp_find_symbol)
-"   autocmd FileType cs nmap <silent> <buffer> <Leader>osfx <Plug>(omnisharp_fix_usings)
-"   autocmd FileType cs nmap <silent> <buffer> <C-\> <Plug>(omnisharp_signature_help)
-"   autocmd FileType cs imap <silent> <buffer> <C-\> <Plug>(omnisharp_signature_help)
-"
-"   " Navigate up and down by method/property/field
-"   autocmd FileType cs nmap <silent> <buffer> [[ <Plug>(omnisharp_navigate_up)
-"   autocmd FileType cs nmap <silent> <buffer> ]] <Plug>(omnisharp_navigate_down)
-"   " Find all code errors/warnings for the current solution and populate the quickfix window
-"   autocmd FileType cs nmap <silent> <buffer> <Leader>osgcc <Plug>(omnisharp_global_code_check)
-"   " Contextual code actions (uses fzf, CtrlP or unite.vim when available)
-"   autocmd FileType cs nmap <silent> <buffer> <Leader>osca <Plug>(omnisharp_code_actions)
-"   autocmd FileType cs xmap <silent> <buffer> <Leader>osca <Plug>(omnisharp_code_actions)
-"
-"   autocmd FileType cs nmap <silent> <buffer> <Leader>os= <Plug>(omnisharp_code_format)
-"
-"   autocmd FileType cs nmap <silent> <buffer> <Leader>osnm <Plug>(omnisharp_rename)
-"
-"   autocmd FileType cs nmap <silent> <buffer> <Leader>osre <Plug>(omnisharp_restart_server)
-"   autocmd FileType cs nmap <silent> <buffer> <Leader>osst <Plug>(omnisharp_start_server)
-"   autocmd FileType cs nmap <silent> <buffer> <Leader>ossp <Plug>(omnisharp_stop_server)
-" augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Colors and styling

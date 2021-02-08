@@ -70,7 +70,7 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 
 # ShortCuts
 
-| Command | List                      |
+| Command | Action                    |
 | ------- | ------------------------- |
 | `rn`    | start ranger file manager |
 | `jp`    | pipe jq output into pager |
@@ -81,7 +81,7 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 
 ## Git
 
-| Command | List                    |
+| Command | Action                  |
 | ------- | ----------------------- |
 | `gs`    | git status              |
 | `gdt`   | git diff tool (icdiff)  |
@@ -90,7 +90,7 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 
 ## FZF
 
-| Command  | List              |
+| Command  | Action            |
 | -------- | ----------------- |
 | `ctrl-t` | complete with fzf |
 | `alt-c`  | fzf               |
@@ -98,7 +98,7 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 
 ## Tmux
 
-| Command              | List                                             |
+| Command              | Action                                           |
 | -------------------- | ------------------------------------------------ |
 | `ctrl+b+w`           | list sessions and windows                        |
 | `ctrl+b+q`           | list pane indexex                                |
@@ -112,7 +112,7 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 
 ### Sorting
 
-| Command      | List                                       |
+| Command      | Action                                     |
 | ------------ | ------------------------------------------ |
 | ot           | sort by type first                         |
 | os           | sort by size first                         |
@@ -123,7 +123,7 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 
 ### File Commands
 
-| Command | List                                                               |
+| Command | Action                                                             |
 | ------- | ------------------------------------------------------------------ |
 | fm      | mkdir                                                              |
 | ft      | touch (create file)                                                |
@@ -137,7 +137,7 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 
 ### Movement
 
-| Command         | List                                                                |
+| Command         | Action                                                              |
 | --------------- | ------------------------------------------------------------------- |
 | `^`             | Move to first non-blank character in line.                          |
 | `f a`           | Move forward to next instance of the 'a' character                  |
@@ -156,7 +156,7 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 
 ### Edit
 
-| Command   | List                                               |
+| Command   | Action                                             |
 | --------- | -------------------------------------------------- |
 | `dw`      | delete to the next word                            |
 | `dt,`     | delete up until the next comma on the current line |
@@ -168,11 +168,9 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 
 ### Easy Motion
 
-| Command    | List           |
-| ---------- | -------------- |
-| `ss fo`    | jump to "fo"   |
-| `leader-j` | line jump down |
-| `leader-k` | line jump up   |
+| Command    | Action       |
+| ---------- | ------------ |
+| `leader-w` | jump to word |
 
 ### Misc
 
@@ -193,7 +191,7 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 
 ### Working with registers
 
-| Command   | List                             |
+| Command   | Action                           |
 | --------- | -------------------------------- |
 | `"{a-z}y` | Yank to register                 |
 | `"{A-Z}y` | Append yank to register          |
@@ -202,7 +200,7 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 
 ### Macros
 
-| Command                | List                            |
+| Command                | Action                          |
 | ---------------------- | ------------------------------- |
 | `q<letter><commands>q` | Start recording macro           |
 | `<number>@<letter>`    | Execute macro n number of times |
@@ -210,33 +208,33 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 
 ### Movement with Tags
 
-| Command    | List                |
+| Command    | Action              |
 | ---------- | ------------------- |
 | `ctrl - [` | Jump to definition. |
 | `ctrl - T` | Jump back.          |
 
 ### Marks
 
-| Command   | List                            |
+| Command   | Action                          |
 | --------- | ------------------------------- |
 | `m {a-z}` | Marks current position as {a-z} |
 | `' {a-z}` | Move to position as {a-z}       |
 
 ### Syntax
 
-| Command             | List                        |
+| Command             | Action                      |
 | ------------------- | --------------------------- |
 | `:setlocal syntax?` | get syntax for current file |
 
 ### Buffers
 
-| Command    | List                              |
+| Command    | Action                            |
 | ---------- | --------------------------------- |
 | `:%bd\|e#` | close all buffers and reopen last |
 
 ### Windows
 
-| Command    | List                    |
+| Command    | Action                  |
 | ---------- | ----------------------- |
 | ` ctrl-w_` | maximize current window |
 
@@ -244,23 +242,23 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 
 ### NerdCommenter
 
-| Command                   | List                                                           |
-| ------------------------- | -------------------------------------------------------------- |
-| [count]<leader>cc         | Comment out the current line or text selected in visual mode   |
+| Command           | Action                                                       |
+| ----------------- | ------------------------------------------------------------ |
+| [count]<leader>cc | Comment out the current line or text selected in visual mode |
 
 ### GV
 
 A Git commit browser
 
-| Command                   | List                                                          |
-| ------------------------- | --------------------------------------------------------------|
-| `:GV`                     | open git commit browser                                       |
-| `:GV!`                    | list commits that affected the current file                   |
-| `:GV?`                    | fill the location list with the revisions of the current file |
+| Command | Action                                                        |
+| ------- | ------------------------------------------------------------- |
+| `:GV`   | open git commit browser                                       |
+| `:GV!`  | list commits that affected the current file                   |
+| `:GV?`  | fill the location list with the revisions of the current file |
 
 ### Vim EasyAlign
 
-| Command                   | List                                |
+| Command                   | Action                              |
 | ------------------------- | ----------------------------------- |
 | `gaip=`                   | align on first equal sign character |
 | `gaip*=`                  | align all `=` characters            |
@@ -268,7 +266,7 @@ A Git commit browser
 
 ### Vim FZF
 
-| Command          | List                                     |
+| Command          | Action                                   |
 | ---------------- | ---------------------------------------- |
 | `Files [PATH]`   | Files (similar to `:FZF`)                |
 | `GFiles [OPTS]`  | Git files (`git ls-files`)               |

@@ -9,6 +9,8 @@ command -v docker >/dev/null 2>&1 || { echo "docker is required but not installe
 docker build . \
     --build-arg USER_ID=$(id -u ${USER}) \
     --build-arg GROUP_ID=$(id -g ${USER}) \
-    --no-cache \
     -f Dockerfile \
     -t nathan-boyd/workbench:latest
+
+#     --no-cache \
+
