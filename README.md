@@ -1,6 +1,5 @@
 # workbench
 
-
 A development environment running in docker
 
 ## Starting the environment
@@ -12,6 +11,12 @@ A development environment running in docker
 ### Running the container
 
 `./scripts/workbenchRun.sh`
+
+## Configuration
+
+This container relies on X11 forwarding to sync its clipboard with he host the following settings have been shown to work for XQuartz
+
+![xquarts_prefs](docs/images/x11_pasteboard_prefs.png)
 
 ## Langages and Frameworks
 

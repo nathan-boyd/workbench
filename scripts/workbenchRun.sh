@@ -139,8 +139,8 @@ docker run \
     -v ${PROJECT_TMUXINATOR}:$CONTAINER_HOME/.config/tmuxinator \
     -v ${PROJECT_UNDO}:$CONTAINER_HOME/.config/.vim/undodir \
     -v ${ZSH_HISTORY}:$CONTAINER_HOME/.zsh_history \
-    -v $XSOCK:$XSOCK:rw \
-    -v $DOCKERSOCK:$DOCKERSOCK:rw \
+    -v $XSOCK:$XSOCK \
+    -v $DOCKERSOCK:$DOCKERSOCK \
     -e DISPLAY=$IP:0 \
     -e ARTIFACTORY_APIKEY="$ARTIFACTORY_APIKEY" \
     -e ARTIFACTORY_USER="$ARTIFACTORY_USER" \
