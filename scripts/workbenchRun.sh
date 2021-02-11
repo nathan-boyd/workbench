@@ -116,6 +116,9 @@ fi
 
 echo "starting docker container"
 
+XSOCK=/tmp/.X11-unix
+DOCKERSOCK=/var/run/docker.sock
+
 docker run \
     --rm \
     -it \
@@ -136,14 +139,14 @@ docker run \
     -v ${PROJECT_TMUXINATOR}:$CONTAINER_HOME/.config/tmuxinator \
     -v ${PROJECT_UNDO}:$CONTAINER_HOME/.config/.vim/undodir \
     -v ${ZSH_HISTORY}:$CONTAINER_HOME/.zsh_history \
-    -v /tmp/.X11-unix:/tmp/.X11-unix \
-    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v $XSOCK:$XSOCK:rw \
+    -v $DOCKERSOCK:$DOCKERSOCK:rw \
+    -e DISPLAY=$IP:0 \
     -e ARTIFACTORY_APIKEY="$ARTIFACTORY_APIKEY" \
     -e ARTIFACTORY_USER="$ARTIFACTORY_USER" \
     -e ARTIFACTORY_AUTH="$ARTIFACTORY_AUTH" \
     -e ARTIFACTORY_EMAIL="$ARTIFACTORY_EMAIL" \
     -e CONTAINER_NAME="$CONTAINER_NAME" \
-    -e DISPLAY=$IP:0 \
     -e GIT_USER_EMAIL="$GIT_USER_EMAIL" \
     -e GIT_USER_NAME="$GIT_USER_NAME" \
     -e HOST_GROUP_ID=$(id -g $USER) \
@@ -153,15 +156,14 @@ docker run \
     -e PROJECT_DIR=$PROJECT_DIR \
     -e PROJECT_NAME=$PROJECT_NAME \
     -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK \
+    -e USER=$USER \
     -w ${CONTAINER_HOME}/${PROJECT_DIR} \
     --name $CONTAINER_NAME \
     --net host \
     --privileged \
+    --user $USER_ID:$GROUP_ID \
     nathan-boyd/workbench:latest \
-    /opt/entrypoint.sh 
-
-
-#    --user $USER_ID:$GROUP_ID \
+    /opt/entrypoint.sh
 
 # mounting go volumes is slow
 #    -v $GO_BIN:$CONTAINER_HOME/go/bin \

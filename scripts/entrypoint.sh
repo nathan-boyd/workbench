@@ -2,7 +2,7 @@
 
 export TERM=xterm-256color
 
-cat <<-EOF > "$HOME/.gitconfig.append"
+cat <<-'EOF' > "$HOME/.gitconfig.append"
 # added by workbench
 [pager]
     difftool = true
@@ -33,3 +33,4 @@ if [ ! -f $FILE ]; then
     touch $FILE
     tmuxinator start ${PROJECT_DIR}
 fi
+

@@ -1,14 +1,14 @@
 FROM ubuntu:20.04
 
-ARG USER_ID=1000
-ARG GROUP_ID=1000
+ARG USER_NAME
+ARG USER_ID
+ARG GROUP_ID
 
 # add man pages
 RUN yes | unminimize && \
   apt-get install -y man-db && \
   rm -r /var/lib/apt/lists/*
 
-ENV USER_NAME nboyd
 ENV HOME /home/${USER_NAME}
 WORKDIR ${HOME}
 
@@ -89,7 +89,7 @@ RUN apt-get update \
     kubectl \
     nodejs \
     dotnet-sdk-3.1 \
-    msodbcsql17 \ 
+    msodbcsql17 \
     mssql-tools \
     unixodbc-dev \
   && apt-get clean
@@ -100,10 +100,10 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT=true
 RUN export DOCKERVERSION=18.03.1-ce \
   && curl -fsSLO "https://download.docker.com/linux/static/stable/x86_64/docker-${DOCKERVERSION}.tgz" \
   && tar xzvf docker-${DOCKERVERSION}.tgz --strip 1 -C /usr/local/bin docker/docker \
-  && rm docker-${DOCKERVERSION}.tgz 
+  && rm docker-${DOCKERVERSION}.tgz
 
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git /usr/local/.fzf && /usr/local/.fzf/install \
-  && gem instal tmuxinator 
+  && gem instal tmuxinator
 
 RUN curl https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh \
   -o /usr/local/share/zsh/site-functions/_tmuxinator
@@ -147,10 +147,10 @@ RUN wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linu
   && mv terraform /usr/local/bin \
   && rm terraform_0.12.26_linux_amd64.zip
 
-# create user to run under
-RUN groupadd workbench \
-  && useradd ${USER_NAME} --shell /bin/zsh -g workbench \
-  && chown -R ${USER_NAME}: ${HOME} && \
+# create user and group to run under
+RUN groupadd -o -g ${GROUP_ID} docker \
+  && useradd -u ${USER_ID} ${USER_NAME} -G docker --shell /bin/zsh \
+  && chown -R ${USER_ID}:${GROUP_ID} ${HOME} && \
   echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" | tee /etc/sudoers.d/${USER_NAME}
 
 WORKDIR ${HOME}
@@ -161,8 +161,6 @@ RUN curl -fLo .config/nvim/autoload/plug.vim --create-dirs \
 
 COPY --chown=${USER_ID}:${GROUP_ID} config/nvim/init.vim .config/nvim/init.vim
 COPY --chown=${USER_ID}:${GROUP_ID} config/coc/package.json .config/coc/extensions/package.json
-
-RUN mkdir -p "/home/nboyd/.config/nvim/sessions/home/nboyd"
 
 # install nvim plugins
 RUN nvim --headless +PlugInstall +qall!
@@ -212,12 +210,12 @@ RUN go get golang.org/x/tools/cmd/guru@master \
 RUN nvim --headless +GoInstallBinaries +qall!
 
 COPY --chown=${USER_ID}:${GROUP_ID} config/tmuxinator/template.tpl /opt/tmuxinator/template.tpl
-COPY --chown=${USER_ID}:${GROUP_ID} config/zsh/.zshrc ${HOME}/.zshrc
 COPY --chown=${USER_ID}:${GROUP_ID} config/ultisnip $HOME/.vim/UltiSnip
 COPY --chown=${USER_ID}:${GROUP_ID} config/neofetch/config.conf ${HOME}/.config/neofetch/config.conf
 COPY --chown=${USER_ID}:${GROUP_ID} config/coc/coc-settings.json ${HOME}/.config/nvim/coc-settings.json
 COPY --chown=${USER_ID}:${GROUP_ID} config/ranger ${HOME}/.config/ranger
 COPY --chown=${USER_ID}:${GROUP_ID} config/python/.pylintrc ${HOME}/.pylintrc
+COPY --chown=${USER_ID}:${GROUP_ID} config/zsh/.zshrc ${HOME}/.zshrc
 
 COPY --chown=${USER_ID}:${GROUP_ID} scripts/entrypoint.sh /opt/entrypoint.sh
 COPY --chown=${USER_ID}:${GROUP_ID} scripts/splashScreen.sh /opt/splashScreen.sh
@@ -227,8 +225,5 @@ RUN chown \
   --silent \
   --no-dereference \
   --recursive \
-  1000:1000 \
+  ${USER_ID}:${GROUP_ID} \
   $HOME
-
-USER $USER_NAME
-

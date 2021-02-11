@@ -75,6 +75,7 @@ alias pip="pip3"
 alias rn="ranger"
 alias vi="nvim"
 alias vim="vi"
+alias docker="sudo docker"
 
 eval "$(pipenv --completion)"
 
@@ -105,3 +106,4 @@ export PATH="$PATH:/opt/mssql-tools/bin"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 source /usr/local/powerlevel10k/powerlevel10k.zsh-theme
 source "$HOME/.p10k.zsh"
+
