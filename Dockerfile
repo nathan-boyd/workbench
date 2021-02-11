@@ -227,3 +227,5 @@ RUN chown \
   --recursive \
   ${USER_ID}:${GROUP_ID} \
   $HOME
+
+USER ${USER_NAME}
