@@ -230,33 +230,34 @@ autocmd BufNewFile,BufRead *.manifest set filetype=json
 
 call plug#begin('~/.config/.vim/plugged')
 
-Plug 'Raimondi/delimitMate'                                        " delimiter auto completion
-Plug 'SirVer/ultisnips'                                            " snippets engine
+Plug 'Raimondi/delimitMate'                                              " delimiter auto completion
+Plug 'SirVer/ultisnips'                                                  " snippets engine
 Plug 'Vimjas/vim-python-pep8-indent'
-Plug 'Xuyuanp/nerdtree-git-plugin'                                 " show git status in nerdtree
-Plug 'airblade/vim-gitgutter'                                      " dirty indicators
-Plug 'christoomey/vim-tmux-navigator'                              " window navigation that integrates with tmux
-Plug 'easymotion/vim-easymotion'                                   " ace movements
-Plug 'ekalinin/Dockerfile.vim'                                     " dockerfile syntax highlighting
+Plug 'Xuyuanp/nerdtree-git-plugin'                                       " show git status in nerdtree
+Plug 'airblade/vim-gitgutter'                                            " dirty indicators
+Plug 'christoomey/vim-tmux-navigator'                                    " window navigation that integrates with tmux
+Plug 'easymotion/vim-easymotion'                                         " ace movements
+Plug 'ekalinin/Dockerfile.vim'                                           " dockerfile syntax highlighting
 Plug 'fatih/vim-go'
-Plug 'honza/vim-snippets'                                          " snippets
-Plug 'junegunn/fzf'                                                " fuzzy searching
-Plug 'junegunn/fzf.vim'                                            " also require for fuzzy searching
+Plug 'honza/vim-snippets'                                                " snippets
+Plug 'junegunn/fzf'                                                      " fuzzy searching
+Plug 'junegunn/fzf.vim'                                                  " also require for fuzzy searching
 Plug 'junegunn/gv.vim'
-Plug 'junegunn/vim-easy-align'                                     " column alignment on characters
+Plug 'junegunn/vim-easy-align'                                           " column alignment on characters
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 Plug 'liuchengxu/vista.vim'
-Plug 'majutsushi/tagbar'                                           " tag visualization
+Plug 'majutsushi/tagbar'                                                 " tag visualization
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 Plug 'preservim/nerdcommenter'
 Plug 'preservim/nerdtree'
 Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-Plug 'romainl/vim-qf'                                              " quick fix / location window config
-Plug 'sainnhe/gruvbox-material'                                    " theme
-Plug 'tpope/vim-fugitive'                                          " git tooling
-Plug 'vim-airline/vim-airline'                                     " modeline
-Plug 'vim-airline/vim-airline-themes'                              " modeline theme
-Plug 'w0rp/ale'                                                    " syntax highlighting
+Plug 'romainl/vim-qf'                                                    " quick fix / location window config
+Plug 'sainnhe/gruvbox-material'                                          " theme
+Plug 'tpope/vim-fugitive'                                                " git tooling
+Plug 'vim-airline/vim-airline'                                           " modeline
+Plug 'vim-airline/vim-airline-themes'                                    " modeline theme
+Plug 'w0rp/ale'                                                          " syntax highlighting
+Plug 'glench/vim-jinja2-syntax'
 
 call plug#end()
 
