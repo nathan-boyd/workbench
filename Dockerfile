@@ -128,7 +128,9 @@ RUN curl https://github.com/derailed/k9s/releases/download/v0.20.5/k9s_Linux_x86
   && pip3 install --user pipenv \
   && pip3 install pynvim \
   && pip3 install ranger-fm \
-  && pip3 install yapf
+  && pip3 install yapf \
+  && pip3 install jrnl
+
 
 RUN export BAT_VERSION="0.15.4" \
   && wget "https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/bat_${BAT_VERSION}_amd64.deb" \
@@ -219,6 +221,7 @@ COPY --chown=${USER_ID}:${GROUP_ID} config/coc/coc-settings.json ${HOME}/.config
 COPY --chown=${USER_ID}:${GROUP_ID} config/ranger ${HOME}/.config/ranger
 COPY --chown=${USER_ID}:${GROUP_ID} config/python/.pylintrc ${HOME}/.pylintrc
 COPY --chown=${USER_ID}:${GROUP_ID} config/zsh/.zshrc ${HOME}/.zshrc
+COPY --chown=${USER_ID}:${GROUP_ID} config/jrnl/jrnl.yaml $HOME/.config/jrnl/jrnl.yaml
 
 COPY --chown=${USER_ID}:${GROUP_ID} scripts/entrypoint.sh /opt/entrypoint.sh
 COPY --chown=${USER_ID}:${GROUP_ID} scripts/splashScreen.sh /opt/splashScreen.sh

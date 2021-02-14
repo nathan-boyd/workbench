@@ -258,6 +258,7 @@ Plug 'vim-airline/vim-airline'                                           " model
 Plug 'vim-airline/vim-airline-themes'                                    " modeline theme
 Plug 'w0rp/ale'                                                          " syntax highlighting
 Plug 'glench/vim-jinja2-syntax'
+Plug 'junegunn/goyo.vim'                                                 " distraction free writing
 
 call plug#end()
 

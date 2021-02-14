@@ -1,0 +1,18 @@
+colors:
+  body: none
+  date: none
+  tags: none
+  title: none
+default_hour: 9
+default_minute: 0
+editor: vim -c Goyo -c startinsert
+encrypt: false
+highlight: true
+indent_character: '|'
+journals:
+  default: $HOME/.local/share/jrnl/.default.txt
+linewrap: 79
+tagsymbols: '@'
+template: false
+timeformat: '%Y-%m-%d %H:%M'
+version: v2.7

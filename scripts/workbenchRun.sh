@@ -19,6 +19,11 @@ fi
 
 # Eventually may just mount the .workbench directory and symlink within the container
 
+JRNL_DIR=$HOME/.local/share/jrnl
+if [[ ! -d $JRNL_DIR ]]; then
+    mkdir -p ${JRNL_DIR}
+fi
+
 PROJECT_ZSH=${HOME}/.workbench/${PROJECT_NAME}/zsh
 if [[ ! -d $PROJECT_ZSH ]]; then
     mkdir -p ${PROJECT_ZSH}
@@ -123,6 +128,7 @@ docker run \
     -v $HOME/.ssh:$CONTAINER_HOME/.ssh \
     -v $HOME/.workbench:$CONTAINER_HOME/.workbench \
     -v $HOME/.local/share/virtualenvs/:$CONTAINER_HOME/.local/share/virtualenvs/ \
+    -v $JRNL_DIR:$CONTAINER_HOME/.local/share/jrnl/ \
     -v $LAZY_DOCKER:$CONTAINER_HOME/.config/jesseduffield/lazydocker \
     -v $PROJECT_AUTOJUMP:$CONTAINER_HOME/.local/share/autojump/ \
     -v $PROJECT_COC_SESSIONS:$CONTAINER_HOME/.vim/sessions \
