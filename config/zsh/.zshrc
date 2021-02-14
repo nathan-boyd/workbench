@@ -79,6 +79,11 @@ alias ll="ls -lah"
 alias docker="sudo docker"
 alias ld="sudo /home/nboyd/go/bin/lazydocker"
 
+# get a report of jrnl updates for the last 24 hours
+alias gsu="/opt/getscrumupdates.sh -d=1"
+
+################################################################################
+
 eval "$(pipenv --completion)"
 
 ################################################################################
@@ -108,4 +113,3 @@ export PATH="$PATH:/opt/mssql-tools/bin"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 source /usr/local/powerlevel10k/powerlevel10k.zsh-theme
 source "$HOME/.p10k.zsh"
-

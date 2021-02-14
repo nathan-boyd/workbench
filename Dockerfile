@@ -150,10 +150,12 @@ RUN wget https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linu
   && rm terraform_0.12.26_linux_amd64.zip
 
 # create user and group to run under
-RUN groupadd -o -g ${GROUP_ID} docker \
-  && useradd -u ${USER_ID} ${USER_NAME} -G docker --shell /bin/zsh \
-  && chown -R ${USER_ID}:${GROUP_ID} ${HOME} && \
+RUN groupadd docker \
+  && useradd -u ${USER_ID} ${USER_NAME} --shell /bin/zsh \
+  && chown -R ${USER_ID}:${USER_ID} ${HOME} && \
   echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" | tee /etc/sudoers.d/${USER_NAME}
+
+RUN gpasswd -a $USER_NAME docker
 
 WORKDIR ${HOME}
 
@@ -214,19 +216,20 @@ RUN go get golang.org/x/tools/cmd/guru@master \
 
 RUN nvim --headless +GoInstallBinaries +qall!
 
-COPY --chown=${USER_ID}:${GROUP_ID} config/tmuxinator/template.tpl /opt/tmuxinator/template.tpl
-COPY --chown=${USER_ID}:${GROUP_ID} config/ultisnip $HOME/.vim/UltiSnip
-COPY --chown=${USER_ID}:${GROUP_ID} config/neofetch/config.conf ${HOME}/.config/neofetch/config.conf
-COPY --chown=${USER_ID}:${GROUP_ID} config/coc/coc-settings.json ${HOME}/.config/nvim/coc-settings.json
-COPY --chown=${USER_ID}:${GROUP_ID} config/ranger ${HOME}/.config/ranger
-COPY --chown=${USER_ID}:${GROUP_ID} config/python/.pylintrc ${HOME}/.pylintrc
-COPY --chown=${USER_ID}:${GROUP_ID} config/zsh/.zshrc ${HOME}/.zshrc
-COPY --chown=${USER_ID}:${GROUP_ID} config/jrnl/jrnl.yaml $HOME/.config/jrnl/jrnl.yaml
-COPY --chown=${USER_ID}:${GROUP_ID} config/jrnl/standup_template.txt /opt/.config/jrnl/standup_template.txt
+COPY --chown=${USER_ID}:${USER_ID} config/tmuxinator/template.tpl /opt/tmuxinator/template.tpl
+COPY --chown=${USER_ID}:${USER_ID} config/ultisnip $HOME/.vim/UltiSnip
+COPY --chown=${USER_ID}:${USER_ID} config/neofetch/config.conf ${HOME}/.config/neofetch/config.conf
+COPY --chown=${USER_ID}:${USER_ID} config/coc/coc-settings.json ${HOME}/.config/nvim/coc-settings.json
+COPY --chown=${USER_ID}:${USER_ID} config/ranger ${HOME}/.config/ranger
+COPY --chown=${USER_ID}:${USER_ID} config/python/.pylintrc ${HOME}/.pylintrc
+COPY --chown=${USER_ID}:${USER_ID} config/zsh/.zshrc ${HOME}/.zshrc
+COPY --chown=${USER_ID}:${USER_ID} config/jrnl/jrnl.yaml $HOME/.config/jrnl/jrnl.yaml
+COPY --chown=${USER_ID}:${USER_ID} config/jrnl/standup_template.txt /opt/.config/jrnl/standup_template.txt
 
-COPY --chown=${USER_ID}:${GROUP_ID} scripts/entrypoint.sh /opt/entrypoint.sh
-COPY --chown=${USER_ID}:${GROUP_ID} scripts/splashScreen.sh /opt/splashScreen.sh
-COPY --chown=${USER_ID}:${GROUP_ID} scripts/workbenchStop.sh /opt/workbenchStop.sh
+COPY --chown=${USER_ID}:${USER_ID} scripts/entrypoint.sh /opt/entrypoint.sh
+COPY --chown=${USER_ID}:${USER_ID} scripts/splashScreen.sh /opt/splashScreen.sh
+COPY --chown=${USER_ID}:${USER_ID} scripts/workbenchStop.sh /opt/workbenchStop.sh
+COPY --chown=${USER_ID}:${USER_ID} scripts/getscrumupdates.sh /opt/getscrumupdates.sh
 
 RUN chown \
   --silent \
