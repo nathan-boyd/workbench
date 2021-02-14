@@ -77,6 +77,7 @@ alias vi="nvim"
 alias vim="vi"
 alias ll="ls -lah"
 alias docker="sudo docker"
+alias ld="sudo /home/nboyd/go/bin/lazydocker"
 
 eval "$(pipenv --completion)"
 

@@ -172,7 +172,7 @@ RUN cd $HOME/.config/coc/extensions \
   && npm install --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
 
 # install coc dependencies
-RUN npm install -g bash-language-server 
+RUN npm install -g bash-language-server
 
 # install and configure oh-my-zsh
 ENV ZSH_CUSTOM="${HOME}/.oh-my-zsh/custom"
@@ -222,6 +222,7 @@ COPY --chown=${USER_ID}:${GROUP_ID} config/ranger ${HOME}/.config/ranger
 COPY --chown=${USER_ID}:${GROUP_ID} config/python/.pylintrc ${HOME}/.pylintrc
 COPY --chown=${USER_ID}:${GROUP_ID} config/zsh/.zshrc ${HOME}/.zshrc
 COPY --chown=${USER_ID}:${GROUP_ID} config/jrnl/jrnl.yaml $HOME/.config/jrnl/jrnl.yaml
+COPY --chown=${USER_ID}:${GROUP_ID} config/jrnl/standup_template.txt /opt/.config/jrnl/standup_template.txt
 
 COPY --chown=${USER_ID}:${GROUP_ID} scripts/entrypoint.sh /opt/entrypoint.sh
 COPY --chown=${USER_ID}:${GROUP_ID} scripts/splashScreen.sh /opt/splashScreen.sh
