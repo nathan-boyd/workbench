@@ -62,7 +62,7 @@ export FZF_DEFAULT_OPTS='--bind ctrl-j:down,ctrl-k:up'
 
 alias c="clear"
 alias diff="icdiff"
-alias eee="/opt/workbenchStop.sh"
+alias ee="/opt/workbenchStop.sh"
 alias fp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 alias gdt="git difftool -y"
 alias gs="git status"
