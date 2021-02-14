@@ -75,6 +75,7 @@ alias pip="pip3"
 alias rn="ranger"
 alias vi="nvim"
 alias vim="vi"
+alias ll="ls -lah"
 alias docker="sudo docker"
 
 eval "$(pipenv --completion)"

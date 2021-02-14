@@ -429,7 +429,7 @@ let g:NERDTreeIgnore = [
     \ 'node_modules'
 \]
 
-let g:NERDTreeBookmarksFile = $HOME ."/.vim/bundle/nerdtree/bookmarks"
+let g:NERDTreeBookmarksFile = $HOME . "/.local/share/nerdtree_bookmarks/.NERDTreeBookmarks"
 
 function NERDOpenClose()
   if @% =~ "NERD"
@@ -539,9 +539,6 @@ let g:coc_global_extensions = [
 
 " if hidden is not set, TextEdit might fail.
 set hidden
-
-" Better display for messages
-set cmdheight=2
 
 " Smaller updatetime for CursorHold & CursorHoldI
 set updatetime=300
