@@ -169,6 +169,9 @@ RUN nvim --headless +PlugInstall +qall!
 RUN cd $HOME/.config/coc/extensions \
   && npm install --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
 
+# install coc dependencies
+RUN npm install -g bash-language-server 
+
 # install and configure oh-my-zsh
 ENV ZSH_CUSTOM="${HOME}/.oh-my-zsh/custom"
 RUN curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | zsh || true \
