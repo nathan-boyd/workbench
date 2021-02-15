@@ -16,6 +16,8 @@ if ! grep -F -q -f "$HOME/.gitconfig.append" "$HOME/.gitconfig"; then
     cat $HOME/.gitconfig.append >> $HOME/.gitconfig
 fi
 
+ln -s $HOME/.cargo/bin/navi /usr/local/bin/navi
+
 export PROJECT_NAME=${PROJECT_NAME:-"scratch"}
 
 # if no mux project then create one from template

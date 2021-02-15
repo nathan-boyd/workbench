@@ -1,5 +1,10 @@
 # workbench
 
+https://github.com/XAMPPRocky/tokei
+https://github.com/wting/autojump
+https://github.com/cheat/cheat
+https://github.com/dalance/procs
+
 A development environment running in docker
 
 ## Starting the environment

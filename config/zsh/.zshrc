@@ -78,6 +78,7 @@ alias vim="vi"
 alias ll="ls -lah"
 alias docker="sudo docker"
 alias ld="sudo /home/nboyd/go/bin/lazydocker"
+alias ch="cheat"
 
 # get a report of jrnl updates for the last 24 hours
 alias gsu="/opt/getscrumupdates.sh -d=1"

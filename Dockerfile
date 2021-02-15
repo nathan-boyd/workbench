@@ -79,20 +79,33 @@ RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add 
     && dpkg -i packages-microsoft-prod.deb \
   && curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg \
     && sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg \
-    && sudo sh -c 'echo "deb [arch=amd64] https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -cs)-prod $(lsb_release -cs) main" > /etc/apt/sources.list.d/dotnetdev.list' \
+    && sudo sh -c 'echo "deb [arch=amd64] \
+      https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -cs)-prod \
+      $(lsb_release -cs) main" > /etc/apt/sources.list.d/dotnetdev.list' \
     && rm packages-microsoft-prod.deb \
   && curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
 
 RUN apt-get update \
   && ACCEPT_EULA=Y apt-get install -y --no-install-recommends \
-    azure-functions-core-tools-3 \
     kubectl \
     nodejs \
     dotnet-sdk-3.1 \
     msodbcsql17 \
     mssql-tools \
     unixodbc-dev \
+    cargo \
   && apt-get clean
+
+RUN cargo install \
+  tokei \
+  procs \
+  navi
+
+RUN git clone https://github.com/denisidoro/cheats $HOME/.local/share/navi/cheats
+
+RUN ln -s $HOME/.cargo/bin/tokei /usr/local/bin/tokei \
+  && ln -s $HOME/.cargo/bin/procs /usr/local/bin/procs \
+  && ln -s $HOME/.cargo/bin/navi /usr/local/bin/navi
 
 ENV PATH="$PATH:/usr/bin/node:/usr/local/go/bin"
 ENV DOTNET_CLI_TELEMETRY_OPTOUT=true
@@ -104,6 +117,7 @@ RUN export DOCKERVERSION=18.03.1-ce \
 
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git /usr/local/.fzf && /usr/local/.fzf/install \
   && gem instal tmuxinator
+
 
 RUN curl https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh \
   -o /usr/local/share/zsh/site-functions/_tmuxinator
@@ -118,7 +132,10 @@ RUN export GO_VERSION=1.14.2 \
     && go get github.com/onsi/ginkgo/ginkgo \
     && go get github.com/onsi/gomega/... \
     && go get github.com/jesseduffield/lazydocker \
-    && go get sigs.k8s.io/kind@v0.8.1
+    && go get sigs.k8s.io/kind@v0.8.1 \
+    && go get -u github.com/cheat/cheat/cmd/cheat
+
+RUN git clone https://github.com/cheat/cheatsheets $HOME/.config/cheat/cheatsheets/community
 
 RUN curl https://github.com/derailed/k9s/releases/download/v0.20.5/k9s_Linux_x86_64.tar.gz  -o- -L | tar -xz -C /usr/local/bin/ \
   && pip3 install git+https://github.com/jeffkaufman/icdiff.git \
@@ -174,7 +191,10 @@ RUN cd $HOME/.config/coc/extensions \
   && npm install --global-style --ignore-scripts --no-bin-links --no-package-lock --only=prod
 
 # install coc dependencies
-RUN npm install -g bash-language-server
+RUN npm install -g bash-language-server \
+  && npm install -g tldr
+
+RUN tldr -u
 
 # install and configure oh-my-zsh
 ENV ZSH_CUSTOM="${HOME}/.oh-my-zsh/custom"
@@ -225,6 +245,7 @@ COPY --chown=${USER_ID}:${USER_ID} config/python/.pylintrc ${HOME}/.pylintrc
 COPY --chown=${USER_ID}:${USER_ID} config/zsh/.zshrc ${HOME}/.zshrc
 COPY --chown=${USER_ID}:${USER_ID} config/jrnl/jrnl.yaml $HOME/.config/jrnl/jrnl.yaml
 COPY --chown=${USER_ID}:${USER_ID} config/jrnl/standup_template.txt /opt/.config/jrnl/standup_template.txt
+COPY --chown=${USER_ID}:${USER_ID} config/cheat/conf.yml ${HOME}/.config/cheat/conf.yml
 
 COPY --chown=${USER_ID}:${USER_ID} scripts/entrypoint.sh /opt/entrypoint.sh
 COPY --chown=${USER_ID}:${USER_ID} scripts/splashScreen.sh /opt/splashScreen.sh
