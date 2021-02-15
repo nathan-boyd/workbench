@@ -1,9 +1,5 @@
 # workbench
 
-https://github.com/XAMPPRocky/tokei
-https://github.com/wting/autojump
-https://github.com/cheat/cheat
-https://github.com/dalance/procs
 
 A development environment running in docker
 
@@ -21,7 +17,7 @@ A development environment running in docker
 
 This container relies on X11 forwarding to sync its clipboard with he host the following settings have been shown to work for XQuartz
 
-![xquarts_prefs](docs/images/x11_pasteboard_prefs.png)
+![xquarts_prefs](docs/images/x11_pasteboard_prefs.png =250x250)
 
 ## Langages and Frameworks
 
@@ -35,23 +31,29 @@ This container relies on X11 forwarding to sync its clipboard with he host the f
 
 A list of some of the cli tools installed. Some commonplace tools like `git`, `curl`, `wget` etc are not listed because but they are available.
 
-| Tool                                                                                             | Description                                       |
-| ------------------------------------------------------------------------------------------------ | ------------------------------------------------- |
-| [autojump](https://github.com/wting/autojump)                                                    | file system navigation                            |
-| [cowsay](https://web.archive.org/web/20071026043648/http://www.nog.net/~tony/warez/cowsay.shtml) | funny text filter                                 |
-| [ctop](https://github.com/bcicen/ctop)                                                           | provides an overview of container metrics         |
-| [htop](https://github.com/hishamhm/htop)                                                         | interactive process viewer                        |
-| [httpie](https://github.com/jakubroztocil/httpie)                                                | HTTP client                                       |
-| [jq](https://github.com/stedolan/jq)                                                             | JSON processor                                    |
-| [mtr](https://github.com/traviscross/mtr)                                                        | combines functionality of 'traceroute' and 'ping' |
-| [ncdu](https://dev.yorhel.nl/ncdu)                                                               | disk usage analyzer                               |
-| [neovim](https://github.com/neovim/neovim)                                                       | modern vim                                        |
-| [ranger](https://github.com/ranger/ranger)                                                       | console file manager with VI key bindings         |
-| [ripgrep](https://github.com/BurntSushi/ripgrep)                                                 | line-oriented search tool                         |
-| [neofetch](https://github.com/dylanaraps/neofetch)                                               | splash screens                                    |
-| [tmux](https://github.com/tmux/tmux)                                                             | terminal multiplexer                              |
-| [glances](https://nicolargo.github.io/glances/)                                                  | system monitoring                                 |
-| [lazydocker](https://github.com/jesseduffield/lazydocker)                                        | terminal UI for docker                            |
+| Tool                                                                                             | Description                                             |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------- |
+| [autojump](https://github.com/wting/autojump)                                                    | file system navigation                                  |
+| [cowsay](https://web.archive.org/web/20071026043648/http://www.nog.net/~tony/warez/cowsay.shtml) | funny text filter                                       |
+| [ctop](https://github.com/bcicen/ctop)                                                           | provides an overview of container metrics               |
+| [htop](https://github.com/hishamhm/htop)                                                         | interactive process viewer                              |
+| [httpie](https://github.com/jakubroztocil/httpie)                                                | HTTP client                                             |
+| [jq](https://github.com/stedolan/jq)                                                             | JSON processor                                          |
+| [mtr](https://github.com/traviscross/mtr)                                                        | combines functionality of 'traceroute' and 'ping'       |
+| [ncdu](https://dev.yorhel.nl/ncdu)                                                               | disk usage analyzer                                     |
+| [neovim](https://github.com/neovim/neovim)                                                       | modern vim                                              |
+| [ranger](https://github.com/ranger/ranger)                                                       | console file manager with VI key bindings               |
+| [ripgrep](https://github.com/BurntSushi/ripgrep)                                                 | line-oriented search tool                               |
+| [neofetch](https://github.com/dylanaraps/neofetch)                                               | splash screens                                          |
+| [tmux](https://github.com/tmux/tmux)                                                             | terminal multiplexer                                    |
+| [glances](https://nicolargo.github.io/glances/)                                                  | system monitoring                                       |
+| [lazydocker](https://github.com/jesseduffield/lazydocker)                                        | terminal UI for docker                                  |
+| [procs](https://github.com/dalance/procs)                                                        | alternative to ps                                       |
+| [tokei](https://github.com/XAMPPRocky/tokei)                                                     | code stats                                              |
+| [cheat](https://github.com/cheat/cheat)                                                          | community and personal cheat sheets                     |
+| [tldr](https://github.com/tldr-pages/tldr)                                                       | community-maintained help pages for command-line tools  |
+| [navi](https://github.com/denisidoro/navi)                                                       | interactive cheatsheet tool                             |
+| [jrnl](https://jrnl.sh/en/stable/overview/)                                                      | a simple journal application for the command line       |
 
 ## NeoVim Plugins
 

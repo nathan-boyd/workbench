@@ -148,7 +148,6 @@ RUN curl https://github.com/derailed/k9s/releases/download/v0.20.5/k9s_Linux_x86
   && pip3 install yapf \
   && pip3 install jrnl
 
-
 RUN export BAT_VERSION="0.15.4" \
   && wget "https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/bat_${BAT_VERSION}_amd64.deb" \
   && dpkg -i "bat_${BAT_VERSION}_amd64.deb" \
@@ -197,10 +196,14 @@ RUN npm install -g bash-language-server \
 RUN tldr -u
 
 # install and configure oh-my-zsh
-ENV ZSH_CUSTOM="${HOME}/.oh-my-zsh/custom"
+ENV ZSH="${HOME}/.oh-my-zsh"
+ENV ZSH_CUSTOM="${ZSH}/custom"
 RUN curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | zsh || true \
     && git clone https://github.com/zsh-users/zsh-autosuggestions ${HOME}/.oh-my-zsh/plugins/zsh-autosuggestions \
-    && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+    && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting \
+    && git clone https://github.com/zsh-users/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions
+
+RUN cp "$HOME/go/pkg/mod/github.com/cheat/cheat@v0.0.0-20201128162709-883a17092f08/scripts/cheat.zsh" $ZSH/completions
 
 # install and configure powerlevel10k
 COPY --chown=${USER_ID}:${GROUP_ID} config/powerlevel10k/.p10k.zsh ${HOME}/.p10k.zsh

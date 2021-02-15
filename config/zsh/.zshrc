@@ -17,14 +17,16 @@ plugins=(
     history-substring-search
     kubectl
     zsh-autosuggestions
+    zsh-completions
     zsh-syntax-highlighting # must be last plugin
 )
+
 
 source $ZSH/oh-my-zsh.sh
 
 ################################################################################
 
-source /usr/share/autojump/autojump.zsh
+. /usr/share/autojump/autojump.sh
 
 ################################################################################
 
@@ -106,6 +108,10 @@ function editMuxConfig(){
 ################################################################################
 
 export PATH="$PATH:/opt/mssql-tools/bin"
+
+
+autoload -U compinit && compinit
+
 
 ################################################################################
 # Sourcing p10k should be the last paart of the zsh
