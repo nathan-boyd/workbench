@@ -254,6 +254,7 @@ COPY --chown=${USER_ID}:${USER_ID} scripts/entrypoint.sh /opt/entrypoint.sh
 COPY --chown=${USER_ID}:${USER_ID} scripts/splashScreen.sh /opt/splashScreen.sh
 COPY --chown=${USER_ID}:${USER_ID} scripts/workbenchStop.sh /opt/workbenchStop.sh
 COPY --chown=${USER_ID}:${USER_ID} scripts/getscrumupdates.sh /opt/getscrumupdates.sh
+COPY --chown=${USER_ID}:${USER_ID} scripts/shellandclear.sh /opt/shellandclear.sh
 
 RUN chown \
   --silent \

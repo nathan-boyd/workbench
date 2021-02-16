@@ -1,4 +1,4 @@
-TERM="screen-256color"
+
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -7,7 +7,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-################################################################################
+#-------------------------------------------------------------------------------
 
 export ZSH="${HOME}/.oh-my-zsh"
 
@@ -21,20 +21,21 @@ plugins=(
     zsh-syntax-highlighting # must be last plugin
 )
 
-
 source $ZSH/oh-my-zsh.sh
 
-################################################################################
-
-. /usr/share/autojump/autojump.sh
-
-################################################################################
-
 # enable bash completion (for user when zsh completion doesn't exist)
-# required for azure cli completion
-autoload -U +X bashcompinit && bashcompinit
+# autoload -U +X bashcompinit && bashcompinit
+
 source <(kubectl completion zsh)
 source /etc/bash_completion.d/azure-cli
+autoload -U compinit && compinit
+
+#-------------------------------------------------------------------------------
+
+# initialize autojump
+. /usr/share/autojump/autojump.sh
+
+#-------------------------------------------------------------------------------
 
 source $HOME/.fzf.zsh
 
@@ -50,8 +51,8 @@ export GOBIN=$GOPATH/bin
 export PATH=$PATH:/usr/local/go/bin:$GOBIN
 export PATH=$PATH:$HOME/.local/bin
 
-################################################################################
-#
+#-------------------------------------------------------------------------------
+
 # --files: List files that would be searched but do not search
 # --no-ignore: Do not respect .gitignore, etc...
 # --hidden: Search hidden files and folders
@@ -60,7 +61,7 @@ export PATH=$PATH:$HOME/.local/bin
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 export FZF_DEFAULT_OPTS='--bind ctrl-j:down,ctrl-k:up'
 
-################################################################################
+#-------------------------------------------------------------------------------
 
 alias c="clear"
 alias diff="icdiff"
@@ -82,14 +83,12 @@ alias docker="sudo docker"
 alias ld="sudo /home/nboyd/go/bin/lazydocker"
 alias ch="cheat"
 
+complete -F __start_kubectl k
+
 # get a report of jrnl updates for the last 24 hours
 alias gsu="/opt/getscrumupdates.sh -d=1"
 
-################################################################################
-
-eval "$(pipenv --completion)"
-
-################################################################################
+#-------------------------------------------------------------------------------
 
 # if no mux project then create one from template
 MUX_PROJECT_FILE="$HOME/.config/tmuxinator/$PROJECT_DIR.yml"
@@ -99,23 +98,19 @@ if [[ ! -f "$MUX_PROJECT_FILE" ]]; then
     echo "created mux project from template"
 fi
 
-################################################################################
+#-------------------------------------------------------------------------------
 
 function editMuxConfig(){
     vi "$HOME/.config/tmuxinator/$PROJECT_DIR.yml"
 }
 
-################################################################################
+#-------------------------------------------------------------------------------
 
 export PATH="$PATH:/opt/mssql-tools/bin"
 
-
-autoload -U compinit && compinit
-
-
-################################################################################
+#-------------------------------------------------------------------------------
 # Sourcing p10k should be the last paart of the zsh
-################################################################################
+#-------------------------------------------------------------------------------
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 source /usr/local/powerlevel10k/powerlevel10k.zsh-theme

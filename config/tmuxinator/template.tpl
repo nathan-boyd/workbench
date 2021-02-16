@@ -5,4 +5,4 @@ startup_window: shell
 on_project_stop: docker container kill workbench-{{ .Env.PROJECT_DIR }}
 windows:
   - shell:
-    - /opt/splashScreen.sh
+    - /opt/shellandclear.sh
