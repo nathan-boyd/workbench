@@ -10,6 +10,9 @@ cat <<-'EOF' > "$HOME/.gitconfig.append"
     tool = icdiff
 [difftool "icdiff"]
     cmd = icdiff --head=5000 --line-numbers -L \"$BASE\" -L \"$REMOTE\" \"$LOCAL\" \"$REMOTE\" --color-map='add:green,change:yellow,description:blue,meta:magenta,separator:blue,subtract:red'
+
+[core]
+    preloadIndex = true
 EOF
 
 if ! grep -F -q -f "$HOME/.gitconfig.append" "$HOME/.gitconfig"; then

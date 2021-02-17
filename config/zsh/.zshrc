@@ -1,4 +1,8 @@
-
+# if interactive then disable ctrl-s freezing
+if [[ -t 0 && $- = *i* ]]
+then
+    stty -ixon
+fi 
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -82,6 +86,7 @@ alias ll="ls -lah"
 alias docker="sudo docker"
 alias ld="sudo /home/nboyd/go/bin/lazydocker"
 alias ch="cheat"
+alias jr="jrnl"
 
 complete -F __start_kubectl k
 

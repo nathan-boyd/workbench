@@ -141,6 +141,8 @@ docker run \
     -v ${ZSH_HISTORY}:$CONTAINER_HOME/.zsh_history \
     -v $XSOCK:$XSOCK \
     -v $DOCKERSOCK:$DOCKERSOCK \
+    -v /tmp:/tmp \
+    -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
     -e DISPLAY=$IP:0 \
     -e CONTAINER_NAME="$CONTAINER_NAME" \
     -e GIT_USER_EMAIL="$GIT_USER_EMAIL" \
