@@ -22,4 +22,4 @@ from=$(date -d "$DAYS days ago" '+%Y-%m-%d %H:%M:%S')
 
 printf "\nStandup updates: \n  from: $from\n  to:   $now\n"
 
-jrnl --format fancy -from "$from" -to "$now"
+jrnl @standup --format fancy -from "$from" -to "$now"
