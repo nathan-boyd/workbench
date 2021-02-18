@@ -250,7 +250,6 @@ COPY --chown=${USER_ID}:${USER_ID} config/jrnl/jrnl.yaml $HOME/.config/jrnl/jrnl
 COPY --chown=${USER_ID}:${USER_ID} config/jrnl/standup_template.txt /opt/.config/jrnl/standup_template.txt
 COPY --chown=${USER_ID}:${USER_ID} config/cheat/conf.yml ${HOME}/.config/cheat/conf.yml
 
-COPY --chown=${USER_ID}:${USER_ID} scripts/entrypoint.sh /opt/entrypoint.sh
 COPY --chown=${USER_ID}:${USER_ID} scripts/splashScreen.sh /opt/splashScreen.sh
 COPY --chown=${USER_ID}:${USER_ID} scripts/workbenchStop.sh /opt/workbenchStop.sh
 COPY --chown=${USER_ID}:${USER_ID} scripts/getscrumupdates.sh /opt/getscrumupdates.sh

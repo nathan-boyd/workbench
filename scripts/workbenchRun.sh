@@ -7,9 +7,10 @@ GROUP_ID=$(id -g ${USER})
 USER_NAME=$(whoami)
 
 PROJECT_DIR=${PWD##*/}
-PROJECT_NAME=${PWD#"${PWD%/*/*}/"}
+PROJECT_PATH=${PWD#"${PWD%/*/*}/"}
+PROJECT_NAME=${PROJECT_PATH//\//_}
 
-CONTAINER_NAME=${PROJECT_NAME//\//_}
+CONTAINER_NAME="workbench_${PROJECT_NAME}"
 CONTAINER_HOME="/home/$USER_NAME"
 
 # export PROJECT_NAME=${PROJECT_NAME:-"scratch"}
@@ -139,9 +140,7 @@ if [[ ! -d $PROJECT_TMUXINATOR ]]; then
     mkdir -p ${PROJECT_TMUXINATOR}
     cat << EOF > "$PROJECT_TMUXINATOR/.tmuxinator"
 name: $PROJECT_NAME
-root: ~/$PROJECT_NAME
 startup_window: shell
-on_project_stop: docker container kill workbench-$PROJECT_NAME
 windows:
   - shell:
     - /opt/splashScreen.sh
@@ -186,13 +185,14 @@ docker run \
     -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK \
     -e USER=$USER \
     -e TERM=xterm-256color \
-    -w ${CONTAINER_HOME}/${PROJECT_DIR} \
+    -e CONTAINER_HOME=$CONTAINER_HOME \
+    -w $CONTAINER_HOME/$PROJECT_DIR \
     --name $CONTAINER_NAME \
     --net host \
     --privileged \
     --user $USER_ID:$GROUP_ID \
     nathan-boyd/workbench:latest \
-    tmuxinator start --project-config=$CONTAINER_HOME/.tmuxinator
+    tmuxinator start --project-config="$CONTAINER_HOME/.tmuxinator"
 
 #    /opt/entrypoint.sh
 #    tmuxinator start --project-config=$CONTAINER_HOME/.tmuxinator
