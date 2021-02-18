@@ -33,6 +33,7 @@ source $ZSH/oh-my-zsh.sh
 source <(kubectl completion zsh)
 source /etc/bash_completion.d/azure-cli
 autoload -U compinit && compinit
+_comp_options+=(globdots)
 
 #-------------------------------------------------------------------------------
 
