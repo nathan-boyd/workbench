@@ -251,9 +251,7 @@ COPY --chown=${USER_ID}:${USER_ID} config/jrnl/standup_template.txt /opt/.config
 COPY --chown=${USER_ID}:${USER_ID} config/cheat/conf.yml ${HOME}/.config/cheat/conf.yml
 
 COPY --chown=${USER_ID}:${USER_ID} scripts/splashScreen.sh /opt/splashScreen.sh
-COPY --chown=${USER_ID}:${USER_ID} scripts/workbenchStop.sh /opt/workbenchStop.sh
 COPY --chown=${USER_ID}:${USER_ID} scripts/getscrumupdates.sh /opt/getscrumupdates.sh
-COPY --chown=${USER_ID}:${USER_ID} scripts/shellandclear.sh /opt/shellandclear.sh
 COPY --chown=${USER_ID}:${USER_ID} scripts/checkcolors.sh /opt/checkcolors.sh
 
 RUN chown \
