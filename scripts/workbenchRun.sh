@@ -5,10 +5,10 @@ set -e
 USER_ID=$(id -u ${USER})
 GROUP_ID=$(id -g ${USER})
 USER_NAME=$(whoami)
-GIT_USER_NAME=$(git config user.name)
-GIT_USER_EMAIL=$(git config user.email)
+
 PROJECT_DIR=${PWD##*/}
 PROJECT_NAME=${PWD#"${PWD%/*/*}/"}
+
 CONTAINER_NAME=${PROJECT_NAME//\//_}
 CONTAINER_HOME="/home/$USER_NAME"
 
@@ -177,8 +177,6 @@ docker run \
     -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
     -e DISPLAY=$IP:0 \
     -e CONTAINER_NAME="$CONTAINER_NAME" \
-    -e GIT_USER_EMAIL="$GIT_USER_EMAIL" \
-    -e GIT_USER_NAME="$GIT_USER_NAME" \
     -e HOST_GROUP_ID=$(id -g $USER) \
     -e HOST_PATH=$PWD \
     -e HOST_USER_ID=$(id -u $USER) \
