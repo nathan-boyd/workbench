@@ -1,8 +1,4 @@
-# if interactive then disable ctrl-s freezing
-if [[ -t 0 && $- = *i* ]]
-then
-    stty -ixon
-fi 
+export TERM="xterm-256color"
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -26,6 +22,12 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+
+# if interactive then disable ctrl-s freezing
+if [[ -t 0 && $- = *i* ]]
+then
+    stty -ixon
+fi
 
 # enable bash completion (for user when zsh completion doesn't exist)
 # autoload -U +X bashcompinit && bashcompinit
@@ -93,16 +95,6 @@ complete -F __start_kubectl k
 
 # get a report of jrnl updates for the last 24 hours
 alias gsu="/opt/getscrumupdates.sh -d=1"
-
-#-------------------------------------------------------------------------------
-
-# if no mux project then create one from template
-MUX_PROJECT_FILE="$HOME/.config/tmuxinator/$PROJECT_DIR.yml"
-if [[ ! -f "$MUX_PROJECT_FILE" ]]; then
-    touch $MUX_PROJECT_FILE
-    cat /opt/tmuxinator/template.tpl | gomplate > $MUX_PROJECT_FILE
-    echo "created mux project from template"
-fi
 
 #-------------------------------------------------------------------------------
 

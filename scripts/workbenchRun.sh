@@ -12,6 +12,8 @@ PROJECT_NAME=${PWD#"${PWD%/*/*}/"}
 CONTAINER_NAME=${PROJECT_NAME//\//_}
 CONTAINER_HOME="/home/$USER_NAME"
 
+# export PROJECT_NAME=${PROJECT_NAME:-"scratch"}
+
 if [ ! -n $(docker ps -a --format '{{ .Names }}' | grep -oE ${CONTAINER_NAME}) ]; then
     echo "workbench already exists!" >&2;
     exit 1;
@@ -32,11 +34,6 @@ fi
 ZSH_HISTORY=${PROJECT_ZSH}/.zsh_history
 if [[ ! -e $ZSH_HISTORY ]]; then
     touch $ZSH_HISTORY
-fi
-
-PROJECT_TMUXINATOR=${HOME}/.workbench/${PROJECT_NAME}/tmuxinator
-if [[ ! -d $PROJECT_ZSH ]]; then
-    mkdir -p ${PROJECT_TMUXINATOR}
 fi
 
 # the directory in which to store vim undo files
@@ -112,10 +109,44 @@ else
     echo "started xhost on host at: $IP"
 fi
 
-echo "starting docker container"
-
 XSOCK=/tmp/.X11-unix
 DOCKERSOCK=/var/run/docker.sock
+
+cat <<-'EOF' > "$HOME/.gitconfig.append"
+
+# added by workbench
+[pager]
+    difftool = true
+
+[diff]
+    tool = icdiff
+
+[difftool "icdiff"]
+    cmd = icdiff --head=5000 --line-numbers -L \"$BASE\" -L \"$REMOTE\" \"$LOCAL\" \"$REMOTE\" \
+      --color-map='add:green,change:yellow,description:blue,meta:magenta,separator:blue,subtract:red'
+
+[core]
+    preloadIndex = true
+
+EOF
+
+if ! grep -F -q -f "$HOME/.gitconfig.append" "$HOME/.gitconfig"; then
+    cat $HOME/.gitconfig.append >> $HOME/.gitconfig
+fi
+
+PROJECT_TMUXINATOR=${HOME}/.workbench/${PROJECT_NAME}/tmuxinator
+if [[ ! -d $PROJECT_TMUXINATOR ]]; then
+    mkdir -p ${PROJECT_TMUXINATOR}
+    cat << EOF > "$PROJECT_TMUXINATOR/.tmuxinator"
+name: $PROJECT_NAME
+root: ~/$PROJECT_NAME
+startup_window: shell
+on_project_stop: docker container kill workbench-$PROJECT_NAME
+windows:
+  - shell:
+    - /opt/splashScreen.sh
+EOF
+fi
 
 docker run \
     --rm \
@@ -139,6 +170,7 @@ docker run \
     -v ${PROJECT_UNDO}:$CONTAINER_HOME/.config/.vim/undodir \
     -v ${PROJECT_NERD_MARKS}:$CONTAINER_HOME/.local/share/nerdtree_bookmarks \
     -v ${ZSH_HISTORY}:$CONTAINER_HOME/.zsh_history \
+    -v ${PROJECT_TMUXINATOR}/.tmuxinator:${CONTAINER_HOME}/.tmuxinator \
     -v $XSOCK:$XSOCK \
     -v $DOCKERSOCK:$DOCKERSOCK \
     -v /tmp:/tmp \
@@ -155,13 +187,18 @@ docker run \
     -e PROJECT_NAME=$PROJECT_NAME \
     -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK \
     -e USER=$USER \
+    -e TERM=xterm-256color \
     -w ${CONTAINER_HOME}/${PROJECT_DIR} \
     --name $CONTAINER_NAME \
     --net host \
     --privileged \
     --user $USER_ID:$GROUP_ID \
     nathan-boyd/workbench:latest \
-    /opt/entrypoint.sh
+    tmuxinator start --project-config=$CONTAINER_HOME/.tmuxinator
+
+#    /opt/entrypoint.sh
+#    tmuxinator start --project-config=$CONTAINER_HOME/.tmuxinator
+#    /bin/zsh
 
 # mounting go volumes is slow
 #    -v $GO_BIN:$CONTAINER_HOME/go/bin \
