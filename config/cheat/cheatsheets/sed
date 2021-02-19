@@ -1,0 +1,5 @@
+# replace string in all files
+find . -maxdepth 1 -type f | xargs sed -i 's/provision_resources/destroy_resources/g'
+
+# remove line with pattern from all files
+find . -maxdepth 1 -type f | xargs sed -i '/DELETE_ME.*$/d'

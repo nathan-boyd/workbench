@@ -1,0 +1,209 @@
+# start new:
+tmux
+
+# start new with session name:
+tmux new -s myname
+
+# attach:
+tmux a  #  (or at, or attach)
+
+# attach to named:
+tmux a -t myname
+
+# list sessions:
+tmux ls
+
+# kill session
+tmux kill-session -t myname
+
+## list all shortcuts
+<prefix> ?
+
+# sessions
+
+# new session
+:new<CR>
+
+# list sessions
+s
+
+# name session
+$
+
+# windows and tabs
+
+# create window
+c
+
+# list windows
+w
+
+# next window
+n
+
+# previous window
+p
+
+# find window
+f
+
+# name window
+,
+
+# kill window
+&
+
+# Panes and splits
+
+# vertical split
+%
+
+# horizontal split
+"
+
+# swap panes
+o
+
+# show pane numbers
+q
+
+# kill pane
+x
+
+# break pane into window (e.g. to select text by mouse to copy)
++
+
+# restore pane from window
+-
+
+# space - toggle between layouts
+⍽
+
+# (Show pane numbers, when the numbers show up type the key to goto that pane)
+<prefix> q
+
+# (Move the current pane left)
+<prefix> {
+
+# (Move the current pane right)
+<prefix> }
+
+# toggle pane zoom
+<prefix> z
+
+# Resizing Panes
+
+# Resizes the current pane down
+<prefix> :resize-pane -D
+
+# Resizes the current pane upward
+<prefix> :resize-pane -U
+
+# Resizes the current pane left
+<prefix> :resize-pane -L
+
+# Resizes the current pane right
+<prefix> :resize-pane -R
+
+# Resizes the current pane down by 20 cells
+<prefix> :resize-pane -D 20
+
+# Resizes the current pane upward by 20 cells
+<prefix> :resize-pane -U 20
+
+# Resizes the current pane left by 20 cells
+<prefix> :resize-pane -L 20
+
+# Resizes the current pane right by 20 cells
+<prefix> :resize-pane -R 20
+
+# Resizes the pane with the id of 2 down by 20 cells
+<prefix> :resize-pane -t 2 20
+
+# Resizes the pane with the id of 2 left by 20 cells
+<prefix> :resize-pane -t -L 20
+
+# Copy Mode
+
+# L
+Cursor to bottom line
+
+# M
+Cursor to middle line
+
+# H
+Cursor to top line
+
+# k
+Cursor up
+
+# d
+Delete entire line
+
+# D
+Delete to end of line
+
+# $
+End of line
+
+# :
+Goto line
+
+# C-d
+Half page down
+
+# C-u
+Half page up
+
+# C-f
+Next page
+
+# w
+Next word
+
+# p
+Paste buffer
+
+# C-b
+Previous page
+
+# b
+Previous word
+
+# q
+Quit mode
+
+# C-Down or J
+Scroll down
+
+# C-Up or K
+Scroll up
+
+# n
+Search again
+
+# ?
+Search backward
+
+# /
+Search forward
+
+# 0
+Start of line
+
+# Space
+Start selection
+
+# Misc
+
+# detach
+<prefix> d
+
+# big clock
+<prefix> t
+
+# list shortcuts
+<prefix> ?
+
+# prompt
+<prefix> :
