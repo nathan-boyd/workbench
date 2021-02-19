@@ -136,6 +136,7 @@ RUN export GO_VERSION=1.14.2 \
     && go get -u github.com/cheat/cheat/cmd/cheat
 
 RUN git clone https://github.com/cheat/cheatsheets $HOME/.config/cheat/cheatsheets/community
+COPY --chown=${USER_ID}:${USER_ID} config/cheat/cheatsheets ${HOME}/.config/cheat/cheatsheets
 
 RUN curl https://github.com/derailed/k9s/releases/download/v0.20.5/k9s_Linux_x86_64.tar.gz  -o- -L | tar -xz -C /usr/local/bin/ \
   && pip3 install git+https://github.com/jeffkaufman/icdiff.git \

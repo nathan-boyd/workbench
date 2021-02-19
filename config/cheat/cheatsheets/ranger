@@ -1,0 +1,130 @@
+# General
+
+# Start Ranger
+ranger
+
+# Quit Ranger
+Q
+
+# Reload current directory
+R
+
+# Ranger Manpages / Shortcuts
+?
+
+# Movement
+
+# go to top of list
+gg
+
+# go t bottom of list
+G
+
+# half page down
+J
+
+# half page up
+K
+
+# History Back
+H
+
+# History Forward
+L
+
+# file Operations
+
+# open file with
+r
+
+# toggle settings
+z
+
+# change sort order
+o
+
+# view hidden files
+zh
+
+# rename current file
+cw 
+
+# yank / copy
+yy 
+
+# cut
+dd 
+
+# paste
+pp 
+
+# search for files :search
+/ 
+
+# next match
+n 
+
+# prev match
+N 
+
+# Delete
+<delete> 
+
+# commands
+
+# Execute Range Command
+: 
+
+# Execute Shell Command
+! 
+
+# Change file Permissions
+chmod 
+
+# Disk Usage Current Directory
+du 
+
+# tabs
+
+# Create new tab
+C-n 
+
+# Close current tab
+C-w 
+
+# Next tab
+tab 
+
+# Previous tab
+shift + tab 
+
+# goto / create [n] tab
+alt + [n]
+
+# file substituting
+
+# Substitute highlighted file
+%f 
+
+# Substitute current directory
+%d 
+
+# Substitute currently selected files
+%s 
+
+# Substitute currently tagged files
+%t 
+
+# marker
+
+# Create Marker
+m  + <letter>
+
+# Delete Marker
+um  + <letter>
+
+# Delete Marker
+'  + <letter>
+
+# Example for substitution
+:bulkrename %s

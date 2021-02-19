@@ -72,7 +72,7 @@ export FZF_DEFAULT_OPTS='--bind ctrl-j:down,ctrl-k:up'
 
 alias c="clear"
 alias diff="icdiff"
-alias ee="exit"
+alias ee="tmux kill-server"
 alias fp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 alias gdt="git difftool -y"
 alias gs="git status"

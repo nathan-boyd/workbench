@@ -1,0 +1,11 @@
+# jump to a directory that contains `foo`:
+j foo
+
+# jump to a child directory that contains `foo`
+jc foo
+
+# open file manager to directories (instead of juming)
+jo foo
+
+# opening file manager to a child directory
+jco foo

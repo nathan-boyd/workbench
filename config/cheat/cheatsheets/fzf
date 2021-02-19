@@ -1,0 +1,33 @@
+# paste the selected files and directories onto the command-line
+CTRL-T
+
+# paste the selected command from history onto the command-line
+CTRL-R
+
+# cd into the selected directory
+ALT-C
+
+# files under the current directory
+# - You can select multiple items with TAB key
+vim **<TAB>
+
+# files under parent directory
+vim ../**<TAB>
+
+# files under parent directory that match `fzf`
+vim ../fzf**<TAB>
+
+# files under your home directory
+vim ~/**<TAB>
+
+# directories under current directory (single-selection)
+cd **<TAB>
+
+# directories under ~/github that match `fzf`
+cd ~/github/fzf**<TAB>
+
+# can select multiple processes with <TAB> or <Shift-TAB> keys
+kill -9 <TAB>
+
+# fzf with preview
+fp
