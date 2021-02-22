@@ -1,8 +1,8 @@
 colors:
   body: none
   date: none
-  tags: none
-  title: none
+  tags: YELLOW
+  title: BLUE
 default_hour: 9
 default_minute: 0
 editor: vim -c Goyo -c startinsert
@@ -11,8 +11,6 @@ highlight: true
 indent_character: '|'
 journals:
   default: $HOME/.local/share/jrnl/.default.txt
-  personal: $HOME/.local/share/jrnl/.personal.txt
-template: /opt/.config/jrnl/standup_template.txt
 linewrap: 79
 tagsymbols: '@'
 timeformat: '%Y-%m-%d %H:%M'

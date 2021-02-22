@@ -172,7 +172,6 @@ docker run \
     -v ${PROJECT_TMUXINATOR}/.tmuxinator:${CONTAINER_HOME}/.tmuxinator \
     -v $XSOCK:$XSOCK \
     -v $DOCKERSOCK:$DOCKERSOCK \
-    -v /tmp:/tmp \
     -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
     -e DISPLAY=$IP:0 \
     -e CONTAINER_NAME="$CONTAINER_NAME" \

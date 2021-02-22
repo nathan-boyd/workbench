@@ -236,9 +236,8 @@ RUN go get golang.org/x/tools/cmd/guru@master \
   && go get github.com/golangci/golangci-lint/cmd/golangci-lint@master \
   && go get honnef.co/go/tools/cmd/keyify@master \
   && go get golang.org/x/tools/cmd/gorename@master \
-  && go get github.com/klauspost/asmfmt/cmd/asmfmt@master
-
-RUN nvim --headless +GoInstallBinaries +qall!
+  && go get github.com/klauspost/asmfmt/cmd/asmfmt@master \
+  && nvim --headless +GoInstallBinaries +qall!
 
 COPY --chown=${USER_ID}:${USER_ID} config/tmuxinator/template.tpl /opt/tmuxinator/template.tpl
 COPY --chown=${USER_ID}:${USER_ID} config/ultisnip $HOME/.vim/UltiSnip
@@ -248,7 +247,6 @@ COPY --chown=${USER_ID}:${USER_ID} config/ranger ${HOME}/.config/ranger
 COPY --chown=${USER_ID}:${USER_ID} config/python/.pylintrc ${HOME}/.pylintrc
 COPY --chown=${USER_ID}:${USER_ID} config/zsh/.zshrc ${HOME}/.zshrc
 COPY --chown=${USER_ID}:${USER_ID} config/jrnl/jrnl.yaml $HOME/.config/jrnl/jrnl.yaml
-COPY --chown=${USER_ID}:${USER_ID} config/jrnl/standup_template.txt /opt/.config/jrnl/standup_template.txt
 COPY --chown=${USER_ID}:${USER_ID} config/cheat/conf.yml ${HOME}/.config/cheat/conf.yml
 
 COPY --chown=${USER_ID}:${USER_ID} scripts/splashScreen.sh /opt/splashScreen.sh
