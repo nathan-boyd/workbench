@@ -193,10 +193,6 @@ docker run \
     nathan-boyd/workbench:latest \
     tmuxinator start --project-config="$CONTAINER_HOME/.tmuxinator"
 
-#    /opt/entrypoint.sh
-#    tmuxinator start --project-config=$CONTAINER_HOME/.tmuxinator
-#    /bin/zsh
-
 # mounting go volumes is slow
 #    -v $GO_BIN:$CONTAINER_HOME/go/bin \
 #    -v $GO_BUILD_CACHE:$CONTAINER_HOME/.cache/go-build \

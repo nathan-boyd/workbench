@@ -68,6 +68,9 @@ export PATH=$PATH:$HOME/.local/bin
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
 export FZF_DEFAULT_OPTS='--bind ctrl-j:down,ctrl-k:up'
 
+# tell the cheat cli to use fzf
+export CHEAT_USE_FZF=true
+
 #-------------------------------------------------------------------------------
 
 alias c="clear"

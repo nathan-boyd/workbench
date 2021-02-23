@@ -1,0 +1,2 @@
+# insert current date time into vim
+:r! date
