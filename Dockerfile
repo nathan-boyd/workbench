@@ -135,6 +135,12 @@ RUN export GO_VERSION=1.14.2 \
     && go get sigs.k8s.io/kind@v0.8.1 \
     && go get -u github.com/cheat/cheat/cmd/cheat
 
+RUN git clone https://github.com/nathan-boyd/project-name-generator \
+  && cd project-name-generator \
+  && go install \
+  && cd .. \
+  && rm -rf project-name-generator
+
 RUN git clone https://github.com/cheat/cheatsheets $HOME/.config/cheat/cheatsheets/community
 COPY --chown=${USER_ID}:${USER_ID} config/cheat/cheatsheets ${HOME}/.config/cheat/cheatsheets
 

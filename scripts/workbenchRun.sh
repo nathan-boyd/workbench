@@ -190,7 +190,7 @@ docker run \
     --net host \
     --privileged \
     --user $USER_ID:$GROUP_ID \
-    nathan-boyd/workbench:latest \
+    docker.io/nathan-boyd/workbench:latest \
     tmuxinator start --project-config="$CONTAINER_HOME/.tmuxinator"
 
 # mounting go volumes is slow
