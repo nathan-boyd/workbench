@@ -38,6 +38,7 @@ RUN apt-get update && \
       gnupg-agent \
       htop \
       httpie \
+      inotify-tools \
       jq \
       less \
       locales \
