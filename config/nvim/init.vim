@@ -619,7 +619,7 @@ nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 nnoremap <silent> <leader>gs :Gstatus<CR><C-W>t<C-W>H<C-W><Right>
 
 nnoremap <silent> <leader>gdf :Gdiff<CR>
-nnoremap <silent> <leader>gc :Gcommit<CR>
+nnoremap <silent> <leader>gc :Git commit<CR>
 nnoremap <silent> <leader>gb :Gblame<CR>
 nnoremap <silent> <leader>gl :Glog<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
