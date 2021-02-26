@@ -145,7 +145,10 @@ windows:
 EOF
 fi
 
+ADDITIONAL_VOLUMES=$(<$HOME/.workbench/.volumes)
+
 read -r -d '' MOUNTED_VOLUMES <<- EOM
+      $(eval echo ${ADDITIONAL_VOLUMES}) \
       -v $HOME/.gitconfig:$CONTAINER_HOME/.gitconfig \
       -v $HOME/.gnupg:$CONTAINER_HOME/.gnupg \
       -v $HOME/Desktop/:$CONTAINER_HOME/Desktop \
@@ -168,7 +171,6 @@ read -r -d '' MOUNTED_VOLUMES <<- EOM
       -v ${PROJECT_TMUXINATOR}/.tmuxinator:${CONTAINER_HOME}/.tmuxinator \
       -v $XSOCK:$XSOCK \
       -v $DOCKERSOCK:$DOCKERSOCK \
-      -v $HOME/git:$CONTAINER_HOME/git \
       -v /sys/fs/cgroup:/sys/fs/cgroup:ro
 EOM
 
