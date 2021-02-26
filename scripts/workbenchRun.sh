@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-set -e
-
 USER_ID=$(id -u ${USER})
 GROUP_ID=$(id -g ${USER})
 USER_NAME=$(whoami)
@@ -147,51 +145,64 @@ windows:
 EOF
 fi
 
-docker run \
-    --rm \
-    -it \
-    -v $HOME/.gitconfig:$CONTAINER_HOME/.gitconfig \
-    -v $HOME/.gnupg:$CONTAINER_HOME/.gnupg \
-    -v $HOME/Desktop/:$CONTAINER_HOME/Desktop \
-    -v $HOME/.docker/:$CONTAINER_HOME/.docker/ \
-    -v $HOME/.kube/config:$CONTAINER_HOME/.kube/config \
-    -v $HOME/.ssh:$CONTAINER_HOME/.ssh \
-    -v $HOME/.workbench:$CONTAINER_HOME/.workbench \
-    -v $HOME/.local/share/virtualenvs/:$CONTAINER_HOME/.local/share/virtualenvs/ \
-    -v $JRNL_DIR:$CONTAINER_HOME/.local/share/jrnl/ \
-    -v $LAZY_DOCKER:$CONTAINER_HOME/.config/jesseduffield/lazydocker \
-    -v $PROJECT_AUTOJUMP:$CONTAINER_HOME/.local/share/autojump/ \
-    -v $PROJECT_COC_SESSIONS:$CONTAINER_HOME/.vim/sessions \
-    -v $PROJECT_SESSION:$CONTAINER_HOME/.config/nvim/sessions/ \
-    -v $PWD:${CONTAINER_HOME}/${PROJECT_DIR} \
-    -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK \
-    -v ${PROJECT_TMUXINATOR}:$CONTAINER_HOME/.config/tmuxinator \
-    -v ${PROJECT_UNDO}:$CONTAINER_HOME/.config/.vim/undodir \
-    -v ${PROJECT_NERD_MARKS}:$CONTAINER_HOME/.local/share/nerdtree_bookmarks \
-    -v ${ZSH_HISTORY}:$CONTAINER_HOME/.zsh_history \
-    -v ${PROJECT_TMUXINATOR}/.tmuxinator:${CONTAINER_HOME}/.tmuxinator \
-    -v $XSOCK:$XSOCK \
-    -v $DOCKERSOCK:$DOCKERSOCK \
-    -v /sys/fs/cgroup:/sys/fs/cgroup:ro \
-    -e DISPLAY=$IP:0 \
-    -e CONTAINER_NAME="$CONTAINER_NAME" \
-    -e HOST_GROUP_ID=$(id -g $USER) \
-    -e HOST_PATH=$PWD \
-    -e HOST_USER_ID=$(id -u $USER) \
-    -e ITERM_PROFILE=$ITERM_PROFILE \
-    -e PROJECT_DIR=$PROJECT_DIR \
-    -e PROJECT_NAME=$PROJECT_NAME \
-    -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK \
-    -e USER=$USER \
-    -e TERM=xterm-256color \
-    -e CONTAINER_HOME=$CONTAINER_HOME \
-    -w $CONTAINER_HOME/$PROJECT_DIR \
-    --name $CONTAINER_NAME \
-    --net host \
-    --privileged \
-    --user $USER_ID:$GROUP_ID \
-    docker.io/nathan-boyd/workbench:latest \
-    tmuxinator start --project-config="$CONTAINER_HOME/.tmuxinator"
+read -r -d '' MOUNTED_VOLUMES <<- EOM
+      -v $HOME/.gitconfig:$CONTAINER_HOME/.gitconfig \
+      -v $HOME/.gnupg:$CONTAINER_HOME/.gnupg \
+      -v $HOME/Desktop/:$CONTAINER_HOME/Desktop \
+      -v $HOME/.docker/:$CONTAINER_HOME/.docker/ \
+      -v $HOME/.kube/config:$CONTAINER_HOME/.kube/config \
+      -v $HOME/.ssh:$CONTAINER_HOME/.ssh \
+      -v $HOME/.workbench:$CONTAINER_HOME/.workbench \
+      -v $HOME/.local/share/virtualenvs/:$CONTAINER_HOME/.local/share/virtualenvs/ \
+      -v $JRNL_DIR:$CONTAINER_HOME/.local/share/jrnl/ \
+      -v $LAZY_DOCKER:$CONTAINER_HOME/.config/jesseduffield/lazydocker \
+      -v $PROJECT_AUTOJUMP:$CONTAINER_HOME/.local/share/autojump/ \
+      -v $PROJECT_COC_SESSIONS:$CONTAINER_HOME/.vim/sessions \
+      -v $PROJECT_SESSION:$CONTAINER_HOME/.config/nvim/sessions/ \
+      -v $PWD:${CONTAINER_HOME}/${PROJECT_DIR} \
+      -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK \
+      -v ${PROJECT_TMUXINATOR}:$CONTAINER_HOME/.config/tmuxinator \
+      -v ${PROJECT_UNDO}:$CONTAINER_HOME/.config/.vim/undodir \
+      -v ${PROJECT_NERD_MARKS}:$CONTAINER_HOME/.local/share/nerdtree_bookmarks \
+      -v ${ZSH_HISTORY}:$CONTAINER_HOME/.zsh_history \
+      -v ${PROJECT_TMUXINATOR}/.tmuxinator:${CONTAINER_HOME}/.tmuxinator \
+      -v $XSOCK:$XSOCK \
+      -v $DOCKERSOCK:$DOCKERSOCK \
+      -v $HOME/git:$CONTAINER_HOME/git \
+      -v /sys/fs/cgroup:/sys/fs/cgroup:ro
+EOM
+
+read -r -d '' ENV_VARS <<- EOM
+      -e DISPLAY=$IP:0 \
+      -e CONTAINER_NAME="$CONTAINER_NAME" \
+      -e HOST_GROUP_ID=$(id -g $USER) \
+      -e HOST_PATH=$PWD \
+      -e HOST_USER_ID=$(id -u $USER) \
+      -e ITERM_PROFILE=$ITERM_PROFILE \
+      -e PROJECT_DIR=$PROJECT_DIR \
+      -e PROJECT_NAME=$PROJECT_NAME \
+      -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK \
+      -e USER=$USER \
+      -e TERM=xterm-256color \
+      -e CONTAINER_HOME=$CONTAINER_HOME
+EOM
+
+read -r -d '' RUN_COMMAND <<- EOM
+    docker run \
+      --rm \
+      -it \
+      ${MOUNTED_VOLUMES} \
+      ${ENV_VARS} \
+      -w $CONTAINER_HOME/$PROJECT_DIR \
+      --name $CONTAINER_NAME \
+      --net host \
+      --privileged \
+      --user $USER_ID:$GROUP_ID \
+      docker.io/nathan-boyd/workbench:latest \
+      tmuxinator start --project-config="$CONTAINER_HOME/.tmuxinator"
+EOM
+
+eval "$RUN_COMMAND"
 
 # mounting go volumes is slow
 #    -v $GO_BIN:$CONTAINER_HOME/go/bin \
