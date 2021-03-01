@@ -334,8 +334,8 @@ au FileType go nmap <leader>rf <Plug>(go-referrers)
 au FileType go nmap <leader>df <Plug>(go-def)
 
 " swap between tests and code
-au FileType go nmap <leader>ae <Plug>(go-alternate-edit)
-au Filetype go nmap <leader>aev <Plug>(go-alternate-vertical)
+au FileType go nmap <leader>ea <Plug>(go-alternate-edit)
+au Filetype go nmap <leader>eav <Plug>(go-alternate-vertical)
 
 " set height of location list window
 let g:go_list_height = 10
@@ -635,6 +635,9 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 
 " Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+vmap <silent> <leader>a <Plug>(coc-codeaction-selected)
+nmap <silent> <leader>a <Plug>(coc-codeaction-selected)
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Fugitive
