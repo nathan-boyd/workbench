@@ -86,6 +86,11 @@ RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add 
     && rm packages-microsoft-prod.deb \
   && curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
 
+RUN export VERSION="v4.6.1" \
+  && export BINARY="yq_linux_amd64" \
+  && wget https://github.com/mikefarah/yq/releases/download/${VERSION}/${BINARY}.tar.gz -O - | tar xz \
+  && mv ${BINARY} /usr/bin/yq
+
 RUN apt-get update \
   && ACCEPT_EULA=Y apt-get install -y --no-install-recommends \
     kubectl \
