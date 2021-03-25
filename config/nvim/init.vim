@@ -504,7 +504,7 @@ nnoremap <silent> <C-p> :TmuxNavigatePrevious<cr>
 " Configure Vim-Qf
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-let g:qf_loclist_window_bottom=0
+let g:qf_loclist_window_bottom=1
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Configure Tagbar
