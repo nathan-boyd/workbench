@@ -171,6 +171,7 @@ read -r -d '' MOUNTED_VOLUMES <<- EOM
       -v ${PROJECT_TMUXINATOR}/.tmuxinator:${CONTAINER_HOME}/.tmuxinator \
       -v $XSOCK:$XSOCK \
       -v $DOCKERSOCK:$DOCKERSOCK \
+      -v $HOME/.ssh:${CONTAINER_HOME}/.ssh \
       -v /sys/fs/cgroup:/sys/fs/cgroup:ro
 EOM
 
