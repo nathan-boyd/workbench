@@ -105,6 +105,8 @@ function editMuxConfig(){
     vi "$HOME/.config/tmuxinator/$PROJECT_DIR.yml"
 }
 
+function watch() { while inotifywait --exclude .swp -e modify -r .; do $@; done; }
+
 #-------------------------------------------------------------------------------
 
 export PATH="$PATH:/opt/mssql-tools/bin"

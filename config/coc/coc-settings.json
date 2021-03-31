@@ -2,27 +2,14 @@
   "languageserver": {
     "bash": {
       "command": "bash-language-server",
-      "args": [
-        "start"
-      ],
-      "filetypes": [
-        "sh"
-      ],
-      "ignoredRootPaths": [
-        "~"
-      ]
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
     },
     "golang": {
       "command": "gopls",
-      "rootPatterns": [
-        "go.mod",
-        ".vim/",
-        ".git/",
-        ".hg/"
-      ],
-      "filetypes": [
-        "go"
-      ]
+      "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
+      "filetypes": ["go"]
     }
   },
   "diagnostic.enableMessage": "always",
@@ -35,17 +22,43 @@
   "suggest.languageSourcePriority": 100,
   "suggest.removeDuplicateItems": true,
   "snippets.userSnippetsDirectory": "$HOME/.vim/UltiSnip",
-  "coc.preferences.formatOnSaveFiletypes": [
-    "json",
-    "markdown",
-    "go"
-  ],
+  "coc.preferences.formatOnSaveFiletypes": ["json", "markdown", "go"],
   "python.linting.pylintEnabled": true,
   "python.linting.pylintPath": "/usr/bin/pylint",
   "python.linting.enabled": true,
   "python.pythonPath": "/usr/bin/python3",
   "python.venvPath": "$HOME/.local/share/virtualenvs/",
-  "python.analysis.extraPaths": [
-    "lib/python"
+  "cSpell.language": "en",
+  "cSpell.maxNumberOfProblems": 10,
+  "cSpell.numSuggestions": 5,
+  "cSpell.minWordLength": 4,
+  "cSpell.enabled": true,
+  "cSpell.showStatus": true,
+  "cSpell.words": [],
+  "cSpell.allowCompoundWords": true,
+  "cSpell.spellCheckDelayMs": 50,
+  "cSpell.ignoreWords": [],
+  "cSpell.userWords": [],
+  "cSpell.ignorePaths": [
+    "node_modules", // this will ignore anything the node_modules directory
+    "**/node_modules", // the same for this one
+    "**/node_modules/**", // the same for this one
+    "node_modules/**", // Doesn't currently work due to how the current working directory is determined.
+    ".git", // Ignore the .git directory
+    "*.dll", // Ignore all .dll files.
+    "**/*.dll", // Ignore all .dll files
+    "**/vendor/**" // ignore vendor directory
+  ],
+  "cSpell.enabledLanguageIds": [
+    "csharp",
+    "go",
+    "javascript",
+    "javascriptreact",
+    "markdown",
+    "php",
+    "plaintext",
+    "typescript",
+    "typescriptreact",
+    "yml"
   ]
 }
