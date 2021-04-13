@@ -1,0 +1,143 @@
+[options]
+  #vimcompatible = true
+  bootstrap_after = 'custom#after'
+  bootstrap_before = 'custom#before'
+  buffer_index_type = 4
+  colorscheme = "gruvbox-material"
+  colorscheme_bg = "dark"
+  default_indent = 2
+  enable_guicolors = true
+  enable_statusline_mode = true
+  enable_tabline_filetype_icon = true
+  filemanager = "nerdtree"
+  filetree_direction = "right"
+  go_metalinter_autosave = true
+  go_metalinter_command='golangci-lint'
+  go_metalinter_enabeld = ['deadcode', 'errcheck', 'gosimple', 'govet', 'staticcheck', 'typecheck', 'unused', 'varcheck']
+  go_rename_command = 'gopls'
+  guifont = 'DejaVu Sans Mono for Powerline 13'
+  shiftwidth=2
+  snippet_engine = "ultisnips"
+  statusline_iseparator = "arrow"
+  statusline_separator = "arrow"
+  updatetime=50
+  statusline_left_sections = [
+     'winnr',
+     'major mode',
+     'filename',
+     'fileformat',
+     'version control info',
+     'syntax checking'
+  ]
+  statusline_right_sections = [
+     'cursorpos',
+     'input method',
+  ]
+  custom_color_palette = [
+      ["#282828", "#a89984", 246, 235],
+      ["#a89984", "#504945", 239, 246],
+      ["#a89984", "#3c3836", 237, 246],
+      ["#665c54", 241],
+      ["#282828", "#83a598", 235, 109],
+      ["#282828", "#fe8019", 235, 208],
+      ["#282828", "#8ec07c", 235, 108],
+      ["#282828", "#689d6a", 235, 72],
+      ["#282828", "#8f3f71", 235, 132],
+  ]
+  # the theme colors should be
+  # [
+  #    \ [ a_guifg,  a_guibg,  a_ctermfg,  a_ctermbg],
+  #    \ [ b_guifg,  b_guibg,  b_ctermfg,  b_ctermbg],
+  #    \ [ c_guifg,  c_guibg,  c_ctermfg,  c_ctermbg],
+  #    \ [ z_guibg,  z_ctermbg],
+  #    \ [ i_guifg,  i_guibg,  i_ctermfg,  i_ctermbg],
+  #    \ [ v_guifg,  v_guibg,  v_ctermfg,  v_ctermbg],
+  #    \ [ r_guifg,  r_guibg,  r_ctermfg,  r_ctermbg],
+  #    \ [ ii_guifg, ii_guibg, ii_ctermfg, ii_ctermbg],
+  #    \ [ in_guifg, in_guibg, in_ctermfg, in_ctermbg],
+  # \ ]
+  # group_a: window id
+  # group_b/group_c: stausline sections
+  # group_z: empty area
+  # group_i: window id in insert mode
+  # group_v: window id in visual mode
+  # group_r: window id in select mode
+  # group_ii: window id in iedit-insert mode
+  # group_in: windows id in iedit-nrmal modeo
+
+[[layers]]
+  name = "foldsearch"
+
+[[layers]]
+  name = 'core'
+  filetree_show_hidden = true
+
+[[layers]]
+  name = 'shell'
+  default_position = 'bottom'
+  default_height = 30
+
+[[layers]]
+  name = 'core'
+  filetree_show_hidden = true
+
+[[layers]]
+  name = 'autocomplete'
+  auto_completion_return_key_behavior = "smart"
+  auto_completion_tab_key_behavior = "smart"
+
+[[layers]]
+  name = 'shell'
+  default_position = 'top'
+  default_height = 30
+
+[[layers]]
+  name = "lang#html"
+
+[[layers]]
+  name = "lang#go"
+
+[[layers]]
+  name = "format"
+
+[[layers]]
+  name = "lang#toml"
+
+[[layers]]
+  name = "fzf"
+
+[[layers]]
+  name = 'git'
+
+[[layers]]
+  name = 'VersionControl'
+
+[[layers]]
+  name = "tmux"
+  tmux_navigator_modifier = "ctrl"
+
+[[layers]]
+  name = "debug"
+
+[[layers]]
+  name = 'lang#markdown'
+
+[[layers]]
+  name = 'lang#dockerfile'
+
+[[layers]]
+  name = "lang#sh"
+
+[[layers]]
+  name = "lang#typescript"
+
+[[layers]]
+  name = "lang#javascript"
+
+[[custom_plugins]]
+  repo = "sainnhe/gruvbox-material"
+  merged = false
+
+[[custom_plugins]]
+  repo = "christoomey/vim-tmux-navigator"
+  merged = false

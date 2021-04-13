@@ -1,4 +1,4 @@
-export TERM="xterm-256color"
+#export TERM="xterm-256color"
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
