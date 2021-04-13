@@ -21,6 +21,7 @@
   statusline_iseparator = "arrow"
   statusline_separator = "arrow"
   updatetime=50
+  autocomplete_method = "deoplete"
   statusline_left_sections = [
      'winnr',
      'major mode',

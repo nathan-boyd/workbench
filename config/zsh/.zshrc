@@ -33,7 +33,6 @@ fi
 # autoload -U +X bashcompinit && bashcompinit
 
 source <(kubectl completion zsh)
-source /etc/bash_completion.d/azure-cli
 autoload -U compinit && compinit
 _comp_options+=(globdots)
 

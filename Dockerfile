@@ -150,9 +150,8 @@ RUN export DOCKERVERSION=18.03.1-ce \
   && sudo tar xzvf docker-${DOCKERVERSION}.tgz --strip 1 -C /usr/local/bin docker/docker \
   && rm docker-${DOCKERVERSION}.tgz
 
-
-RUN sudo git clone --depth 1 https://github.com/junegunn/fzf.git /usr/local/.fzf \
-  && sudo /usr/local/.fzf/install
+RUN git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.local/.fzf \
+  && $HOME/.local/.fzf/install
 
 RUN sudo gem instal tmuxinator
 
@@ -218,9 +217,7 @@ RUN curl https://github.com/derailed/k9s/releases/download/v0.20.5/k9s_Linux_x86
   && pip3 install glances \
   && pip3 install jedi \
   && pip3 install jrnl \
-  && pip3 install neovim \
   && pip3 install pipenv \
-  && pip3 install pynvim \
   && pip3 install ranger-fm \
   && pip3 install rope \
   && pip3 install yapf
@@ -276,8 +273,6 @@ COPY scripts/checkcolors.sh /opt/checkcolors.sh
 #  apt-get install -y --no-install-recommends \
 #  neovim
 
-#COPY config/spacevim/rplugin.vim ${HOME}/.local/share/nvim/rplugin.vim
-#COPY config/spacevim/plugins/coc.vim ${HOME}/.SpaceVim.d/plugin/coc.vim
 
 
 # RUN sudo chown -R ${USER_ID:$GROUP_ID} $HOME/.npm
@@ -295,14 +290,21 @@ RUN yarn global add vscode-html-languageserver-bin \
 
 RUN tldr -u
 
-RUN pip2 install pynvim
 
-RUN sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
+# Install nvim build dependencies
+RUN sudo apt-get install \
+      ninja-build \
+      gettext \
+      libtool \
+      libtool-bin \
+      autoconf \
+      automake \
+      cmake \
+      g++ \
+      pkg-config unzip
 
-# RUn sudo make CMAKE_BUILD_TYPE=RelWithDebInfo \
-#           CMAKE_EXTRA_FLAGS="-DCMAKE_INSTALL_PREFIX=/usr/local" \
-#   && sudo make install \
-#   && sudo rm -r /tmp/usr/src
+RUN python2 -m pip install --upgrade pynvim
+RUN python3 -m pip install --upgrade pynvim
 
 RUN mkdir -p /tmp/usr/src \
   && cd /tmp/usr/src \
@@ -327,12 +329,10 @@ RUN sudo chown \
 
 RUN curl -sLf https://spacevim.org/install.sh | bash
 
-RUN nvim --headless +qa
 RUN nvim --headless '+call dein#install() | qa'
 
-RUN nvim --headless +qa
-RUN nvim --headless +UpdateRemotePlugins +qa
-#RUN nvim --headless +SPUpdate +qa
+RUN nvim --headless '+call remote#host#UpdateRemotePlugins() | qa' 
+# TODO: troubleshoop python3 remote plugins not automatically uipdating
+COPY  --chown=${USER_ID} config/spacevim/rplugin.vim ${HOME}/.local/share/nvim/rplugin.vim
 
-#RUN nvim --headless +GoInstallBinaries +qa
-
+RUN nvim --headless +GoInstallBinaries +qa

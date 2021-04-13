@@ -1,12 +1,20 @@
 " called before SpaceVim core,
 function! custom#before() abort
-  runtime! plugin/rplugin.vim
-  silent! UpdateRemotePlugins
 endfunction
 
 " called on autocmd VimEnter
 function! custom#after() abort
 
+  let g:python3_host_prog = '/usr/bin/python3'
+  let g:python_host_prog = '/usr/bin/python2'
+""  let g:deoplete#enable_at_startup = 1
+""
+""  runtime! plugin/rplugin.vim
+""  silent! UpdateRemotePlugins
+""
+""  if exists(':UpdateRemotePlugins') && !filereadable('.-rplugin~')
+""    silent UpdateRemotePlugins
+""  endif
 
   set nowrap
   set updatetime=50
