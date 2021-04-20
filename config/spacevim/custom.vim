@@ -16,6 +16,9 @@ function! custom#after() abort
 ""    silent UpdateRemotePlugins
 ""  endif
 
+  " required to support deoplete gopls completion
+  "call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
+
   set nowrap
   set updatetime=50
   set completeopt+=noselect

@@ -174,6 +174,10 @@ RUN curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py \
 RUN export GO_VERSION=1.14.2 \
   && sudo curl "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" -o - | sudo tar -xz -C /usr/local
 
+
+RUN export GO111MODULE=on \
+  && go get -u github.com/stamblerre/gocode
+
 #RUN export GO111MODULE=on \
 #    && sudo go get golang.org/x/tools/gopls@latest \
 #    && sudo go get github.com/cweill/gotests/... \
@@ -319,6 +323,7 @@ ENV PATH="$HOME/neovim/bin:${PATH}"
 
 COPY --chown=${USER_ID} config/spacevim/init.toml ${HOME}/.SpaceVim.d/init.toml
 COPY --chown=${USER_ID} config/spacevim/custom.vim ${HOME}/.SpaceVim.d/autoload/custom.vim
+COPY --chown=${USER_ID}:${USER_ID} config/ultisnip ${HOME}/.SpaceVim.d/UltiSnips/
 
 RUN sudo chown \
   -c \
