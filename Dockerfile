@@ -171,7 +171,7 @@ RUN curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py \
   && pip2 --version
 
 
-RUN export GO_VERSION=1.14.2 \
+RUN export GO_VERSION=1.16.3 \
   && sudo curl "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" -o - | sudo tar -xz -C /usr/local
 
 
