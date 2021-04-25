@@ -141,7 +141,6 @@ RUN export VERSION="v4.6.1" \
 RUN mkdir -p $HOME/.local/share/navi/cheats \
   && git clone https://github.com/denisidoro/cheats $HOME/.local/share/navi/cheats
 
-
 ENV PATH="$PATH:/usr/bin/node:/usr/local/go/bin"
 ENV DOTNET_CLI_TELEMETRY_OPTOUT=true
 
@@ -170,42 +169,11 @@ RUN curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py \
   && rm get-pip.py \
   && pip2 --version
 
-
 RUN export GO_VERSION=1.16.3 \
   && sudo curl "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" -o - | sudo tar -xz -C /usr/local
 
-
 RUN export GO111MODULE=on \
   && go get -u github.com/stamblerre/gocode
-
-#RUN export GO111MODULE=on \
-#    && sudo go get golang.org/x/tools/gopls@latest \
-#    && sudo go get github.com/cweill/gotests/... \
-#    && sudo go get github.com/fatih/gomodifytags \
-#    && sudo go get golang.org/x/tools/cmd/goimports \
-#    && sudo go get github.com/onsi/ginkgo/ginkgo \
-#    && sudo go get github.com/onsi/gomega/... \
-#    && sudo go get github.com/jesseduffield/lazydocker \
-#    && sudo go get sigs.k8s.io/kind@v0.8.1 \
-#    && sudo go get -u github.com/cheat/cheat/cmd/cheat \
-#    && sudo go get -u github.com/stamblerre/gocode \
-#    && sudo go get -u github.com/sourcegraph/go-langserver
-
-# install vim-go dependencies
-# RUN go get golang.org/x/tools/cmd/guru@master \
-#   && go get github.com/davidrjenni/reftools/cmd/fillstruct@master \
-#   && go get github.com/rogpeppe/godef@master \
-#   && go get github.com/fatih/motion@master \
-#   && go get github.com/kisielk/errcheck@master \
-#   && go get github.com/go-delve/delve/cmd/dlv@master \
-#   && go get github.com/koron/iferr@master \
-#   && go get golang.org/x/lint/golint@master \
-#   && go get github.com/jstemmer/gotags@master \
-#   && go get github.com/josharian/impl@master \
-#   && go get github.com/golangci/golangci-lint/cmd/golangci-lint@master \
-#   && go get honnef.co/go/tools/cmd/keyify@master \
-#   && go get golang.org/x/tools/cmd/gorename@master \
-#   && go get github.com/klauspost/asmfmt/cmd/asmfmt@master
 
 RUN git clone https://github.com/nathan-boyd/project-name-generator \
   && cd project-name-generator \
@@ -277,8 +245,6 @@ COPY scripts/checkcolors.sh /opt/checkcolors.sh
 #  apt-get install -y --no-install-recommends \
 #  neovim
 
-
-
 # RUN sudo chown -R ${USER_ID:$GROUP_ID} $HOME/.npm
 # RUN sudo chown -R ${USER_ID:$GROUP_ID} $HOME/.config
 
@@ -293,7 +259,6 @@ RUN yarn global add vscode-html-languageserver-bin \
   && yarn global add tldr  
 
 RUN tldr -u
-
 
 # Install nvim build dependencies
 RUN sudo apt-get install \

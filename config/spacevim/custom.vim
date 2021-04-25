@@ -5,6 +5,9 @@ endfunction
 " called on autocmd VimEnter
 function! custom#after() abort
 
+  set ignorecase
+  set smartcase
+
   let g:python3_host_prog = '/usr/bin/python3'
   let g:python_host_prog = '/usr/bin/python2'
 ""  let g:deoplete#enable_at_startup = 1
