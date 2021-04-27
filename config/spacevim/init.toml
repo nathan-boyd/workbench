@@ -10,6 +10,7 @@
   enable_statusline_mode = true
   enable_tabline_filetype_icon = true
   filemanager = "nerdtree"
+  enable_vimfiler_welcome = 0
   filetree_direction = "right"
   go_metalinter_autosave = true
   go_metalinter_command='golangci-lint'

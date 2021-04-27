@@ -41,6 +41,22 @@ if [[ ! -d $PROJECT_UNDO ]]; then
     mkdir -p ${PROJECT_UNDO}
 fi
 
+PROJECT_NEOVIM=${HOME}/.workbench/${PROJECT_NAME}/.local/share/shada
+if [[ ! -d $PROJECT_NEOVIM ]]; then
+    mkdir -p ${PROJECT_NEOVIM}
+    touch $PROJECT_NEOVIM/main.shada
+fi
+
+PROJECT_NEOMRU=${HOME}/.workbench/${PROJECT_NAME}/.cache/neomru
+if [[ ! -d $PROJECT_NEOMRU ]]; then
+    mkdir -p ${PROJECT_NEOMRU}
+fi
+
+PROJECT_SPACEVIM_PROJECTS=${HOME}/.workbench/${PROJECT_NAME}/.cache/SpaceVim/projects.json
+if [[ ! -d $PROJECT_SPACEVIM_PROJECTS ]]; then
+    mkdir -p ${PROJECT_SPACEVIM_PROJECTS}
+fi
+
 # stores vim sessions
 PROJECT_COC_SESSIONS=${HOME}/.workbench/${PROJECT_NAME}/.vim/sessions
 if [[ ! -d $PROJECT_COC_SESSIONS ]]; then
@@ -145,7 +161,10 @@ windows:
 EOF
 fi
 
-ADDITIONAL_VOLUMES=$(<$HOME/.workbench/.volumes)
+ADDITIONAL_VOLUMES_FILE=$HOME/.workbench/.volumes
+if test -f "$FILE"; then
+    ADDITIONAL_VOLUMES=$(<$ADDITIONAL_VOLUMES_FILE)
+fi
 
 read -r -d '' MOUNTED_VOLUMES <<- EOM
       $(eval echo ${ADDITIONAL_VOLUMES}) \
@@ -159,7 +178,9 @@ read -r -d '' MOUNTED_VOLUMES <<- EOM
       -v $HOME/.local/share/virtualenvs/:$CONTAINER_HOME/.local/share/virtualenvs/ \
       -v $JRNL_DIR:$CONTAINER_HOME/.local/share/jrnl/ \
       -v $LAZY_DOCKER:$CONTAINER_HOME/.config/jesseduffield/lazydocker \
+      -v $PROJECT_NEOMRU:$CONTAINER_HOME/.cache/neomru \
       -v $PROJECT_AUTOJUMP:$CONTAINER_HOME/.local/share/autojump/ \
+      -v $PROJECT_NEOVIM:$CONTAINER_HOME/.local/share/nvim/shada/ \
       -v $PROJECT_COC_SESSIONS:$CONTAINER_HOME/.vim/sessions \
       -v $PROJECT_SESSION:$CONTAINER_HOME/.config/nvim/sessions/ \
       -v $PWD:${CONTAINER_HOME}/${PROJECT_DIR} \

@@ -181,7 +181,8 @@ RUN git clone https://github.com/nathan-boyd/project-name-generator \
   && cd .. \
   && rm -rf project-name-generator
 
-RUN git clone https://github.com/cheat/cheatsheets $HOME/.config/cheat/cheatsheets/community
+RUN go get -u github.com/cheat/cheat/cmd/cheat \
+  && git clone https://github.com/cheat/cheatsheets $HOME/.config/cheat/cheatsheets/community
 COPY --chown=${USER_ID}:${USER_ID} config/cheat/cheatsheets ${HOME}/.config/cheat/cheatsheets
 
 RUN curl https://github.com/derailed/k9s/releases/download/v0.20.5/k9s_Linux_x86_64.tar.gz  -o- -L | sudo tar -xz -C /usr/local/bin/ \
@@ -306,3 +307,7 @@ RUN nvim --headless '+call remote#host#UpdateRemotePlugins() | qa'
 COPY  --chown=${USER_ID} config/spacevim/rplugin.vim ${HOME}/.local/share/nvim/rplugin.vim
 
 RUN nvim --headless +GoInstallBinaries +qa
+
+# RUN find $HOME -type d -print0 | xargs -0 chmod 755  
+# RUN find $HOME -type f -print0 | xargs -0 chmod 644
+
