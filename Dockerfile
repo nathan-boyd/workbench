@@ -70,7 +70,6 @@ RUN apt-get update && \
     sudo \
     tmux \
     tree \
-    unixodbc-dev \
     unzip \
     w3m \
     wget \
@@ -102,16 +101,7 @@ RUN chown \
 RUN curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - \
   && touch /etc/apt/sources.list.d/kubernetes.list \
   && echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" | tee -a /etc/apt/sources.list.d/kubernetes.list \
-  && curl -sL https://deb.nodesource.com/setup_14.x | bash \
-  && wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb \
-    && dpkg -i packages-microsoft-prod.deb \
-  && curl https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > microsoft.gpg \
-    && sudo mv microsoft.gpg /etc/apt/trusted.gpg.d/microsoft.gpg \
-    && sudo sh -c 'echo "deb [arch=amd64] \
-      https://packages.microsoft.com/repos/microsoft-ubuntu-$(lsb_release -cs)-prod \
-      $(lsb_release -cs) main" > /etc/apt/sources.list.d/dotnetdev.list' \
-    && rm packages-microsoft-prod.deb \
-  && curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list > /etc/apt/sources.list.d/mssql-release.list
+  && curl -sL https://deb.nodesource.com/setup_14.x | bash 
 
 USER ${USER_NAME}
 
@@ -119,9 +109,8 @@ RUN sudo apt-get update \
   && sudo ACCEPT_EULA=Y apt-get install -y --no-install-recommends \
     kubectl \
     nodejs \
-    dotnet-sdk-3.1 \
-    unixodbc-dev \
     cargo \
+    fortune-mod \
   && sudo apt-get clean
 
 RUN sudo cargo install \

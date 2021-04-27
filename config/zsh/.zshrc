@@ -13,7 +13,7 @@ export ZSH="${HOME}/.oh-my-zsh"
 
 plugins=(
     docker
-#    git
+    git
     history-substring-search
     kubectl
     zsh-autosuggestions
@@ -49,6 +49,7 @@ export EDITOR='nvim'
 export VISUAL=$EDITOR
 export PAGER=less
 export RANGER_LOAD_DEFAULT_RC=FALSE
+export PATH=$PATH:/usr/games/
 
 # go path adds
 export GO111MODULE=on
@@ -105,10 +106,6 @@ function editMuxConfig(){
 }
 
 function watch() { while inotifywait --exclude .swp -e modify -r .; do $@; done; }
-
-#-------------------------------------------------------------------------------
-
-export PATH="$PATH:/opt/mssql-tools/bin"
 
 #-------------------------------------------------------------------------------
 # Sourcing p10k should be the last paart of the zsh
