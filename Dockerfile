@@ -113,15 +113,6 @@ RUN sudo apt-get update \
     fortune-mod \
   && sudo apt-get clean
 
-RUN sudo cargo install \
-  tokei \
-  procs \
-  navi
-
-RUN sudo ln -s $HOME/.cargo/bin/tokei /usr/local/bin/tokei \
-  && sudo ln -s $HOME/.cargo/bin/procs /usr/local/bin/procs \
-  && sudo ln -s $HOME/.cargo/bin/navi /usr/local/bin/navi
-
 RUN export VERSION="v4.6.1" \
   && export BINARY="yq_linux_amd64" \
   && wget https://github.com/mikefarah/yq/releases/download/${VERSION}/${BINARY}.tar.gz -O - | sudo tar xz \
@@ -296,6 +287,15 @@ RUN nvim --headless '+call remote#host#UpdateRemotePlugins() | qa'
 COPY  --chown=${USER_ID} config/spacevim/rplugin.vim ${HOME}/.local/share/nvim/rplugin.vim
 
 RUN nvim --headless +GoInstallBinaries +qa
+
+RUN cargo install \
+  tokei \
+  procs \
+  navi
+
+RUN sudo ln -s $HOME/.cargo/bin/tokei /usr/local/bin/tokei \
+  && sudo ln -s $HOME/.cargo/bin/procs /usr/local/bin/procs \
+  && sudo ln -s $HOME/.cargo/bin/navi /usr/local/bin/navi
 
 # RUN find $HOME -type d -print0 | xargs -0 chmod 755  
 # RUN find $HOME -type f -print0 | xargs -0 chmod 644
