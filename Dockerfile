@@ -221,6 +221,9 @@ COPY scripts/splashScreen.sh /opt/splashScreen.sh
 COPY scripts/getscrumupdates.sh /opt/getscrumupdates.sh
 COPY scripts/checkcolors.sh /opt/checkcolors.sh
 
+COPY config/fortune/quotes /opt/fortune/quotes
+COPY config/fortune/quotes.dat /opt/fortune/quotes.dat
+
 #RUN apt-get update && \
 #  DEBIAN_FRONTEND=noninteractive \
 #  apt-get install -y --no-install-recommends \
