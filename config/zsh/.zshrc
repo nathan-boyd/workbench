@@ -13,7 +13,7 @@ export ZSH="${HOME}/.oh-my-zsh"
 
 plugins=(
     docker
-    git
+    gitfast
     history-substring-search
     kubectl
     zsh-autosuggestions
