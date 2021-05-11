@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 USER_ID=$(id -u ${USER})
-GROUP_ID=$(id -g ${USER})
+GROUP_ID=1001
 USER_NAME=$(whoami)
 
 PROJECT_DIR=${PWD##*/}
@@ -10,8 +10,6 @@ PROJECT_NAME=${PROJECT_PATH//\//_}
 
 CONTAINER_NAME="workbench_${PROJECT_NAME}"
 CONTAINER_HOME="/home/$USER_NAME"
-
-# export PROJECT_NAME=${PROJECT_NAME:-"scratch"}
 
 if [ ! -n $(docker ps -a --format '{{ .Names }}' | grep -oE ${CONTAINER_NAME}) ]; then
     echo "workbench already exists!" >&2;
@@ -228,8 +226,3 @@ EOM
 
 eval "$RUN_COMMAND"
 
-# mounting go volumes is slow
-#    -v $GO_BIN:$CONTAINER_HOME/go/bin \
-#    -v $GO_BUILD_CACHE:$CONTAINER_HOME/.cache/go-build \
-#    -v $GO_PKG:$CONTAINER_HOME/go/pkg \
-#    -v $PROJECT_GO_BUILD_CACHE:$CONTAINER_HOME/.cache/go-build \

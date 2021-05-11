@@ -83,7 +83,7 @@ RUN sed -i -e 's/# en_US.UTF-8 UTF-8/en_US.UTF-8 UTF-8/' /etc/locale.gen && \
   dpkg-reconfigure --frontend=noninteractive locales && \
   update-locale LANG=en_US.UTF-8
 
-RUN groupadd docker
+RUN groupadd -g ${GROUP_ID} docker
 
 RUN useradd -u ${USER_ID} ${USER_NAME} --shell /bin/zsh  --create-home --home-dir $HOME \
   && echo "$USER_NAME ALL=(ALL) NOPASSWD:ALL" | tee /etc/sudoers.d/${USER_NAME}
