@@ -74,13 +74,17 @@ export CHEAT_USE_FZF=true
 #-------------------------------------------------------------------------------
 
 alias c="clear"
+alias ch="cheat"
 alias diff="icdiff"
 alias ee="tmux kill-server"
 alias fp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 alias gdt="git difftool -y"
 alias gs="git status"
 alias jp="jq -C | less"
+alias jr="jrnl"
 alias k="kubectl"
+alias ld="lazydocker"
+alias ll="ls -lah"
 alias mtr="mtr -t"
 alias mux="tmuxinator"
 alias muxe="editMuxConfig"
@@ -88,11 +92,6 @@ alias pip="pip3"
 alias rn="ranger"
 alias vi="nvim"
 alias vim="vi"
-alias ll="ls -lah"
-alias docker="sudo docker"
-alias ld="sudo /home/nboyd/go/bin/lazydocker"
-alias ch="cheat"
-alias jr="jrnl"
 
 complete -F __start_kubectl k
 
@@ -112,5 +111,5 @@ function watch() { while inotifywait --exclude .swp -e modify -r .; do $@; done;
 #-------------------------------------------------------------------------------
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-source /usr/local/powerlevel10k/powerlevel10k.zsh-theme
+source $ZSH_CUSTOM/themes/powerlevel10k/powerlevel10k.zsh-theme
 source "$HOME/.p10k.zsh"
