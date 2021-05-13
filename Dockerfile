@@ -57,6 +57,7 @@ USER ${USER_NAME}
 
 WORKDIR ${HOME}
 
+
 ###############################################################################
 # Install layer 1 dependencies
 ###############################################################################
@@ -78,6 +79,7 @@ RUN sudo apt-get update \
     dnsutils \
     file \
     fortune-mod \
+    fd-find \
     g++ \
     gcc \
     gettext \
@@ -92,6 +94,7 @@ RUN sudo apt-get update \
     libtool-bin \
     lua5.3 \
     mtr \
+    nmap \
     ncdu \
     neofetch \
     ninja-build \
@@ -116,6 +119,10 @@ RUN sudo apt-get update \
 
 COPY --chown=${USER_ID}:${GROUP_ID} config/neofetch/config.conf ${HOME}/.config/neofetch/config.conf
 
+# symlink fdfind to fd
+RUN mkdir -p ${HOME}/.local/bin/
+RUN sudo ln -s $(which fdfind) ${HOME}/.local/bin/fd
+
 ###############################################################################
 # Install pip2
 ###############################################################################
@@ -124,6 +131,9 @@ RUN curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py \
   && sudo python2 get-pip.py \
   && rm get-pip.py \
   && pip2 --version
+
+RUN python3 -m pip install --upgrade howdoi 
+RUN python3 -m pip install --upgrade thefuck
 
 ###############################################################################
 # Build and install NVIM 
@@ -196,13 +206,37 @@ RUN sudo apt-get update \
   && sudo ACCEPT_EULA=Y apt-get install -y --no-install-recommends cargo
 
 RUN cargo install \
+  exa \
   tokei \
   procs \
   navi
 
 RUN sudo ln -s $HOME/.cargo/bin/tokei /usr/local/bin/tokei \
   && sudo ln -s $HOME/.cargo/bin/procs /usr/local/bin/procs \
-  && sudo ln -s $HOME/.cargo/bin/navi /usr/local/bin/navi
+  && sudo ln -s $HOME/.cargo/bin/navi /usr/local/bin/navi \
+  && sudo ln -s $HOME/.cargo/bin/exa /usr/local/bin/exa
+
+###############################################################################
+# Install fzf
+###############################################################################
+
+RUN git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.local/.fzf \
+  && $HOME/.local/.fzf/install
+
+###############################################################################
+# Configure Navi repos 
+###############################################################################
+
+#RUN mkdir -p $HOME/.local/share/navi/cheats
+RUN git clone https://github.com/Kidman1670/cheats $HOME/.local/share/navi/cheats/Kidman1670/cheats
+RUN git clone https://github.com/caojianhua/MyCheat $HOME/.local/share/navi/cheats/caojianhua/MyCheat
+RUN git clone https://github.com/chazeon/my-navi-cheats $HOME/.local/share/navi/cheats/chazeon/my-navi-cheats
+RUN git clone https://github.com/denisidoro/cheats $HOME/.local/share/navi/cheats/denisidoro/cheats 
+RUN git clone https://github.com/denisidoro/dotfiles $HOME/.local/share/navi/cheats/denisidoro/dotfiles 
+RUN git clone https://github.com/denisidoro/navi-tldr-pages $HOME/.local/share/navi/cheats/denisidoro/navi-tldr-pages 
+RUN git clone https://github.com/isene/cheats $HOME/.local/share/navi/cheats/isene/cheats 
+RUN git clone https://github.com/m42martin/navi-cheats $HOME/.local/share/navi/cheats/m42martin/navi-cheats 
+RUN git clone https://github.com/mrVanDalo/navi-cheats $HOME/.local/share/navi/cheats/mrVanDalo/navi-cheats 
 
 ###############################################################################
 # Install yq
@@ -212,17 +246,6 @@ RUN export VERSION="v4.6.1" \
   && export BINARY="yq_linux_amd64" \
   && wget https://github.com/mikefarah/yq/releases/download/${VERSION}/${BINARY}.tar.gz -O - | sudo tar xz \
   && sudo mv ${BINARY} /usr/bin/yq
-
-###############################################################################
-# Install cheats
-###############################################################################
-
-RUN mkdir -p $HOME/.local/share/navi/cheats \
-  && git clone https://github.com/denisidoro/cheats $HOME/.local/share/navi/cheats
-
-COPY --chown=${USER_ID}:${GROUP_ID} config/cheat/conf.yml ${HOME}/.config/cheat/conf.yml
-
-
 
 ###############################################################################
 # Install docker cli tool
@@ -240,13 +263,6 @@ RUN export DOCKERVERSION=18.03.1-ce \
 RUN curl "https://raw.githubusercontent.com/jesseduffield/lazydocker/master/scripts/install_update_linux.sh" | bash
 
 ###############################################################################
-# Install fzf
-###############################################################################
-
-RUN git clone --depth 1 https://github.com/junegunn/fzf.git $HOME/.local/.fzf \
-  && $HOME/.local/.fzf/install
-
-###############################################################################
 # Install tmuxinator
 ###############################################################################
 
@@ -254,9 +270,6 @@ RUN sudo gem instal tmuxinator
 
 RUN sudo curl https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh \
   -o /usr/local/share/zsh/site-functions/_tmuxinator
-
-COPY --chown=${USER_ID}:${GROUP_ID} config/tmuxinator/template.tpl /opt/tmuxinator/template.tpl
-
 
 ###############################################################################
 # Install GoLang
@@ -273,6 +286,8 @@ RUN export GO_VERSION=1.16.3 \
   && sudo curl "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" -o - | sudo tar -xz -C /usr/local
 
 RUN go get -u github.com/stamblerre/gocode
+RUN go install github.com/goreleaser/goreleaser@latest
+RUN go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.39.0
 
 ###############################################################################
 # Install project name generator
@@ -358,6 +373,7 @@ RUN go get -u github.com/cheat/cheat/cmd/cheat
 RUN git clone https://github.com/cheat/cheatsheets "${HOME}/.config/cheat/cheatsheets/community"
 RUN find "${GOPATH}/pkg/mod/github.com/cheat" -maxdepth 1 -type f -name "cheat.zsh" -exec cp {} "${ZSH_COMPLETIONS}/" \;
 
+COPY config/cheat/conf.yml ${HOME}/.config/cheat/conf.yml
 COPY config/cheat/cheatsheets "${HOME}/.config/cheat/cheatsheets"
 
 ###############################################################################
@@ -414,3 +430,4 @@ RUN yarn global add vscode-html-languageserver-bin \
 
 RUN tldr -u
 
+COPY scripts/entrypoint.sh /opt/entrypoint.sh

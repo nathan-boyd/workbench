@@ -35,11 +35,14 @@ A list of some of the cli tools installed. Some commonplace tools like `git`, `c
 | [autojump](https://github.com/wting/autojump)                                                    | file system navigation                                  |
 | [cowsay](https://web.archive.org/web/20071026043648/http://www.nog.net/~tony/warez/cowsay.shtml) | funny text filter                                       |
 | [ctop](https://github.com/bcicen/ctop)                                                           | provides an overview of container metrics               |
+| [fd](https://github.com/sharkdp/fd)                                                              | user-friendly alternative to 'find'                     |
+| [howdoi](https://github.com/gleitz/howdoi)                                                       | helpful suggestions                                     |       
 | [htop](https://github.com/hishamhm/htop)                                                         | interactive process viewer                              |
 | [httpie](https://github.com/jakubroztocil/httpie)                                                | HTTP client                                             |
 | [jq](https://github.com/stedolan/jq)                                                             | JSON processor                                          |
 | [mtr](https://github.com/traviscross/mtr)                                                        | combines functionality of 'traceroute' and 'ping'       |
 | [ncdu](https://dev.yorhel.nl/ncdu)                                                               | disk usage analyzer                                     |
+| [nmap](https://nmap.org/)                                                                        | utility for network discovery and security auditing     |
 | [neovim](https://github.com/neovim/neovim)                                                       | modern vim                                              |
 | [ranger](https://github.com/ranger/ranger)                                                       | console file manager with VI key bindings               |
 | [ripgrep](https://github.com/BurntSushi/ripgrep)                                                 | line-oriented search tool                               |

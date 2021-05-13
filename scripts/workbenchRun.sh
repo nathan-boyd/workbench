@@ -1,22 +1,34 @@
 #!/usr/bin/env bash
 
+USER_NAME=$(whoami)
 USER_ID=$(id -u ${USER})
 GROUP_ID=1001
-USER_NAME=$(whoami)
 
 PROJECT_DIR=${PWD##*/}
 PROJECT_PATH=${PWD#"${PWD%/*/*}/"}
 PROJECT_NAME=${PROJECT_PATH//\//_}
 
 CONTAINER_NAME="workbench_${PROJECT_NAME}"
-CONTAINER_HOME="/home/$USER_NAME"
+CONTAINER_HOME="/home/${USER_NAME}"
+
+XSOCK=/tmp/.X11-unix
+DOCKERSOCK=/var/run/docker.sock
+
+echo "*******************************************************************************"
+echo "* USER_ID:        $USER_ID"
+echo "* GROUP_ID:       $GROUP_ID"
+echo "* USER_NAME:      $USER_NAME"
+echo "* PROJECT_DIR:    $PROJECT_DIR"
+echo "* PROJECT_PATH:   $PROJECT_PATH"
+echo "* PROJECT_NAME:   $PROJECT_NAME"
+echo "* CONTAINER_NAME: $CONTAINER_NAME"
+echo "* CONTAINER_HOME: $CONTAINER_HOME"
+echo "*******************************************************************************"
 
 if [ ! -n $(docker ps -a --format '{{ .Names }}' | grep -oE ${CONTAINER_NAME}) ]; then
     echo "workbench already exists!" >&2;
     exit 1;
 fi
-
-# Eventually may just mount the .workbench directory and symlink within the container
 
 JRNL_DIR=$HOME/.local/share/jrnl
 if [[ ! -d $JRNL_DIR ]]; then
@@ -33,7 +45,6 @@ if [[ ! -e $ZSH_HISTORY ]]; then
     touch $ZSH_HISTORY
 fi
 
-# the directory in which to store vim undo files
 PROJECT_UNDO=${HOME}/.workbench/${PROJECT_NAME}/vim/undodir
 if [[ ! -d $PROJECT_UNDO ]]; then
     mkdir -p ${PROJECT_UNDO}
@@ -122,8 +133,6 @@ else
     echo "started xhost on host at: $IP"
 fi
 
-XSOCK=/tmp/.X11-unix
-DOCKERSOCK=/var/run/docker.sock
 
 cat <<-'EOF' > "$HOME/.gitconfig.append"
 
@@ -147,15 +156,22 @@ if ! grep -F -q -f "$HOME/.gitconfig.append" "$HOME/.gitconfig"; then
     cat $HOME/.gitconfig.append >> $HOME/.gitconfig
 fi
 
-PROJECT_TMUXINATOR=${HOME}/.workbench/${PROJECT_NAME}/tmuxinator
-if [[ ! -d $PROJECT_TMUXINATOR ]]; then
-    mkdir -p ${PROJECT_TMUXINATOR}
-    cat << EOF > "$PROJECT_TMUXINATOR/.tmuxinator"
+#Project config (/home/nboyd/.tmuxinator/git_workbench.yml) doesn't exist.
+
+PROJECT_TMUXINATOR_DIR="${HOME}/.workbench/${PROJECT_NAME}/tmuxinator"
+PROJECT_TMUXINATOR_CONFIG="${PROJECT_TMUXINATOR_DIR}/workbench.default.yml"
+if [[ ! -d $PROJECT_TMUXINATOR_DIR ]]; then
+    mkdir -p ${PROJECT_TMUXINATOR_DIR}
+    touch ${PROJECT_TMUXINATOR_CONFIG}
+    cat << EOF > "${PROJECT_TMUXINATOR_CONFIG}"
 name: $PROJECT_NAME
 startup_window: shell
 windows:
   - shell:
-    - /opt/splashScreen.sh
+      layout: main-vertical
+      panes:
+        - /opt/splashScreen.sh
+        - clear && cheat workbench
 EOF
 fi
 
@@ -183,16 +199,17 @@ read -r -d '' MOUNTED_VOLUMES <<- EOM
       -v $PROJECT_SESSION:$CONTAINER_HOME/.config/nvim/sessions/ \
       -v $PWD:${CONTAINER_HOME}/${PROJECT_DIR} \
       -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK \
-      -v ${PROJECT_TMUXINATOR}:$CONTAINER_HOME/.config/tmuxinator \
+      -v ${PROJECT_TMUXINATOR_DIR}:$CONTAINER_HOME/.tmuxinator/ \
       -v ${PROJECT_UNDO}:$CONTAINER_HOME/.config/.vim/undodir \
       -v ${PROJECT_NERD_MARKS}:$CONTAINER_HOME/.local/share/nerdtree_bookmarks \
       -v ${ZSH_HISTORY}:$CONTAINER_HOME/.zsh_history \
-      -v ${PROJECT_TMUXINATOR}/.tmuxinator:${CONTAINER_HOME}/.tmuxinator \
       -v $XSOCK:$XSOCK \
       -v $DOCKERSOCK:$DOCKERSOCK \
       -v $HOME/.ssh:${CONTAINER_HOME}/.ssh \
       -v /sys/fs/cgroup:/sys/fs/cgroup:ro
 EOM
+
+#home/nboyd/.tmuxinator/git_workbench.yml/git_workbench.yml
 
 read -r -d '' ENV_VARS <<- EOM
       -e DISPLAY=$IP:0 \
@@ -221,7 +238,7 @@ read -r -d '' RUN_COMMAND <<- EOM
       --privileged \
       --user $USER_ID:$GROUP_ID \
       docker.io/nathan-boyd/workbench:latest \
-      tmuxinator start --project-config="$CONTAINER_HOME/.tmuxinator"
+      /opt/entrypoint.sh
 EOM
 
 eval "$RUN_COMMAND"

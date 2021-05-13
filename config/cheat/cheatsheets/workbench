@@ -1,0 +1,34 @@
+# autojump to config directory
+j config
+
+# autojump to config subdirectory
+jc config
+
+# navi cheat sheet browser
+navi
+
+# navi filter results 
+navi --query
+aliased to "n"
+
+# tldr example
+tldr tar
+
+# FZF Paste the selected files and directories onto the command-line
+CTRL-T 
+
+# FZF Paste the selected command from history onto the command-line
+CTRL-R 
+
+# FZF cd into the selected directory
+ALT-C 
+
+# mtr combined traceroute and ping
+mtr google.com
+
+# glances system monitoring 
+glances
+
+# exa
+exa
+

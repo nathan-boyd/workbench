@@ -73,27 +73,36 @@ export CHEAT_USE_FZF=true
 
 #-------------------------------------------------------------------------------
 
+eval "$(navi widget zsh)"
+eval "$(thefuck --alias)"
+
 alias c="clear"
 alias ch="cheat"
 alias diff="icdiff"
 alias ee="tmux kill-server"
+alias ff="fuck"
 alias fp="fzf --preview 'bat --style=numbers --color=always --line-range :500 {}'"
 alias gdt="git difftool -y"
 alias gs="git status"
+alias gaa="git add -A"
+alias gcmsg="git commit -m"
+alias gam="gaa && gcmsg"
 alias jp="jq -C | less"
 alias jr="jrnl"
 alias k="kubectl"
 alias ld="lazydocker"
-alias ll="ls -lah"
+alias ll="exa --long --git"
 alias mtr="mtr -t"
 alias mux="tmuxinator"
 alias muxe="editMuxConfig"
+alias n="navi --query"
 alias pip="pip3"
 alias rn="ranger"
 alias vi="nvim"
 alias vim="vi"
 
 complete -F __start_kubectl k
+
 
 # get a report of jrnl updates for the last 24 hours
 alias gsu="/opt/getscrumupdates.sh -d=1"
@@ -109,6 +118,9 @@ function watch() { while inotifywait --exclude .swp -e modify -r .; do $@; done;
 #-------------------------------------------------------------------------------
 # Sourcing p10k should be the last paart of the zsh
 #-------------------------------------------------------------------------------
+
+# fix slow paste
+zstyle ':bracketed-paste-magic' active-widgets '.self-*'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 source $ZSH_CUSTOM/themes/powerlevel10k/powerlevel10k.zsh-theme
