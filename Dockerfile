@@ -132,8 +132,9 @@ RUN curl https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py \
   && rm get-pip.py \
   && pip2 --version
 
-RUN python3 -m pip install --upgrade howdoi 
-RUN python3 -m pip install --upgrade thefuck
+RUN python3 -m pip install --upgrade \
+  howdoi \
+  thefuck
 
 ###############################################################################
 # Build and install NVIM 
@@ -299,7 +300,6 @@ RUN git clone https://github.com/nathan-boyd/project-name-generator \
   && cd .. \
   && rm -rf project-name-generator
 
-
 ###############################################################################
 # Install K9s
 ###############################################################################
@@ -337,8 +337,6 @@ RUN export BAT_VERSION="0.15.4" \
 
 RUN sudo curl -o /usr/local/bin/gomplate -sSL \
   https://github.com/hairyhenderson/gomplate/releases/download/v3.7.0/gomplate_linux-amd64
-
-# && sudo chmod 755 /usr/local/bin/gomplate
 
 ###############################################################################
 # Install terraform
@@ -429,5 +427,9 @@ RUN yarn global add vscode-html-languageserver-bin \
 ###############################################################################
 
 RUN tldr -u
+
+###############################################################################
+# Copy entrypoint 
+###############################################################################
 
 COPY scripts/entrypoint.sh /opt/entrypoint.sh
