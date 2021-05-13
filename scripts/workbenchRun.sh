@@ -133,30 +133,34 @@ else
     echo "started xhost on host at: $IP"
 fi
 
+# cat <<-'EOF' > "$HOME/.gitconfig.append"
+# 
+# # added by workbench
+# [pager]
+#     difftool = true
+# 
+# [diff]
+#     tool = icdiff
+# 
+# [difftool "icdiff"]
+#     cmd = icdiff --head=5000 --line-numbers -L \"$BASE\" -L \"$REMOTE\" \"$LOCAL\" \"$REMOTE\" \
+#       --color-map='add:green,change:yellow,description:blue,meta:magenta,separator:blue,subtract:red'
+# 
+# [core]
+#     preloadIndex = true
+# 
+# EOF
+# 
+# if ! grep -F -q -f "$HOME/.gitconfig.append" "$HOME/.gitconfig"; then
+#     cat $HOME/.gitconfig.append >> $HOME/.gitconfig
+# fi
 
-cat <<-'EOF' > "$HOME/.gitconfig.append"
 
-# added by workbench
-[pager]
-    difftool = true
-
-[diff]
-    tool = icdiff
-
-[difftool "icdiff"]
-    cmd = icdiff --head=5000 --line-numbers -L \"$BASE\" -L \"$REMOTE\" \"$LOCAL\" \"$REMOTE\" \
-      --color-map='add:green,change:yellow,description:blue,meta:magenta,separator:blue,subtract:red'
-
-[core]
-    preloadIndex = true
-
-EOF
-
-if ! grep -F -q -f "$HOME/.gitconfig.append" "$HOME/.gitconfig"; then
-    cat $HOME/.gitconfig.append >> $HOME/.gitconfig
+GIT_CONFIG_DIR=${HOME}/.workbench/git
+if [[ ! -d $GIT_CONFIG_DIR ]]; then
+    mkdir -p $GIT_CONFIG_DIR
+    cp $HOME/.gitconfig $GIT_CONFIG_DIR
 fi
-
-#Project config (/home/nboyd/.tmuxinator/git_workbench.yml) doesn't exist.
 
 PROJECT_TMUXINATOR_DIR="${HOME}/.workbench/${PROJECT_NAME}/tmuxinator"
 PROJECT_TMUXINATOR_CONFIG="${PROJECT_TMUXINATOR_DIR}/workbench.default.yml"
@@ -172,6 +176,9 @@ windows:
       panes:
         - /opt/splashScreen.sh
         - clear && cheat workbench
+  - editor:
+      panes:
+        - vi .
 EOF
 fi
 
@@ -182,7 +189,7 @@ fi
 
 read -r -d '' MOUNTED_VOLUMES <<- EOM
       $(eval echo ${ADDITIONAL_VOLUMES}) \
-      -v $HOME/.gitconfig:$CONTAINER_HOME/.gitconfig \
+      -v $GIT_CONFIG_DIR/.gitconfig:$CONTAINER_HOME/.gitconfig \
       -v $HOME/.gnupg:$CONTAINER_HOME/.gnupg \
       -v $HOME/Desktop/:$CONTAINER_HOME/Desktop \
       -v $HOME/.docker/:$CONTAINER_HOME/.docker/ \
