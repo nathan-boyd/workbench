@@ -16,8 +16,12 @@ cat <<-'EOF' > "$HOME/.gitconfig.append"
 
 EOF
 
-if ! grep -F -q -f "$HOME/.gitconfig.append" "$HOME/.gitconfig"; then
-    cat $HOME/.gitconfig.append >> $HOME/.gitconfig
-fi
+cat $HOME/.gitconfig.append >> $HOME/.gitconfig
+
+# if ! grep -F -q -f "$HOME/.gitconfig.append" "$HOME/.gitconfig"; then
+#     cat $HOME/.gitconfig.append >> $HOME/.gitconfig
+# fi
+
+sudo chmod 774 /var/run/docker.sock
 
 tmuxinator start --project-config ~/.tmuxinator/workbench.default.yml

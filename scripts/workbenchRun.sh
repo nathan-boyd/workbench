@@ -169,16 +169,16 @@ if [[ ! -d $PROJECT_TMUXINATOR_DIR ]]; then
     touch ${PROJECT_TMUXINATOR_CONFIG}
     cat << EOF > "${PROJECT_TMUXINATOR_CONFIG}"
 name: $PROJECT_NAME
-startup_window: shell
+startup_window: editor
 windows:
+  - editor:
+      panes:
+        - vi .
   - shell:
       layout: main-vertical
       panes:
         - /opt/splashScreen.sh
         - clear && cheat workbench
-  - editor:
-      panes:
-        - vi .
 EOF
 fi
 
@@ -201,8 +201,6 @@ read -r -d '' MOUNTED_VOLUMES <<- EOM
       -v $LAZY_DOCKER:$CONTAINER_HOME/.config/jesseduffield/lazydocker \
       -v $PROJECT_NEOMRU:$CONTAINER_HOME/.cache/neomru \
       -v $PROJECT_AUTOJUMP:$CONTAINER_HOME/.local/share/autojump/ \
-      -v $PROJECT_NEOVIM:$CONTAINER_HOME/.local/share/nvim/shada/ \
-      -v $PROJECT_COC_SESSIONS:$CONTAINER_HOME/.vim/sessions \
       -v $PROJECT_SESSION:$CONTAINER_HOME/.config/nvim/sessions/ \
       -v $PWD:${CONTAINER_HOME}/${PROJECT_DIR} \
       -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK \
@@ -216,7 +214,9 @@ read -r -d '' MOUNTED_VOLUMES <<- EOM
       -v /sys/fs/cgroup:/sys/fs/cgroup:ro
 EOM
 
-#home/nboyd/.tmuxinator/git_workbench.yml/git_workbench.yml
+#      -v $PROJECT_COC_SESSIONS:$CONTAINER_HOME/.vim/sessions \
+
+#      -v $PROJECT_NEOVIM:$CONTAINER_HOME/.local/share/nvim/shada/ \
 
 read -r -d '' ENV_VARS <<- EOM
       -e DISPLAY=$IP:0 \

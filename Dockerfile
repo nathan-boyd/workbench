@@ -137,6 +137,24 @@ RUN python3 -m pip install --upgrade \
   thefuck
 
 ###############################################################################
+# Install GoLang
+###############################################################################
+
+ENV GO111MODULE=on
+ENV GOPATH="${HOME}/go"
+ENV GOBIN="${GOPATH}/bin"
+ENV PATH="${PATH}:/usr/local/go/bin:${GOBIN}"
+ENV PATH="${HOME}/.local/bin:${PATH}"
+ENV PATH="${PATH}:/usr/bin/node:/usr/local/go/bin"
+
+RUN export GO_VERSION=1.16.3 \
+  && sudo curl "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" -o - | sudo tar -xz -C /usr/local
+
+RUN go get -u github.com/stamblerre/gocode
+RUN go install github.com/goreleaser/goreleaser@latest
+RUN go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.39.0
+
+###############################################################################
 # Build and install NVIM 
 ###############################################################################
 
@@ -180,11 +198,9 @@ RUN nvim --headless '+call dein#install() | qa'
 RUN nvim --headless '+call remote#host#UpdateRemotePlugins() | qa' 
 
 # TODO: troubleshoot python3 remote plugins not automatically updating 
-COPY  --chown=${USER_ID} config/spacevim/rplugin.vim ${HOME}/.local/share/nvim/rplugin.vim
+COPY --chown=${USER_ID} config/spacevim/rplugin.vim ${HOME}/.local/share/nvim/rplugin.vim
 
 RUN nvim --headless +GoInstallBinaries +qa
-
-RUN sudo apt-get clean
 
 ###############################################################################
 # Install Kubectl
@@ -272,23 +288,6 @@ RUN sudo gem instal tmuxinator
 RUN sudo curl https://raw.githubusercontent.com/tmuxinator/tmuxinator/master/completion/tmuxinator.zsh \
   -o /usr/local/share/zsh/site-functions/_tmuxinator
 
-###############################################################################
-# Install GoLang
-###############################################################################
-
-ENV GO111MODULE=on
-ENV GOPATH="${HOME}/go"
-ENV GOBIN="${GOPATH}/bin"
-ENV PATH="${PATH}:/usr/local/go/bin:${GOBIN}"
-ENV PATH="${HOME}/.local/bin:${PATH}"
-ENV PATH="${PATH}:/usr/bin/node:/usr/local/go/bin"
-
-RUN export GO_VERSION=1.16.3 \
-  && sudo curl "https://dl.google.com/go/go${GO_VERSION}.linux-amd64.tar.gz" -o - | sudo tar -xz -C /usr/local
-
-RUN go get -u github.com/stamblerre/gocode
-RUN go install github.com/goreleaser/goreleaser@latest
-RUN go get github.com/golangci/golangci-lint/cmd/golangci-lint@v1.39.0
 
 ###############################################################################
 # Install project name generator
@@ -427,6 +426,28 @@ RUN yarn global add vscode-html-languageserver-bin \
 ###############################################################################
 
 RUN tldr -u
+
+###############################################################################
+# Clean up apt 
+###############################################################################
+
+RUN sudo apt-get clean
+
+###############################################################################
+# New tools 
+###############################################################################
+
+RUN npm install --global \
+  git-open \
+  how-2
+
+RUN sudo apt-get install -y --no-install-recommends \
+  git-quick-stats \
+  git-extras \
+  awscli
+
+# fix for vim startify warning
+RUN mkdir -p ~/.vim/files/info
 
 ###############################################################################
 # Copy entrypoint 
