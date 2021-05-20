@@ -1,0 +1,2 @@
+# pipe fd results into sed to insert line in place
+fd cdp-ops -H -exec sed -i "4 i deploy_vmf_upstream: 'a360/cdp-deploy-vmf'" {}

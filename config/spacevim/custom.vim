@@ -1,6 +1,7 @@
 " called before SpaceVim core,
 function! custom#before() abort
   let g:startify_custom_header =  'startify#center(startify#fortune#boxed())'
+  set clipboard=unnamedplus
 endfunction
 
 " called on autocmd VimEnter
@@ -15,6 +16,7 @@ function! custom#after() abort
   set completeopt+=noselect
   set noswapfile
   set spell
+  set clipboard=unnamedplus
 
   " be kind when fat fingering common commands
   command! -bang -nargs=* -complete=file E e<bang> <args>
