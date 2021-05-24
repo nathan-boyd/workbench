@@ -171,16 +171,17 @@ if [[ ! -d $PROJECT_TMUXINATOR_DIR ]]; then
 name: $PROJECT_NAME
 startup_window: editor
 windows:
-  - editor:
-      panes:
-        - vi .
   - shell:
-      layout: main-vertical
       panes:
         - /opt/splashScreen.sh
-        - clear && cheat workbench
 EOF
 fi
+
+# layout: main-vertical
+#  - editor:
+#      panes:
+#        - vi .
+#        - clear && cheat workbench
 
 ADDITIONAL_VOLUMES_FILE=$HOME/.workbench/.volumes
 if test -f "$FILE"; then

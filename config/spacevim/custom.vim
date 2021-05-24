@@ -1,6 +1,8 @@
 " called before SpaceVim core,
 function! custom#before() abort
   let g:startify_custom_header =  'startify#center(startify#fortune#boxed())'
+
+  set viminfo='100,n$HOME/.vim/files/info/viminfo
   set clipboard=unnamedplus
 endfunction
 

@@ -185,22 +185,6 @@ RUN export NVIM_VERSION_TAG="v0.4.4" \
 
 ENV PATH="${HOME}/neovim/bin:${PATH}"
 
-###############################################################################
-# Install SpaceVim
-###############################################################################
-
-COPY --chown=${USER_ID} config/spacevim/init.toml ${HOME}/.SpaceVim.d/init.toml
-COPY --chown=${USER_ID} config/spacevim/custom.vim ${HOME}/.SpaceVim.d/autoload/custom.vim
-COPY --chown=${USER_ID}:${USER_ID} config/ultisnip ${HOME}/.SpaceVim.d/UltiSnips/
-
-RUN curl -sLf https://spacevim.org/install.sh | bash
-RUN nvim --headless '+call dein#install() | qa'
-RUN nvim --headless '+call remote#host#UpdateRemotePlugins() | qa' 
-
-# TODO: troubleshoot python3 remote plugins not automatically updating 
-COPY --chown=${USER_ID} config/spacevim/rplugin.vim ${HOME}/.local/share/nvim/rplugin.vim
-
-RUN nvim --headless +GoInstallBinaries +qa
 
 ###############################################################################
 # Install Kubectl
@@ -448,6 +432,23 @@ RUN sudo apt-get install -y --no-install-recommends \
 
 # fix for vim startify warning
 RUN mkdir -p ~/.vim/files/info
+
+###############################################################################
+# Install SpaceVim
+###############################################################################
+
+COPY --chown=${USER_ID} config/spacevim/init.toml ${HOME}/.SpaceVim.d/init.toml
+COPY --chown=${USER_ID} config/spacevim/custom.vim ${HOME}/.SpaceVim.d/autoload/custom.vim
+COPY --chown=${USER_ID}:${USER_ID} config/ultisnip ${HOME}/.SpaceVim.d/UltiSnips/
+
+RUN curl -sLf https://spacevim.org/install.sh | bash
+RUN nvim --headless '+call dein#install() | qa'
+RUN nvim --headless '+call remote#host#UpdateRemotePlugins() | qa' 
+
+# TODO: troubleshoot python3 remote plugins not automatically updating 
+COPY --chown=${USER_ID} config/spacevim/rplugin.vim ${HOME}/.local/share/nvim/rplugin.vim
+
+RUN nvim --headless +GoInstallBinaries +qa
 
 ###############################################################################
 # Copy entrypoint 

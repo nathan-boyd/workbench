@@ -22,7 +22,8 @@ cat $HOME/.gitconfig.append >> $HOME/.gitconfig
 #     cat $HOME/.gitconfig.append >> $HOME/.gitconfig
 # fi
 
-sudo chmod 774 /var/run/docker.sock
-sudo chown $USER /var/run/docker.sock
+mkdir -p ~/.vim/files/info
+
+sudo chown -R root:docker /var/run/docker
 
 tmuxinator start --project-config ~/.tmuxinator/workbench.default.yml
