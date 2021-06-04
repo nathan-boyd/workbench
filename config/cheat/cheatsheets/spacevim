@@ -3,3 +3,1491 @@ s o
 
 # comment line
 c c
+
+# Command line mode key bindings
+# After pressing :, you can switch to command line mode, here is a list of key bindings can be used in command line mode:
+
+# Move cursor to beginning
+Ctrl-a	
+
+# Move cursor backward in command line
+Ctrl-b	
+
+# Move cursor forward in command line
+Ctrl-f	
+
+# Delete a whole word
+Ctrl-w	
+
+# Remove all text before cursor
+Ctrl-u	
+
+# Remove all text after cursor
+Ctrl-k	
+
+# Cancel command line mode
+Ctrl-c/Esc	
+
+# Text manipulation commands
+# Text related commands (start with x):
+
+# cheat/cheatsheets
+SPC x a &	
+
+# cheat/cheatsheets
+SPC x a (	
+
+# cheat/cheatsheets
+SPC x a )	
+
+# cheat/cheatsheets
+SPC x a [	
+
+# align region (or guessed section) using default rules
+SPC x a a	
+
+# align current indentation region using default rules (TODO)
+SPC x a c	
+
+# delete trailing whitespaces
+SPC x d w	
+
+# Delete all spaces and tabs around point, leaving one space
+SPC x d SPC	
+
+# change symbol style to lowerCamelCase
+SPC x i c	
+
+# change symbol style to UpperCamelCase
+SPC x i C	
+
+# cycle symbol naming styles (i to keep cycling)
+SPC x i i	
+
+# change symbol style to kebab-case
+SPC x i -	
+
+# change symbol style to kebab-case
+SPC x i k	
+
+# change symbol style to under_score
+SPC x i _	
+
+# change symbol style to under_score
+SPC x i u	
+
+# change symbol style to UP_CASE
+SPC x i U	
+
+# set the justification to center
+SPC x j c	
+
+# set the justification to full (TODO)
+SPC x j f	
+
+# set the justification to left
+SPC x j l	
+
+# set the justification to none (TODO)
+SPC x j n	
+
+# set the justification to right
+SPC x j r	
+
+# move down a line of text (enter transient state)
+SPC x J	
+
+# move up a line of text (enter transient state)
+SPC x K	
+
+# d	duplicate line or region
+SPC x l 
+
+# s	sort lines (ignorecase)
+SPC x l 
+
+# S	sort lines (case-senstive)
+SPC x l 
+
+# uniquify lines (ignorecase)
+SPC x l u	
+
+# uniquify lines (case-senstive)
+SPC x l U	
+
+# swap (transpose) the current character with the previous one
+SPC x t c	
+
+# swap (transpose) the current character with the next one
+SPC x t C	
+
+# swap (transpose) the current word with the previous one
+SPC x t w	
+
+# swap (transpose) the current word with the next one
+SPC x t W	
+
+# swap (transpose) the current line with the previous one
+SPC x t l	
+
+# swap (transpose) the current line with the next one
+SPC x t L	
+
+# lowercase text
+SPC x u	
+
+# uppercase text
+SPC x U	
+
+# count the words in the select region
+SPC x w c	
+
+# show dictionary entry of word from wordnik.com (TODO)
+SPC x w d	
+
+# indent or dedent a region rigidly (TODO)
+SPC x <Tab>	
+
+# Text insertion commands
+# Text insertion commands (start with i):
+
+# insert lorem-ipsum list
+SPC i l l	
+
+# insert lorem-ipsum paragraph
+SPC i l p	
+
+# insert lorem-ipsum sentence
+SPC i l s	
+
+# insert simple password
+SPC i p 1	
+
+#	insert password for paranoids
+SPC i p 3
+
+# Copy and paste
+
+# Copy text to system clipboard
+<Leader> y
+
+#	Paste text from system clipboard after here
+<Leader> p
+
+#	Paste text from system clipboard before here
+<Leader> P
+
+#	Copy text to pastebin
+<Leader> Y
+
+# Commenting
+# Comments are handled by nerdcommenter, it’s bound to the following keys.
+
+#	hide/show comments
+SPC c h
+
+#	toggle comment lines
+SPC c l
+
+#	comment lines
+SPC c L
+
+#	uncomment lines
+SPC c u
+
+#	toggle comment paragraphs
+SPC c p
+
+#	comment paragraphs
+SPC c P
+
+#	comment with pretty layout
+SPC c s
+
+#	toggle comment to line
+SPC c t
+
+#	comment to line
+SPC c T
+
+#	toggle comment and yank
+SPC c y
+
+#	yank and comment
+SPC c Y
+
+#	comment current line from cursor to the end of the line
+SPC c $
+
+# Undo tree
+# Undo tree visualizes undo history and makes it easier to browse and switch between different undo branches. The default key binding is F7. If +python or +python3 is enabled, mundo will be loaded, otherwise undotree will be loaded.
+
+# Key bindings within undo tree windows:
+
+# cheat/cheatsheets
+G
+
+#	move_older_write
+J
+
+#	move_newer_write
+K
+
+#	previous_match
+N
+
+#	play_to 
+P
+
+#	search
+/
+
+#	preview
+<CR>
+
+#	diff
+d
+
+#	toggle_inline 
+i
+
+#	move_older 
+j
+
+#	move_newer 
+k
+
+#	next_match
+n
+
+#	preview 
+o
+
+#	diff_current_buffer
+p
+
+#	quit 
+q
+
+#	diff 
+r
+
+#	toggle_help 
+?
+
+# Window manager
+# Window manager key bindings can only be used in normal mode. The default leader [WIN] is s, you can change it via windows_leader option:
+# windows_leader = "s"
+
+#	Smart buffer close
+q
+
+# :split
+WIN v
+
+# Split with previous buffer
+WIN V	
+
+# :vsplit
+WIN g
+
+# Vertically split with previous buffer
+WIN G	
+
+# Open new tab (:tabnew)
+WIN t	
+
+# Close other windows (:only)
+WIN o	
+
+# Remove buffer, leave blank window
+WIN x	
+
+# Remove current buffer
+WIN q	
+
+# Close current buffer (:close)
+WIN Q	
+
+# General Editor windows
+
+# Toggle tagbar
+<F2>
+
+# Toggle Vimfiler
+<F3>
+
+# Window manipulation key bindings
+# Every window has a number displayed at the start of the statusline and can be quickly accessed using SPC number.
+
+# go to window number 1
+# SPC 1...9
+
+# Windows manipulation commands (start with w):
+
+# windows transient state
+SPC w .	
+
+# switch to alternate window in the current frame (switch back and forth)
+SPC w <Tab>
+
+# balance split windows
+SPC w =	
+
+# force the focus back to the minibuffer (TODO)
+SPC w b	
+
+# Distraction-free reading current window (tools layer)
+SPC w c	
+
+# Distraction-free reading other windows via vim-choosewin (tools layer)
+SPC w C	
+
+# delete a window
+SPC w d	
+
+# delete a window and its current buffer (does not delete the file) (TODO)
+SPC u SPC w d	
+
+# delete another window using vim-choosewin
+SPC w D	
+
+# delete another window and its current buffer using vim-choosewin (TODO)
+SPC u SPC w D	
+
+# toggle window dedication (dedicated window cannot be reused by a mode) (TODO)
+SPC w t	
+
+# toggle follow mode
+SPC w f	
+
+# create new tab
+SPC w F	
+
+# move to window on the left
+SPC w h	
+
+# move window to the left
+SPC w H	
+
+# move to window below
+SPC w j	
+
+# move window to the bottom
+SPC w J	
+
+# move to window above
+SPC w k	
+
+# move window to the top
+SPC w K	
+
+# move to window on the right
+SPC w l	
+
+# move window to the right
+SPC w L	
+
+# swap windows using vim-choosewin
+SPC w M	
+
+# cycle and focus between tabs
+SPC w o	
+
+# rotate windows backward
+SPC w R	
+
+# / SPC w -	horizontal split
+SPC w s 
+
+# horizontal split and focus new window
+SPC w S	
+
+# undo window layout
+SPC w u	
+
+# redo window layout
+SPC w U	
+
+# vertical split
+SPC w v 	
+
+# vertical split and focus new window
+SPC w V	
+
+# cycle and focus between windows
+SPC w w	
+
+# select window using vim-choosewin
+SPC w W	
+
+# exchange current window with next one
+SPC w x	
+
+# Buffers and Files
+# Buffer manipulation commands (start with b):
+
+# switch to alternate buffer in the current window (switch back and forth)
+SPC <Tab>	
+
+# buffer transient state
+SPC b .	
+
+# switch to a buffer (via denite/unite)
+SPC b b	
+
+# kill the current buffer (does not delete the visited file)
+SPC b d	
+
+# kill a visible buffer using vim-choosewin
+SPC b D	
+
+# -d	kill other buffers
+SPC b Ctrl
+
+# erase the content of the buffer (ask for confirmation)
+SPC b e	
+
+# open SpaceVim home buffer
+SPC b h	
+
+# switch to next buffer avoiding special buffers
+SPC b n	
+
+# open Messages buffer
+SPC b m	
+
+# switch to previous buffer avoiding special buffers
+SPC b p	
+
+# copy clipboard and replace buffer (useful when pasting from a browser)
+SPC b P	
+
+# revert the current buffer (reload from disk)
+SPC b R	
+
+# switch to the scratch buffer (create it if needed)
+SPC b s	
+
+# toggle read-only (writable state)
+SPC b w	
+
+# copy whole buffer to clipboard (useful when copying to a browser)
+SPC b Y	
+
+# Fuzzy finder
+# Fuzzy finder provides a variety of efficient content searching key bindings, including file searching, outline searching, vim messages searching and register content searching.
+
+# Fuzzy find menu:CustomKeyMaps
+<Leader> f <Space>	
+
+# Fuzzy find menu:AddedPlugins
+<Leader> f p	
+
+# Fuzzy find register
+<Leader> f e	
+
+# Fuzzy find history/yank
+<Leader> f h	
+
+# Fuzzy find jump, change
+<Leader> f j	
+
+# Fuzzy find location list
+<Leader> f l	
+
+# Fuzzy find output messages
+<Leader> f m	
+
+# Fuzzy find outline
+<Leader> f o	
+
+# Fuzzy find quick fix
+<Leader> f q	
+
+<Leader> f r	Resumes Unite window
+
+Key bindings within fuzzy finder buffer
+
+# Select next line
+<Tab> / Ctrl-j	
+
+# Select previous line
+Shift-Tab / Ctrl-k	
+
+# Delete backward path
+Ctrl-w	
+
+# Delete whole line before cursor
+Ctrl-u	
+
+# Run default action
+<Enter>	
+
+# Open in a split
+Ctrl-s	
+
+# Open in a vertical split
+Ctrl-v	
+
+# Open in a new tab
+Ctrl-t	
+
+# Close fuzzy finder
+Ctrl-g	
+
+# resume the last completion buffer
+SPC r l	
+
+# go back to the previous place before jump
+SPC s `	
+
+# Searching in current file
+
+# search with the first found tool
+SPC s s	
+
+# search with the first found tool with default input
+SPC s S	
+
+# ag with default input
+SPC s a A	
+
+# g	grep
+SPC s g 
+
+# r	rg
+SPC s r 
+
+# Searching in buffer directory
+
+# searching in buffer directory with default tool
+SPC s d	
+
+# searching in buffer directory cursor word with default tool
+SPC s D	
+
+# searching in buffer directory with ag
+SPC s a d	
+
+# searching in buffer directory cursor word with ag
+SPC s a D	
+
+# searching in buffer directory with grep
+SPC s g d	
+
+# searching in buffer directory cursor word with grep
+SPC s g D	
+
+# searching in buffer directory with git-grep
+SPC s G d	
+
+# searching in buffer directory cursor word with git-grep
+SPC s G D	
+
+# searching in buffer directory with ack
+SPC s k d	
+
+# searching in buffer directory cursor word with ack
+SPC s k D	
+
+# searching in buffer directory with rg
+SPC s r d	
+
+# searching in buffer directory cursor word with rg
+SPC s r D	
+
+# searching in buffer directory with pt
+SPC s t d	
+
+# searching in buffer directory cursor word with pt
+SPC s t D	
+
+# Searching in all loaded buffers
+
+# search with the first found tool
+SPC s b	
+
+# search with the first found tool with default input
+SPC s B	
+
+# ag
+SPC s a b	
+
+# ag with default input
+SPC s a B	
+
+# grep
+SPC s g b	
+
+# grep with default input
+SPC s g B	
+
+# git-grep
+SPC s G b	
+
+# git-grep with default input
+SPC s G B	
+
+# ack
+SPC s k b	
+
+# ack with default input
+SPC s k B	
+
+# rg
+SPC s r b	
+
+# rg with default input
+SPC s r B	
+
+# pt
+SPC s t b	
+
+# pt with default input
+SPC s t B	
+
+# Searching in an arbitrary directory
+
+# search with the first found tool
+SPC s f	
+
+# search with the first found tool with default input
+SPC s F	
+
+# ag
+SPC s a f	
+
+# ag with default text
+SPC s a F	
+
+# grep
+SPC s g f	
+
+# grep with default text
+SPC s g F	
+
+# git-grep
+SPC s G f	
+
+# git-grep with default text
+SPC s G F	
+
+# ack
+SPC s k f	
+
+# ack with default text
+SPC s k F	
+
+# rg
+SPC s r f	
+
+# rg with default text
+SPC s r F	
+
+# pt
+SPC s t f	
+
+# pt with default text
+SPC s t F	
+
+# Searching in a project
+
+# search with the first found tool
+SPC s p	
+
+# search with the first found tool with default input
+SPC s P	
+
+# p	ag
+SPC s a 
+
+# P	ag with default text
+SPC s a 
+
+# p	grep
+SPC s g 
+
+# p	grep with default text
+SPC s g 
+
+# p	ack
+SPC s k 
+
+# P	ack with default text
+SPC s k 
+
+# p	pt
+SPC s t 
+
+# P	pt with default text
+SPC s t 
+
+# p	rg
+SPC s r 
+
+# P	rg with default text
+SPC s r 
+
+# Background searching in a project
+# Background search keyword in a project, when searching done, the count will be shown on the statusline.
+
+# searching input expr background with the first found tool
+SPC s j	
+
+# searching cursor word background with the first found tool
+SPC s J	
+
+# List all searching result in quickfix buffer
+SPC s l	
+
+# ag
+SPC s a j	
+
+# SPC s a J	ag with default text
+SPC s a j	
+
+# grep
+SPC s g j	
+
+# grep with default text
+SPC s g J	
+
+# ack
+SPC s k j	
+
+# ack with default text
+SPC s k J	
+
+# pt
+SPC s t j	
+
+# pt with default text
+SPC s t J	
+
+# rg
+SPC s r j	
+
+# rg with default text
+SPC s r J	
+
+# Searching the web
+# Note: to enable google suggestions in Vim, you need to add enable_googlesuggest = 1 to your custom Configuration file.
+
+# Get Google suggestions in Vim. Opens Google results in Browser.
+SPC s w g	
+
+# Searching on the fly
+
+# Searching in project on the fly with default tools
+SPC s /	
+
+# Key bindings in FlyGrep buffer:
+
+# close FlyGrep buffer
+<Esc>	
+
+# open file at the cursor line
+<Enter>	
+
+# open item in new tab
+Ctrl-t	
+
+# open item in split window
+Ctrl-s	
+
+# open item in vertical split window
+Ctrl-v	
+
+# apply all items into quickfix
+Ctrl-q	
+
+# move cursor line down
+<Tab>	
+
+# move cursor line up
+Shift-<Tab>	
+
+# remove last character
+<BackSpace>	
+
+# remove the Word before the cursor
+Ctrl-w	
+
+# remove the Line before the cursor
+Ctrl-u	
+
+# remove the Line after the cursor
+Ctrl-k	
+
+# / <Home>	Go to the beginning of the line
+Ctrl-a 
+
+# / <End>	Go to the end of the line
+Ctrl-e 
+
+# Persistent highlighting
+# SpaceVim uses search_highlight_persist to keep the searched expression highlighted until the next search. It is also possible to clear the highlighting by pressing SPC s c or executing the ex command :noh.
+
+Getting help
+Fuzzy finder layer is powerful tool to unite all interfaces. It is meant to be like Helm for Vim. These mappings are for getting help info about functions, variables etc:
+
+# discover SpaceVim documentation, layers and packages using fuzzy finder layer
+SPC h SPC	
+
+# get help with the symbol at point
+SPC h i	
+
+# show top-level bindings with which-key
+SPC h k	
+
+# search available man pages
+SPC h m	
+
+# Unimpaired bindings
+
+# Insert space above
+[ SPC	
+
+# Insert space below
+] SPC	
+
+# Go to previous buffer
+[ b	
+
+# Go to next buffer
+] b	
+
+# Go to previous conflict marker
+[ n	
+
+# Go to next conflict marker
+] n	
+
+# Go to previous file in directory
+[ f	
+
+# Go to next file in directory
+] f	
+
+# Go to the previous error
+[ l	
+
+# Go to the next error
+] l	
+
+# Go to the previous vcs hunk (need VersionControl layer)
+[ c	
+
+# Go to the next vcs hunk (need VersionControl layer)
+] c	
+
+# Go to the previous error
+[ q	
+
+# Go to the next error
+] q	
+
+# Go to the previous frame
+[ t	
+
+# Go to the next frame
+] t	
+
+# Go to the previous window
+[ w	
+
+# Go to the next window
+] w	
+
+# Move line up
+[ e	
+
+# Move line down
+] e	
+
+# Paste above current line
+[ p	
+
+# Paste below current line
+] p	
+
+# Select pasted text
+g p	
+
+# Jumping, Joining and Splitting
+# The SPC j prefix is for jumping, joining and splitting.
+
+# Jumping
+# go to the beginning of line (and set a mark at the previous location in the line)
+SPC j 0	
+
+# $	go to the end of line (and set a mark at the previous location in the line)
+SPC j 
+
+# b	jump backward
+SPC j 
+
+# f	jump forward
+SPC j 
+
+# d	jump to a listing of the current directory
+SPC j 
+
+# D	jump to a listing of the current directory (other window)
+SPC j 
+
+# i	jump to a definition in buffer (denite outline)
+SPC j 
+
+# I	jump to a definition in any buffer (denite outline)
+SPC j 
+
+# j	jump to a character in the buffer (easymotion)
+SPC j 
+
+# J	jump to a suite of two characters in the buffer (easymotion)
+SPC j 
+
+# k	jump to next line and indent it using auto-indent rules
+SPC j 
+
+# l	jump to a line with avy (easymotion)
+SPC j 
+
+# q	show the dumb-jump quick look tooltip (TODO)
+SPC j 
+
+# u	jump to a URL in the current window
+SPC j 
+
+# v	jump to the definition/declaration of an Emacs Lisp variable (TODO)
+SPC j 
+
+# w	jump to a word in the current buffer (easymotion)
+SPC j 
+
+# Joining and splitting
+
+# join the current line with the next line
+# J	
+
+# join a code block into a single-line statement
+SPC j o	
+
+# split a one-liner into multiple lines
+SPC j m	
+
+# go to next line and indent it using auto-indent rules
+SPC j k	
+
+# split the current line at point, insert a new line and auto-indent
+SPC j n	
+
+# split the current line at point but let point on current line
+SPC j o	
+
+# split a quoted string or s-expression in place
+SPC j s	
+
+SPC j S	split a quoted string or s-expression with \n, and auto-indent the new line
+
+# Commands starting with g
+# After pressing prefix g in normal mode, if you do not remember the mappings, you will see the guide which will tell you the functional of all mappings starting with g.
+
+# search under cursor backward
+g #	
+
+# go to rightmost character
+g $	
+
+# repeat last “:s” on all lines
+g &	
+
+# jump to mark
+g '	
+
+# search under cursor forward
+g *	
+
+# newer text state
+g +	
+
+# newer position in change list
+g ,	
+
+# text state
+g -	older 
+
+# stay incsearch
+g /	
+
+# go to leftmost character
+g 0	
+
+# older position in change list
+g ;	
+
+# last page of previous command output
+g <	
+
+# go to leftmost character
+g <Home>	
+
+# end of previous word
+g E	
+
+# edit file under cursor(jump to line after name)
+g F	
+
+# select line mode
+g H	
+
+# insert text in column 1
+g I	
+
+# join lines without space
+g J	
+
+# visually select previous match
+g N	
+
+# switch to Ex mode
+g Q	
+
+# enter VREPLACE mode
+g R	
+
+# previous tag page
+g T	
+
+# make motion text uppercase
+g U	
+
+# tselect cursor tag
+g ]	
+
+# go to leftmost no-white character
+g ^	
+
+# go to last char
+g _	
+
+# jump to mark
+g `	
+
+# print ascii value of cursor character
+g a	
+
+# goto definition
+g d	
+
+# go to end of previous word
+g e	
+
+# edit file under cursor
+g f	
+
+# go to line N
+g g	
+
+# select mode
+g h	
+
+# insert text after ‘^ mark
+g i	
+
+# move cursor down screen line
+g j	
+
+# move cursor up screen line
+g k	
+
+# go to middle of screenline
+g m	
+
+# visually select next match
+g n	
+
+# goto byte N in the buffer
+g o	
+
+# Select last paste
+g p	
+
+# sleep N seconds
+g s	
+
+# next tag page
+g t	
+
+# make motion text lowercase
+g u	
+
+# swap case for Nmove text
+g ~	
+
+# go to rightmost character
+g <End>	
+
+# show cursor info
+g Ctrl-g	
+
+# Commands starting with z
+# After pressing prefix z in normal mode, if you do not remember the mappings, you will see the guide which will tell you the functional of all mappings starting with z.
+
+# scroll screen N characters to left
+z <Right>	
+
+# cursor to screen top line N
+z +	
+
+# cursor to screen bottom line N
+z -	
+
+cursor line to center
+z .	
+
+# cursor line to top
+z <Enter>	
+
+# spelling suggestions
+z =	
+
+# toggle folds recursively
+z A	
+
+# close folds recursively
+z C	
+
+# delete folds recursively
+z D	
+
+# eliminate all folds
+z E	
+
+# create a fold for N lines
+z F	
+
+# mark good spelled (update internal wordlist)
+z G	
+
+# scroll half a screenwidth to the right
+z H	
+
+# scroll half a screenwidth to the left
+z L	
+
+# set foldlevel to zero
+z M	
+
+# set foldenable
+z N	
+
+# open folds recursively
+z O	
+
+# set foldlevel to deepest fold
+z R	
+
+# mark wrong spelled (update internal wordlist)
+z W	
+
+# re-apply foldlevel
+z X	
+
+# cursor to screen bottom line N
+z ^	
+
+# toggle a fold
+z a	
+
+# redraw, cursor line at bottom
+z b	
+
+# close a fold
+z c	
+
+# delete a fold
+z d	
+
+# right scroll horizontally to cursor position
+z e	
+
+# create a fold for motion
+z f	
+
+# mark good spelled
+z g	
+
+# scroll screen N characters to right
+z h	
+
+# toggle foldenable
+z i	
+
+# mode to start of next fold
+z j	
+
+# mode to end of previous fold
+z k	
+
+# scroll screen N characters to left
+z l	
+
+# subtract one from foldlevel
+z m	
+
+# reset foldenable
+z n	
+
+# open fold
+z o	
+
+# add one to foldlevel
+z r	
+
+# left scroll horizontally to cursor position
+z s	
+
+# cursor line at top of window
+z t	
+
+# open enough folds to view cursor line
+z v	
+
+# mark wrong spelled
+z w	
+
+# re-apply foldlevel and do “zV”
+z x	
+
+# smart scroll
+z z	
+
+# scroll screen N characters to right
+z <Left>	
+
+Searching files in project
+# find files in current project
+SPC p f	
+
+# fuzzy search for text in current project
+SPC p /	
+
+# kill all buffers of current project
+SPC p k	
+
+# list all projects
+SPC p p	
+
+
+# Bookmarks management
+# Bookmarks manager is included in tools layer, to use following key bindings, you need to enable tools layer:
+
+# Show list of all bookmarks
+m a	
+
+# Removes bookmarks for current buffer
+m c	
+
+# Toggle bookmark in current line
+m m	
+
+# Jump to next bookmark
+m n	
+
+# Jump to previous bookmark
+m p	
+
+# Annotate bookmark
+m i	
+
+
+# Tasks
+# To integrate with external tools, SpaceVim introduce a task manager system, which is similar to vscode tasks-manager. There are two kinds of task configuration file:
+# ~/.SpaceVim.d/tasks.toml: global tasks configuration
+# .SpaceVim.d/tasks.toml: project local tasks configuration
+# The task defined in global tasks configuration can be overrided by project local tasks configuration.
+
+# edit tasks configuration file
+SPC p t e	
+
+# select task to run
+SPC p t r	
+
+# list all available tasks
+SPC p t l	
+
+# Replace text with iedit
+# SpaceVim uses a powerful iedit mode to quick edit multiple occurrences of a symbol or selection.
+
+iedit states key bindings
+State transitions:
+
+# normal or visual	iedit-Normal
+SPC s e	
+
+# In iedit-Normal mode:
+# iedit-Normal mode inherits from Normal mode, the following key bindings are specific to iedit-Normal mode.
+
+# go back to Normal mode
+<Esc>	
+
+# switch to iedit-Insert mode, same as i in Normal model
+i	
+
+# switch to iedit-Insert mode, same as a in Normal model
+a	
+
+# go to the beginning of the current occurrence and switch to iedit-Insert mode, same as I in Normal model
+I	
+
+# go to the end of the current occurrence and switch to iedit-Insert mode, same as A in Normal model
+A	
+
+# Move cursor to left, same as h in Normal model
+<Left>/h	
+
+# Move cursor to right, same as l in Normal model
+<Right>/l	
+
+go to the beginning of the current occurrence, same as 0 in Normal model
+0/<Home>	
+
+# go to the end of the current occurrence, same as $ in Normal model
+$/<End>	
+
+# delete the characters from the cursor to the end in all occurrences and switch to iedit-Insert mode, same as C in Normal model
+C	
+
+# delete the occurrences, same as D in Normal model
+D	
+
+# delete the character under cursor and switch to iedit-Insert mode, same as s in Normal model
+s	
+
+# delete the occurrences and switch to iedit-Insert mode, same as S in Normal model
+S	
+
+# delete the character under cursor in all the occurrences, same as x in Normal model
+x	
+
+# delete the character before cursor in all the occurrences, same as X in Normal model
+X	
+
+# go to first occurrence, same as gg in Normal model
+gg	
+
+# go to last occurrence, same as G in Normal model
+G	
+
+# {char}	Move the cursor to the right where the {char} first appears in all the occurrences
+f
+
+# go to next occurrence
+n	
+
+# go to previous occurrence
+N	
+
+# replace occurrences with last yanked (copied) text
+p	
+
+# toggle current occurrence
+<Tab>
+
+# In iedit-Insert mode:
+
+# go back to iedit-Normal mode
+Ctrl-g / <Esc>	
+
+# move cursor to left
+Ctrl-b / <Left>	
+
+# move cursor to right
+Ctrl-f / <Right>	
+
+# moves the cursor to the beginning of the current occurrence
+Ctrl-a / <Home>	
+
+# moves the cursor to the end of the current occurrence
+Ctrl-e / <End>	
+
+# delete word before cursor
+Ctrl-w	
+
+# delete all words after cursor
+Ctrl-k	
+
+# delete all characters before cursor
+Ctrl-u	
+
+# delete character before cursor
+Ctrl-h / <Backspace>	
+
+# delete character after cursor
+<Delete>	
+
+# Highlight current symbol
+# SpaceVim supports highlighting of the current symbol on demand and add a transient state to easily navigate and rename these symbols.
+
+Navigation between the highlighted symbols can be done with the commands:
+
+# initiate navigation transient state on current symbol and jump forwards
+*	
+
+# initiate navigation transient state on current symbol and jump backwards
+#	
+
+# edit all occurrences of the current symbol
+SPC s e	
+
+# highlight the current symbol and all its occurrence within the current range
+SPC s h	
+
+# go to the last searched occurrence of the last highlighted symbol
+SPC s H	
+
+# In highlight symbol transient state:
+
+# edit occurrences (*)
+e	
+
+# go to next occurrence
+n	
+
+# go to previous occurrence
+N / p	
+
+# search occurrence in all buffers
+b	
+
+# search occurrence in whole project
+/	
+
+# toggle highlight current occurrence
+<Tab>	
+
+# change range (function, display area, whole buffer)
+r	
+
+# go to home occurrence (reset position to starting occurrence)
+R	
+
+# Any other key	leave the navigation transient state
+
+# quickfix list movement:
+
+# Open quickfix list windows
+<Leader> q l	
+
+# clear quickfix list
+<Leader> q c	
+
+# jump to next item in quickfix list
+<Leader> q n	
+
+# jump to previous item in quickfix list
+<Leader> q p	
+
