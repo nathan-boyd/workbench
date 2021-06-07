@@ -35,6 +35,14 @@ if [[ ! -d $JRNL_DIR ]]; then
     mkdir -p ${JRNL_DIR}
 fi
 
+~/.vim/files/info/viminfo
+
+PROJECT_VIMINFO=${HOME}/.workbench/${PROJECT_NAME}/.vim/files/info
+if [[ ! -d $PROJECT_VIMINFO ]]; then
+    mkdir -p ${PROJECT_VIMINFO}
+    touch ${PROJECT_VIMINFO}/viminfo
+fi
+
 PROJECT_ZSH=${HOME}/.workbench/${PROJECT_NAME}/zsh
 if [[ ! -d $PROJECT_ZSH ]]; then
     mkdir -p ${PROJECT_ZSH}
@@ -188,6 +196,7 @@ if test -f "$FILE"; then
     ADDITIONAL_VOLUMES=$(<$ADDITIONAL_VOLUMES_FILE)
 fi
 
+
 read -r -d '' MOUNTED_VOLUMES <<- EOM
       $(eval echo ${ADDITIONAL_VOLUMES}) \
       -v $GIT_CONFIG_DIR/.gitconfig:$CONTAINER_HOME/.gitconfig \
@@ -208,6 +217,7 @@ read -r -d '' MOUNTED_VOLUMES <<- EOM
       -v ${PROJECT_TMUXINATOR_DIR}:$CONTAINER_HOME/.tmuxinator/ \
       -v ${PROJECT_UNDO}:$CONTAINER_HOME/.config/.vim/undodir \
       -v ${PROJECT_NERD_MARKS}:$CONTAINER_HOME/.local/share/nerdtree_bookmarks \
+      -v ${PROJECT_VIMINFO}:$CONTAINER_HOME/.vim/files/info \
       -v ${ZSH_HISTORY}:$CONTAINER_HOME/.zsh_history \
       -v $XSOCK:$XSOCK \
       -v $DOCKERSOCK:$DOCKERSOCK \
