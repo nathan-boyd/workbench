@@ -66,7 +66,7 @@ export PATH=$PATH:$HOME/.local/bin
 # --follow: Follow symlinks
 # --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 export FZF_DEFAULT_COMMAND='rg --files --no-ignore --hidden --follow --glob "!.git/*"'
-export FZF_DEFAULT_OPTS='--bind ctrl-j:down,ctrl-k:up'
+export FZF_DEFAULT_OPTS='--bind ctrl-j:down,ctrl-k:up --height 40% --layout=reverse --border'
 
 # tell the cheat cli to use fzf
 export CHEAT_USE_FZF=true
