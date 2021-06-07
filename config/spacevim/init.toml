@@ -146,6 +146,3 @@
   repo = "sainnhe/gruvbox-material"
   merged = false
 
-#[[custom_plugins]]
-#  repo = "christoomey/vim-tmux-navigator"
-#  merged = false
