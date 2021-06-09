@@ -182,7 +182,7 @@ read -r -d '' MOUNTED_VOLUMES <<- EOM
       -v $PROJECT_AUTOJUMP:$CONTAINER_HOME/.local/share/autojump/ \
       -v $PROJECT_NEOMRU:$CONTAINER_HOME/.cache/neomru \
       -v $PROJECT_SESSION:$CONTAINER_HOME/.config/nvim/sessions/ \
-      -v $PWD:${CONTAINER_HOME}/${PROJECT_DIR} \
+      -v $PWD:${CONTAINER_HOME}/${PROJECT_DIR}:cached \
       -v ${PROJECT_NERD_MARKS}:$CONTAINER_HOME/.local/share/nerdtree_bookmarks \
       -v ${PROJECT_TMUXINATOR_DIR}:$CONTAINER_HOME/.tmuxinator/ \
       -v ${PROJECT_UNDO}:$CONTAINER_HOME/.config/.vim/undodir \
