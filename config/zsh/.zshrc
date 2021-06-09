@@ -32,6 +32,13 @@ fi
 # enable bash completion (for user when zsh completion doesn't exist)
 # autoload -U +X bashcompinit && bashcompinit
 
+INIT_FILE=$HOME/.init
+if [ ! -f "$INIT_FILE" ]; then
+    sudo chown $USER /var/run/docker.sock
+    sudo chown $USER /tmp/.X11-unix
+    touch $INIT_FILE
+fi
+
 source <(kubectl completion zsh)
 autoload -U compinit && compinit
 _comp_options+=(globdots)

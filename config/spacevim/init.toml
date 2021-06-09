@@ -94,11 +94,6 @@
   auto_completion_tab_key_behavior = "smart"
 
 [[layers]]
-  name = 'shell'
-  default_position = 'top'
-  default_height = 30
-
-[[layers]]
   name = "lang#html"
 
 [[layers]]

@@ -22,8 +22,7 @@ cat $HOME/.gitconfig.append >> $HOME/.gitconfig
 #     cat $HOME/.gitconfig.append >> $HOME/.gitconfig
 # fi
 
-mkdir -p ~/.vim/files/info
 
-sudo chown -R $USER /var/run/docker
+#mkdir -p ~/.vim/files/info
 
 tmuxinator start --project-config ~/.tmuxinator/workbench.default.yml

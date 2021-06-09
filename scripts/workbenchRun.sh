@@ -35,8 +35,6 @@ if [[ ! -d $JRNL_DIR ]]; then
     mkdir -p ${JRNL_DIR}
 fi
 
-~/.vim/files/info/viminfo
-
 PROJECT_VIMINFO=${HOME}/.workbench/${PROJECT_NAME}/.vim/files/info
 if [[ ! -d $PROJECT_VIMINFO ]]; then
     mkdir -p ${PROJECT_VIMINFO}
@@ -58,11 +56,11 @@ if [[ ! -d $PROJECT_UNDO ]]; then
     mkdir -p ${PROJECT_UNDO}
 fi
 
-PROJECT_NEOVIM=${HOME}/.workbench/${PROJECT_NAME}/.local/share/shada
-if [[ ! -d $PROJECT_NEOVIM ]]; then
-    mkdir -p ${PROJECT_NEOVIM}
-    touch $PROJECT_NEOVIM/main.shada
-fi
+# PROJECT_NEOVIM=${HOME}/.workbench/${PROJECT_NAME}/.local/share/shada
+# if [[ ! -d $PROJECT_NEOVIM ]]; then
+#     mkdir -p ${PROJECT_NEOVIM}
+#     touch $PROJECT_NEOVIM/main.shada
+# fi
 
 PROJECT_NEOMRU=${HOME}/.workbench/${PROJECT_NAME}/.cache/neomru
 if [[ ! -d $PROJECT_NEOMRU ]]; then
@@ -133,36 +131,15 @@ then
     echo "could not find default network IP, host clipboard integration may not function properly"
 fi
 
+# IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
+
 if pgrep -x "xhost" >/dev/null
 then
     echo "xhost is already running at: $IP"
 else
-    xhost + $IP > /dev/null &
-    echo "started xhost on host at: $IP"
+    xhost + 127.0.0.1 > /dev/null &
+    echo "started xhost on host at: 127.0.0.1"
 fi
-
-# cat <<-'EOF' > "$HOME/.gitconfig.append"
-# 
-# # added by workbench
-# [pager]
-#     difftool = true
-# 
-# [diff]
-#     tool = icdiff
-# 
-# [difftool "icdiff"]
-#     cmd = icdiff --head=5000 --line-numbers -L \"$BASE\" -L \"$REMOTE\" \"$LOCAL\" \"$REMOTE\" \
-#       --color-map='add:green,change:yellow,description:blue,meta:magenta,separator:blue,subtract:red'
-# 
-# [core]
-#     preloadIndex = true
-# 
-# EOF
-# 
-# if ! grep -F -q -f "$HOME/.gitconfig.append" "$HOME/.gitconfig"; then
-#     cat $HOME/.gitconfig.append >> $HOME/.gitconfig
-# fi
-
 
 GIT_CONFIG_DIR=${HOME}/.workbench/git
 if [[ ! -d $GIT_CONFIG_DIR ]]; then
@@ -185,55 +162,45 @@ windows:
 EOF
 fi
 
-# layout: main-vertical
-#  - editor:
-#      panes:
-#        - vi .
-#        - clear && cheat workbench
-
 ADDITIONAL_VOLUMES_FILE=$HOME/.workbench/.volumes
 if test -f "$FILE"; then
     ADDITIONAL_VOLUMES=$(<$ADDITIONAL_VOLUMES_FILE)
 fi
 
-
 read -r -d '' MOUNTED_VOLUMES <<- EOM
       $(eval echo ${ADDITIONAL_VOLUMES}) \
       -v $GIT_CONFIG_DIR/.gitconfig:$CONTAINER_HOME/.gitconfig \
-      -v $HOME/.gnupg:$CONTAINER_HOME/.gnupg \
-      -v $HOME/Desktop/:$CONTAINER_HOME/Desktop \
       -v $HOME/.docker/:$CONTAINER_HOME/.docker/ \
+      -v $HOME/.gnupg:$CONTAINER_HOME/.gnupg \
       -v $HOME/.kube/config:$CONTAINER_HOME/.kube/config \
+      -v $HOME/.local/share/virtualenvs/:$CONTAINER_HOME/.local/share/virtualenvs/ \
       -v $HOME/.ssh:$CONTAINER_HOME/.ssh \
       -v $HOME/.workbench:$CONTAINER_HOME/.workbench \
-      -v $HOME/.local/share/virtualenvs/:$CONTAINER_HOME/.local/share/virtualenvs/ \
+      -v $HOME/Desktop/:$CONTAINER_HOME/Desktop \
       -v $JRNL_DIR:$CONTAINER_HOME/.local/share/jrnl/ \
       -v $LAZY_DOCKER:$CONTAINER_HOME/.config/jesseduffield/lazydocker \
-      -v $PROJECT_NEOMRU:$CONTAINER_HOME/.cache/neomru \
       -v $PROJECT_AUTOJUMP:$CONTAINER_HOME/.local/share/autojump/ \
+      -v $PROJECT_NEOMRU:$CONTAINER_HOME/.cache/neomru \
       -v $PROJECT_SESSION:$CONTAINER_HOME/.config/nvim/sessions/ \
       -v $PWD:${CONTAINER_HOME}/${PROJECT_DIR} \
-      -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK \
+      -v ${PROJECT_NERD_MARKS}:$CONTAINER_HOME/.local/share/nerdtree_bookmarks \
       -v ${PROJECT_TMUXINATOR_DIR}:$CONTAINER_HOME/.tmuxinator/ \
       -v ${PROJECT_UNDO}:$CONTAINER_HOME/.config/.vim/undodir \
-      -v ${PROJECT_NERD_MARKS}:$CONTAINER_HOME/.local/share/nerdtree_bookmarks \
       -v ${PROJECT_VIMINFO}:$CONTAINER_HOME/.vim/files/info \
       -v ${ZSH_HISTORY}:$CONTAINER_HOME/.zsh_history \
-      -v $XSOCK:$XSOCK \
       -v $DOCKERSOCK:$DOCKERSOCK \
+      -v $XSOCK:$XSOCK \
+      -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK \
       -v $HOME/.ssh:${CONTAINER_HOME}/.ssh \
       -v /sys/fs/cgroup:/sys/fs/cgroup:ro
 EOM
 
-#      -v $PROJECT_COC_SESSIONS:$CONTAINER_HOME/.vim/sessions \
-
-#      -v $PROJECT_NEOVIM:$CONTAINER_HOME/.local/share/nvim/shada/ \
 
 read -r -d '' ENV_VARS <<- EOM
-      -e DISPLAY=$IP:0 \
       -e CONTAINER_NAME="$CONTAINER_NAME" \
       -e HOST_GROUP_ID=$(id -g $USER) \
       -e HOST_PATH=$PWD \
+      -e DISPLAY=host.docker.internal:0 \
       -e HOST_USER_ID=$(id -u $USER) \
       -e ITERM_PROFILE=$ITERM_PROFILE \
       -e PROJECT_DIR=$PROJECT_DIR \
@@ -244,6 +211,8 @@ read -r -d '' ENV_VARS <<- EOM
       -e CONTAINER_HOME=$CONTAINER_HOME
 EOM
 
+
+
 read -r -d '' RUN_COMMAND <<- EOM
     docker run \
       --rm \
@@ -252,7 +221,7 @@ read -r -d '' RUN_COMMAND <<- EOM
       ${ENV_VARS} \
       -w $CONTAINER_HOME/$PROJECT_DIR \
       --name $CONTAINER_NAME \
-      --net host \
+      --network=host \
       --privileged \
       --user $USER_ID:$GROUP_ID \
       docker.io/nathan-boyd/workbench:latest \

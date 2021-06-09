@@ -1,13 +1,11 @@
 " called before SpaceVim core,
 function! custom#before() abort
   let g:startify_custom_header =  'startify#center(startify#fortune#boxed())'
-
-"  set viminfo='100,n$HOME/.vim/files/info/viminfo
-  set clipboard=unnamedplus
 endfunction
 
 " called on autocmd VimEnter
 function! custom#after() abort
+
   let g:python3_host_prog = '/usr/bin/python3'
   let g:python_host_prog = '/usr/bin/python2'
 
@@ -18,7 +16,9 @@ function! custom#after() abort
   set completeopt+=noselect
   set noswapfile
   set spell
-  set clipboard=unnamedplus
+
+  " both clipboards are required
+  set clipboard=unnamedplus,unnamed
 
   " be kind when fat fingering common commands
   command! -bang -nargs=* -complete=file E e<bang> <args>
