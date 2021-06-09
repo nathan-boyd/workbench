@@ -146,3 +146,7 @@
   repo = "sainnhe/gruvbox-material"
   merged = false
 
+[[custom_plugins]]
+  repo = "Glench/Vim-Jinja2-Syntax"
+  merged = false
+

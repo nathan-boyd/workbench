@@ -2,7 +2,7 @@
 function! custom#before() abort
   let g:startify_custom_header =  'startify#center(startify#fortune#boxed())'
 
-  set viminfo='100,n$HOME/.vim/files/info/viminfo
+"  set viminfo='100,n$HOME/.vim/files/info/viminfo
   set clipboard=unnamedplus
 endfunction
 
@@ -39,7 +39,5 @@ function! custom#after() abort
   endfun
 
   call deoplete#custom#option('omni_patterns', { 'go': '[^. *\t]\.\w*' })
-
-
 
 endfunction
