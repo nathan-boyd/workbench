@@ -18,7 +18,7 @@ RUN apt-get update \
     apt-utils
 
 RUN apt-get update \
-  && apt-get install -y \
+  && apt-get install -y --no-install-recommends \
     man-db \
     locales \
     sudo \
@@ -162,7 +162,7 @@ RUN python2 -m pip install --upgrade pynvim
 RUN python3 -m pip install --upgrade pynvim
 
 # Install nvim build dependencies
-RUN sudo apt-get install \
+RUN sudo apt-get install --no-install-recommends\
   ninja-build \
   gettext \
   libtool \
@@ -300,7 +300,8 @@ RUN pip3 install git+https://github.com/jeffkaufman/icdiff.git \
   && pip3 install pipenv \
   && pip3 install ranger-fm \
   && pip3 install rope \
-  && pip3 install yapf
+  && pip3 install yapf \
+  && pip3 install grip
 
 COPY --chown=${USER_ID}:${GROUP_ID} config/ranger ${HOME}/.config/ranger
 COPY --chown=${USER_ID}:${GROUP_ID} config/jrnl/jrnl.yaml $HOME/.config/jrnl/jrnl.yaml
@@ -389,7 +390,7 @@ COPY config/fortune/quotes.dat /opt/fortune/quotes.dat
 # Install and configure NodeJS
 ###############################################################################
 
-RUN sudo apt-get install -y \
+RUN sudo apt-get install -y --no-install-recommends \
   nodejs \
   npm
 

@@ -1,5 +1,6 @@
 " called before SpaceVim core,
 function! custom#before() abort
+  set viminfo='100,n$HOME/.vim/files/info/viminfo
   let g:startify_custom_header =  'startify#center(startify#fortune#boxed())'
 endfunction
 

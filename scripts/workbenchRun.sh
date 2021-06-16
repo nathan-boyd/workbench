@@ -14,6 +14,18 @@ CONTAINER_HOME="/home/${USER_NAME}"
 XSOCK=/tmp/.X11-unix
 DOCKERSOCK=/var/run/docker.sock
 
+HOST_GATEWAY=$(ip route | grep default | grep -Eio 'en{1}\d' | head -1)
+if [ -z "$HOST_GATEWAY" ]
+then
+    echo "could not find default gateway"
+fi
+
+HOST_IP=$(ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1')
+if [ -z "$HOST_IP" ]
+then
+    echo "could not find host ip"
+fi
+
 echo "*******************************************************************************"
 echo "* USER_ID:        $USER_ID"
 echo "* GROUP_ID:       $GROUP_ID"
@@ -23,6 +35,8 @@ echo "* PROJECT_PATH:   $PROJECT_PATH"
 echo "* PROJECT_NAME:   $PROJECT_NAME"
 echo "* CONTAINER_NAME: $CONTAINER_NAME"
 echo "* CONTAINER_HOME: $CONTAINER_HOME"
+echo "* HOST_GATEWAY:   $HOST_GATEWAY"
+echo "* HOST_IP:        $HOST_IP"
 echo "*******************************************************************************"
 
 if [ ! -n $(docker ps -a --format '{{ .Names }}' | grep -oE ${CONTAINER_NAME}) ]; then
@@ -56,11 +70,11 @@ if [[ ! -d $PROJECT_UNDO ]]; then
     mkdir -p ${PROJECT_UNDO}
 fi
 
-# PROJECT_NEOVIM=${HOME}/.workbench/${PROJECT_NAME}/.local/share/shada
-# if [[ ! -d $PROJECT_NEOVIM ]]; then
-#     mkdir -p ${PROJECT_NEOVIM}
-#     touch $PROJECT_NEOVIM/main.shada
-# fi
+PROJECT_NEOVIM=${HOME}/.workbench/${PROJECT_NAME}/.local/share/shada
+if [[ ! -d $PROJECT_NEOVIM ]]; then
+    mkdir -p ${PROJECT_NEOVIM}
+#    touch $PROJECT_NEOVIM/main.shada
+fi
 
 PROJECT_NEOMRU=${HOME}/.workbench/${PROJECT_NAME}/.cache/neomru
 if [[ ! -d $PROJECT_NEOMRU ]]; then
@@ -117,30 +131,6 @@ if [[ ! -d $LAZY_DOCKER ]]; then
     echo 'reporting: "off"' > $LAZY_DOCKER/config.yml
 fi
 
-GATEWAY=$(ip route | grep default | grep -Eio 'en{1}\d' | head -1)
-if [ -z "$GATEWAY" ]
-then
-    echo "could not find default gateway"
-else
-    echo "found default gateway at $GATEWAY"
-fi
-
-IP=$(ifconfig "$GATEWAY" | grep inet | awk '$1=="inet" {print $2}')
-if [ -z "$IP" ]
-then
-    echo "could not find default network IP, host clipboard integration may not function properly"
-fi
-
-# IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
-
-if pgrep -x "xhost" >/dev/null
-then
-    echo "xhost is already running at: $IP"
-else
-    xhost + 127.0.0.1 > /dev/null &
-    echo "started xhost on host at: 127.0.0.1"
-fi
-
 GIT_CONFIG_DIR=${HOME}/.workbench/git
 if [[ ! -d $GIT_CONFIG_DIR ]]; then
     mkdir -p $GIT_CONFIG_DIR
@@ -180,8 +170,6 @@ read -r -d '' MOUNTED_VOLUMES <<- EOM
       -v $JRNL_DIR:$CONTAINER_HOME/.local/share/jrnl/ \
       -v $LAZY_DOCKER:$CONTAINER_HOME/.config/jesseduffield/lazydocker \
       -v $PROJECT_AUTOJUMP:$CONTAINER_HOME/.local/share/autojump/ \
-      -v $PROJECT_NEOMRU:$CONTAINER_HOME/.cache/neomru \
-      -v $PROJECT_SESSION:$CONTAINER_HOME/.config/nvim/sessions/ \
       -v $PWD:${CONTAINER_HOME}/${PROJECT_DIR}:cached \
       -v ${PROJECT_NERD_MARKS}:$CONTAINER_HOME/.local/share/nerdtree_bookmarks \
       -v ${PROJECT_TMUXINATOR_DIR}:$CONTAINER_HOME/.tmuxinator/ \
@@ -194,6 +182,10 @@ read -r -d '' MOUNTED_VOLUMES <<- EOM
       -v $HOME/.ssh:${CONTAINER_HOME}/.ssh \
       -v /sys/fs/cgroup:/sys/fs/cgroup:ro
 EOM
+
+      #-v ${PROJECT_NEOVIM}:$CONTAINER_HOME/.local/share/shada \
+      #-v $PROJECT_NEOMRU:$CONTAINER_HOME/.cache/neomru \
+      #-v $PROJECT_SESSION:$CONTAINER_HOME/.config/nvim/sessions/ \
 
 
 read -r -d '' ENV_VARS <<- EOM
@@ -211,8 +203,6 @@ read -r -d '' ENV_VARS <<- EOM
       -e CONTAINER_HOME=$CONTAINER_HOME
 EOM
 
-
-
 read -r -d '' RUN_COMMAND <<- EOM
     docker run \
       --rm \
@@ -221,12 +211,14 @@ read -r -d '' RUN_COMMAND <<- EOM
       ${ENV_VARS} \
       -w $CONTAINER_HOME/$PROJECT_DIR \
       --name $CONTAINER_NAME \
-      --network=host \
       --privileged \
+      -p 6419:6419 \
       --user $USER_ID:$GROUP_ID \
       docker.io/nathan-boyd/workbench:latest \
       /opt/entrypoint.sh
 EOM
+
+#       --network=host \
 
 eval "$RUN_COMMAND"
 

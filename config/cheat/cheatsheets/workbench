@@ -37,3 +37,13 @@ fd
 
 # howdoi instant coding answers via the command line
 howdoi
+
+# glance system monitoring
+glances
+
+# ctop container monitoring
+ctop
+
+# view readme available at http://127.0.0.1:6419/ on host
+grip README.md 0.0.0.0:6419
+
