@@ -403,8 +403,8 @@ ENV PATH="${HOME}/.yarn/bin:${PATH}"
 RUN yarn global add vscode-html-languageserver-bin \
   && yarn global add -D lehre \
   && yarn global add neovim \
-  && yarn global add typescript \
-  && yarn global add tldr  
+  && yarn global add typescript --ignore-engines \
+  && yarn global add --ignore-engines tldr  
 
 ###############################################################################
 # Initialize tldr
@@ -438,21 +438,31 @@ RUN mkdir -p ~/.vim/files/info
 # Install SpaceVim
 ###############################################################################
 
-COPY --chown=${USER_ID} config/spacevim/init.toml ${HOME}/.SpaceVim.d/init.toml
-COPY --chown=${USER_ID} config/spacevim/custom.vim ${HOME}/.SpaceVim.d/autoload/custom.vim
-COPY --chown=${USER_ID}:${USER_ID} config/ultisnip ${HOME}/.SpaceVim.d/UltiSnips/
-
-RUN curl -sLf https://spacevim.org/install.sh | bash
-RUN nvim --headless '+call dein#install() | qa'
-RUN nvim --headless '+call remote#host#UpdateRemotePlugins() | qa' 
-
-# TODO: troubleshoot python3 remote plugins not automatically updating 
-COPY --chown=${USER_ID} config/spacevim/rplugin.vim ${HOME}/.local/share/nvim/rplugin.vim
-
-RUN nvim --headless +GoInstallBinaries +qa
+#  COPY --chown=${USER_ID} config/spacevim/init.toml ${HOME}/.SpaceVim.d/init.toml
+#  COPY --chown=${USER_ID} config/spacevim/custom.vim ${HOME}/.SpaceVim.d/autoload/custom.vim
+#  COPY --chown=${USER_ID}:${USER_ID} config/ultisnip ${HOME}/.SpaceVim.d/UltiSnips/
+#  
+#  RUN curl -sLf https://spacevim.org/install.sh | bash
+#  RUN nvim --headless '+call dein#install() | qa'
+#  RUN nvim --headless '+call remote#host#UpdateRemotePlugins() | qa' 
+#  
+#  # TODO: troubleshoot python3 remote plugins not automatically updating 
+#  COPY --chown=${USER_ID} config/spacevim/rplugin.vim ${HOME}/.local/share/nvim/rplugin.vim
+#  
+#  RUN nvim --headless +GoInstallBinaries +qa
 
 ###############################################################################
 # Copy entrypoint 
 ###############################################################################
+
+# install vim-plug
+RUN curl -fLo .config/nvim/autoload/plug.vim --create-dirs \
+  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+COPY --chown=${USER_ID}:${GROUP_ID} config/nvim/init.vim .config/nvim/init.vim
+COPY --chown=${USER_ID}:${GROUP_ID} config/coc/package.json .config/coc/extensions/package.json
+
+# install nvim plugins
+RUN nvim --headless +PlugInstall +qall!
 
 COPY scripts/entrypoint.sh /opt/entrypoint.sh
